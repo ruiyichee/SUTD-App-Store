@@ -1,0 +1,11 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+
+{% if latest_app_list %}
+<ul>
+    {% for app in latest_app_list %}
+    <li><a href="/appstore/{{ app.id }}/">{{ app.app_name }}</a></li>    {% endfor %}
+</ul>
+{% else %}
+<p>No apps are available.</p>
+{% endif %}
