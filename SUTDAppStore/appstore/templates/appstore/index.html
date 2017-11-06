@@ -9,3 +9,15 @@
 {% else %}
 <p>No apps are available.</p>
 {% endif %}
+
+{% block content %} 
+<form method="get" action="/logout">
+	<button type="submit">Click here to logout</button>
+</form>
+<form method="get" action="/password">
+	<button type="submit">Click here to change password</button>
+</form>
+<form method="get" action="/particulars">
+	<button type="submit">Click here to edit your particulars</button>
+</form>
+{% endblock %}
