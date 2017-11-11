@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from appstore import views
 
 urlpatterns = [
-    url(r'^appstore/', include('appstore.urls')),
+    url(r'^appstore/', views.app_list.as_view()),
     url(r'^admin/', admin.site.urls),
 ]
