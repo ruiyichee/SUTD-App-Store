@@ -29,15 +29,11 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 ALLOWED_HOSTS = []
 
-<<<<<<< HEAD
-CORS_ORIGIN_ALLOW_ALL = True     
-=======
 REST_FRAMEWORK = {
 'DEFAULT_PERMISSION_CLASSES':
     [],
 'PAGE_SIZE': 10
 }
->>>>>>> master
 
 # Application definition
 
@@ -45,8 +41,6 @@ INSTALLED_APPS = [
     'appstore.apps.AppstoreConfig',
     'django.contrib.admin',
     'django.contrib.auth',
-    'corsheaders',
-    'rest_framework',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
