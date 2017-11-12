@@ -7,10 +7,11 @@ class SignUpForm(UserCreationForm):
 	first_name = forms.CharField(max_length=30, required=True, help_text='Required.')
 	last_name = forms.CharField(max_length=30, required=True, help_text='Required.')
 	email = forms.EmailField(max_length=254, required=True, help_text='Required. Inform a valid email address.')
-	
+	DOB = forms.DateField(required=True, help_text='Required. Input in "YYYY-MM-DD".')
+
 	class Meta:
 		model = User	
-		fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2',)
+		fields = ('username', 'first_name', 'last_name', 'email', 'DOB', 'password1', 'password2',)
 		
 class EmailChangeForm(forms.Form):
 	error_messages = {'email_mismatch': ("The two email addresses fields didn't match"), 'not_changed': ("The email address is the same as the one already defined."),}
