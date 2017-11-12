@@ -8,6 +8,7 @@ from .serializers import *
 from django.db import connection
 
 from rest_framework import status , generics , mixins
+from django.db import connection
 
 
 
@@ -40,7 +41,16 @@ from rest_framework import status , generics , mixins
 #     template_name = 'appstore/detail.html'
 class app_list(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
 
-    queryset = App.objects.all()
+
+    # queryset = App.objects.all()
+    # testname = 'Test App'
+    # for app in App.objects.raw('SELECT * FROM appstore_app WHERE app_name = %s', [testname]):
+        # print(app)
+    queryset = []
+    for app in App.objects.raw('SELECT * FROM appstore_app'):
+        print(app)
+        queryset.append(app)
+    
     serializer_class = AppSerializer
 
     def get(self, request, *args, **kwargs):
