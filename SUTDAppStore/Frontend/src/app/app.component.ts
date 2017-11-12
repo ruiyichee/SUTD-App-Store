@@ -11,7 +11,7 @@ import 'rxjs/add/operator/toPromise';
 })
 export class AppComponent {
   title = 'app';
-  url: string = 'http://127.0.0.1:8000/appstore';
+  url: string = 'http://localhost:8000/appstore/';
   appList = [];
   constructor(private http: Http) { }
   
