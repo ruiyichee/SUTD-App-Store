@@ -1,13 +1,15 @@
+import { AppDetailComponent } from './home/app-detail.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule, MatSelectModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatCardModule, MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -20,10 +22,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [
+    AppDetailComponent
+  ],
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    UserProfileComponent,
+    AppDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +39,8 @@ const routes: Routes = [
     MatInputModule,
     MatFormFieldModule, 
     MatSelectModule,
+    MatCardModule,
+    MatDialogModule,
     BrowserAnimationsModule,
     HttpModule,
     RouterModule.forRoot(routes)

@@ -1,6 +1,6 @@
-<div style="text-align:center">
-  <button mat-raised-button (click)="getApps()">Get apps</button>
-</div>
-<div *ngFor="let app of appList">
-  <h2>{{app.app_name}}</h2>
+<h2 class="main-title" style="text-align:center;">List of Apps</h2>
+<div class="app-con">
+    <mat-card *ngFor="let app of appList; let i = index" (click)="openApp(i)">
+        <h4>{{app.app_name}}</h4>        
+    </mat-card>        
 </div>

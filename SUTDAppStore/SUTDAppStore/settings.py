@@ -87,8 +87,8 @@ WSGI_APPLICATION = 'SUTDAppStore.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'SUTDAppStore',
-        'USER': 'SUTDAppStoreUser',
+        'NAME': 'SUTDAppstore',
+        'USER': 'SUTDAppstoreUser',
         'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '',

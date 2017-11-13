@@ -1,5 +1,8 @@
+import { App } from './app.model';
+import { AppDetailComponent } from './app-detail.component';
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +12,11 @@ import { Http, Response } from '@angular/http';
 export class HomeComponent implements OnInit {
   url: string = 'http://localhost:8000/appstore/';
   appList = [];
-  constructor(private http: Http) { }
+  selectedApp: App;
+  constructor(
+    private http: Http,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit() {
     this.http.get(this.url).toPromise().then((res) => {
@@ -25,8 +32,19 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  public getApps() {
-
+  openApp(i): void {
+    const newURL = this.url + (i+1);
+    this.http.get(newURL).toPromise().then((res) => {
+      this.selectedApp = res.json();
+      console.log(this.selectedApp);
+      const dialogRef = this.dialog.open(AppDetailComponent, {
+        height: '100vh',
+        width: '100vw',
+      });
+  
+      dialogRef.componentInstance.selectedApp = this.selectedApp;
+    });
+    
   }
 
 }

@@ -9,7 +9,8 @@ import { Http, Response } from '@angular/http';
 export class LoginComponent implements OnInit {
   hide = true;  
   url: string = 'http://localhost:8000/login/';
-  
+  enteredUsername = '';
+  enteredPassword = '';
   constructor(private http: Http) { }
 
   ngOnInit() {
@@ -17,8 +18,9 @@ export class LoginComponent implements OnInit {
 
   login() {
     console.log('trying to log in');
-    this.http.get(this.url).toPromise().then((res) => {
-      console.log(res.json());
+    // send username and password as a JSON to Django to process
+    this.http.post(this.url, this.enteredUsername).toPromise().then((res) => {
+      console.log(res.status);
     });
   }
 

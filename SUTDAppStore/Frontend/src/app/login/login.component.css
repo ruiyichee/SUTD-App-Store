@@ -1,4 +1,6 @@
 div.login-container {
     display: flex;
     flex-direction: column;
+    margin-left: 12rem;
+    margin-right: 12rem;
 }

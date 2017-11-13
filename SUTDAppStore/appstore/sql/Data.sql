@@ -1,0 +1,78 @@
+INSERT INTO Application VALUES (20100101, "a1000", 10.70, 1, "Candy Crush", NULL, "3D", 45);
+INSERT INTO Application VALUES (20100102, "a1001", 9.70, 1, "Temple Run", NULL, "3D", 50);
+INSERT INTO Application VALUES (20100103, "a1002", 8.70, 1, "Temple Run 2", NULL, "3D", 55);
+INSERT INTO Application VALUES (20100104, "a1003", 0, 1, "Race", NULL, "3D", 15);
+INSERT INTO Application VALUES (20100105, "a1004", 8, 1, "Subway Surfer", NULL, "3D", 20);
+INSERT INTO Application VALUES (20100106, "a1005", 7, 1, "Tetris", NULL, "2D", 100);
+INSERT INTO Application VALUES (20100107, "a1006", 0, 1, "Brick Breaker", NULL, "2D", 60);
+INSERT INTO Application VALUES (20100108, "a1007", 0.10, 1, "Aircraft", NULL, "2D", 10);
+INSERT INTO Application VALUES (20100109, "a1008", 0, 1, "Flappy Bird", NULL, "2D", 150);
+INSERT INTO Application VALUES (20100110, "a1009", 0, 1, "Bowling", NULL, "3D", 20);
+INSERT INTO Application VALUES (20100111, "a1010", 10.70, 1, "Cricket", NULL, "3D", 20);
+INSERT INTO Application VALUES (20100112, "a1011", 10.70, 1, "Carrom", NULL, "2D", 15);
+INSERT INTO Application VALUES (20100113, "a1012", 1, 1, "Basket Ball", NULL, "3D", 30);
+INSERT INTO Application VALUES (20100114, "a1013", 10.00, 1, "Flip Cup", NULL, "3D", 30);
+INSERT INTO Application VALUES (20100115, "a1014", 0.70, 1, "Game on", NULL, "2D", 5);
+INSERT INTO Application VALUES (20100116, "a1015", 10.70, 1, "Farmville", NULL, "3D", 20);
+INSERT INTO Application VALUES (20100117, "a1016", 0, 1, "Pokemon", NULL, "3D", 100);
+INSERT INTO Application VALUES (20100118, "a1017", 10.70, 1, "SuperMario", NULL, "3D", 50);
+INSERT INTO Application VALUES (20100119, "a1018", 10.00, 1, "Mario", NULL, "2D", 100);
+INSERT INTO Application VALUES (20100120, "a1019", 10.70, 1, "Pacman", NULL, "2D", 150);
+
+
+INSERT INTO Feedback VALUES ("f1000", 2, NULL, 20100101);
+INSERT INTO Feedback VALUES ("f1001", 2, NULL, 20100102);
+INSERT INTO Feedback VALUES ("f1002", 3, NULL, 20100103);
+INSERT INTO Feedback VALUES ("f1003", 5, NULL, 20100104);
+INSERT INTO Feedback VALUES ("f1004", 2, NULL, 20100105);
+INSERT INTO Feedback VALUES ("f1005", 4, NULL, 20100106);
+INSERT INTO Feedback VALUES ("f1006", 1, NULL, 20100107);
+INSERT INTO Feedback VALUES ("f1007", 5, NULL, 20100108);
+INSERT INTO Feedback VALUES ("f1008", 2, NULL, 20100109);
+INSERT INTO Feedback VALUES ("f1009", 3, NULL, 20100110);
+INSERT INTO Feedback VALUES ("f1010", 1, NULL, 20100111);
+INSERT INTO Feedback VALUES ("f1011", 5, NULL, 20100112);
+INSERT INTO Feedback VALUES ("f1012", 3, NULL, 20100113);
+INSERT INTO Feedback VALUES ("f1013", 5, NULL, 20100114);
+INSERT INTO Feedback VALUES ("f1014", 5, NULL, 20100115);
+INSERT INTO Feedback VALUES ("f1015", 4, NULL, 20100116);
+INSERT INTO Feedback VALUES ("f1016", 2, NULL, 20100117);
+INSERT INTO Feedback VALUES ("f1017", 5, NULL, 20100118);
+INSERT INTO Feedback VALUES ("f1018", 4, NULL, 20100119);
+INSERT INTO Feedback VALUES ("f1019", 2, NULL, 20100120);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
