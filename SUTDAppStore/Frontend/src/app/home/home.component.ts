@@ -2,7 +2,7 @@ import { App } from './app.model';
 import { AppDetailComponent } from './app-detail.component';
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-home',
@@ -26,25 +26,30 @@ export class HomeComponent implements OnInit {
       for (let i = 0; i < jsonArray.length; i++) {
         let localApp;
         localApp = jsonArray[i];
-        this.appList.push(localApp)     
+        this.appList.push(localApp)
       }
       console.log(this.appList);
     });
   }
 
   openApp(i): void {
-    const newURL = this.url + (i+1);
-    this.http.get(newURL).toPromise().then((res) => {
-      this.selectedApp = res.json();
-      console.log(this.selectedApp);
-      const dialogRef = this.dialog.open(AppDetailComponent, {
-        height: '100vh',
-        width: '100vw',
-      });
-  
-      dialogRef.componentInstance.selectedApp = this.selectedApp;
+    // const newURL = this.url + (i+1);
+    // this.http.get(newURL).toPromise().then((res) => {
+    //   this.selectedApp = res.json();
+    //   console.log(this.selectedApp);
+    //   const dialogRef = this.dialog.open(AppDetailComponent, {
+    //     height: '100vh',
+    //     width: '100vw',
+    //   });
+    const dialogRef = this.dialog.open(AppDetailComponent, {
+      panelClass: 'full-width-dialog',
+      height: '100vh',
+      width: '100vw',
     });
-    
+
+    dialogRef.componentInstance.selectedApp = this.appList[i];
+
+
   }
 
 }

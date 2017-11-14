@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
+from django.http import HttpResponse
 # from .models import App
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
@@ -111,11 +111,14 @@ def app_list(request):
     print(request.method)
     with connection.cursor() as cursor:
         if request.method == 'GET':
-            cursor.execute("SELECT app_name FROM appstore_app")
-            apps = cursor.fetchall()
-            print(apps)
-            jsonObj = json.dumps(apps)
-            return Response(jsonObj)
+            cursor.execute("SELECT Aid, AppName, Description, Genre FROM Application")
+            rows = cursor.fetchall()
+            result = []
+            keys = ('Aid','AppName','Description', 'Genre')
+            for row in rows:
+                result.append(dict(zip(keys,row)))
+            jsonObj = json.dumps(result)
+            return HttpResponse(jsonObj, content_type="application/json")
             # serializer = AppSerializer(apps,context={'request': request} ,many=True)
             # return Response(serializer.data)
         # elif request.method == 'POST':
@@ -124,7 +127,6 @@ def app_list(request):
         #         serializer.save()
         #         return Response(serializer.data, status=status.HTTP_201_CREATED)
         #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 # @api_view(['GET', 'PUT', 'DELETE'])
 # def app_detail(request, pk):
