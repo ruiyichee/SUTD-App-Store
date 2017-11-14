@@ -33,14 +33,6 @@ export class HomeComponent implements OnInit {
   }
 
   openApp(i): void {
-    // const newURL = this.url + (i+1);
-    // this.http.get(newURL).toPromise().then((res) => {
-    //   this.selectedApp = res.json();
-    //   console.log(this.selectedApp);
-    //   const dialogRef = this.dialog.open(AppDetailComponent, {
-    //     height: '100vh',
-    //     width: '100vw',
-    //   });
     const dialogRef = this.dialog.open(AppDetailComponent, {
       panelClass: 'full-width-dialog',
       height: '100vh',
@@ -48,8 +40,9 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.componentInstance.selectedApp = this.appList[i];
-
-
   }
 
+  openSettings(): void {
+    
+  }
 }

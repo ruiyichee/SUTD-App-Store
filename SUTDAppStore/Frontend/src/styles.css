@@ -15,3 +15,7 @@ body {
 .close-button {
   float: right;
 }
+
+.back-button {
+  float: left;
+}
