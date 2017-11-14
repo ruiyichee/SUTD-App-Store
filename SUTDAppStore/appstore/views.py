@@ -1,19 +1,18 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from .models import App
+# from .models import App
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.shortcuts import render, redirect, render_to_response
 from appstore.forms import SignUpForm, EmailChangeForm
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from .serializers import *
-from django.db import connection
-
+# from .serializers import *
 from rest_framework import status , generics , mixins
 from django.db import connection
 
+import json
 
 # Create your views here.
 # def index(request):
@@ -85,9 +84,11 @@ def edit_particulars(request):
 #     template_name = 'appstore/detail.html'
 # class app_list(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
 #     queryset = App.objects.all()
-#     # testname = 'Test App'
-#     # for app in App.objects.raw('SELECT * FROM appstore_app WHERE app_name = %s', [testname]):
-#         # print(app)
+    # testname = 'Test App'
+    # for app in App.objects.raw('SELECT * FROM appstore_app WHERE app_name = %s', [testname]):
+    #     print(app)
+    #     cursor.execute("")
+        # --> tuple which is not what i want
 #     # queryset = []
 #     # for app in App.objects.raw('SELECT * FROM appstore_app'):
 #     #     print(app)
@@ -108,46 +109,51 @@ def app_list(request):
     List all apps, or create a new app.
     """
     print(request.method)
-    if request.method == 'GET':
-        apps = App.objects.all()
-        serializer = AppSerializer(apps,context={'request': request} ,many=True)
-        return Response(serializer.data)
-    elif request.method == 'POST':
-        serializer = AppSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    with connection.cursor() as cursor:
+        if request.method == 'GET':
+            cursor.execute("SELECT app_name FROM appstore_app")
+            apps = cursor.fetchall()
+            print(apps)
+            jsonObj = json.dumps(apps)
+            return Response(jsonObj)
+            # serializer = AppSerializer(apps,context={'request': request} ,many=True)
+            # return Response(serializer.data)
+        # elif request.method == 'POST':
+        #     serializer = AppSerializer(data=request.data)
+        #     if serializer.is_valid():
+        #         serializer.save()
+        #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+        #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def app_detail(request, pk):
-    """
-    Retrieve, update or delete a app instance.
-    """
-    print(request.body)
-    print(request)
-    print(pk)
-    try:
-        app = App.objects.get(pk=pk)
-        print(app)
-    except App.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+# @api_view(['GET', 'PUT', 'DELETE'])
+# def app_detail(request, pk):
+#     """
+#     Retrieve, update or delete a app instance.
+#     """
+#     print(request.body)
+#     print(request)
+#     print(pk)
+#     try:
+#         app = App.objects.get(pk=pk)
+#         print(app)
+#     except App.DoesNotExist:
+#         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET':
-        serializer = AppSerializer(app,context={'request': request})
-        return Response(serializer.data)
+#     if request.method == 'GET':
+#         serializer = AppSerializer(app,context={'request': request})
+#         return Response(serializer.data)
 
-    elif request.method == 'PUT':
-        serializer = AppSerializer(app, data=request.data,context={'request': request})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     elif request.method == 'PUT':
+#         serializer = AppSerializer(app, data=request.data,context={'request': request})
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
-        app.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+#     elif request.method == 'DELETE':
+#         app.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # class user_list(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
 #     queryset = App.objects.all()

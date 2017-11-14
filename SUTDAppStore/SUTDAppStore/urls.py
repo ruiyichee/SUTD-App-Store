@@ -21,7 +21,7 @@ from appstore import views
 
 urlpatterns = [
     url(r'^appstore/$', views.app_list),
-    url(r'^appstore/(?P<pk>\d+)/$', views.app_detail),
+    # url(r'^appstore/(?P<pk>\d+)/$', views.app_detail),
 
     url(r'^admin/$', admin.site.urls),
 	url(r'^login/$', auth_views.login, name='login'),
