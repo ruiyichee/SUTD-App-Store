@@ -7,16 +7,19 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   url: string = 'http://localhost:8000/appstore/';
   appList = [];
+  developers = ['Jeremy Rose', 'Jon Wong', 'Dorien'];
+  years = ['2017', '2016', '2015', '2014'];
   selectedApp: App;
   constructor(
     private http: Http,
     private dialog: MatDialog
-  ) { }
+  ) { 
+  }
 
   ngOnInit() {
     this.http.get(this.url).toPromise().then((res) => {
@@ -43,6 +46,6 @@ export class HomeComponent implements OnInit {
   }
 
   openSettings(): void {
-    
+
   }
 }

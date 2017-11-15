@@ -1,0 +1,22 @@
+mat-card{
+    cursor: pointer;
+}
+div.top-con {
+    // display: flex;
+    // justify-content: space-between;
+    img {
+        max-height: 3rem;
+    }
+}
+
+div.action-con {
+    display: flex;
+    justify-content: space-between;
+    div.searchbar {
+        display: flex;
+        justify-content: flex-start;
+        mat-form-field {
+            margin-right: 1.5rem;
+        }
+    }
+}
