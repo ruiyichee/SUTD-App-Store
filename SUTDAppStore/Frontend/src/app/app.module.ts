@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { PurchaseComponent } from './purchase/purchase.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -32,7 +33,8 @@ const routes: Routes = [
     LoginComponent,
     HomeComponent,
     UserProfileComponent,
-    AppDetailComponent
+    AppDetailComponent,
+    PurchaseComponent
   ],
   imports: [
     BrowserModule,

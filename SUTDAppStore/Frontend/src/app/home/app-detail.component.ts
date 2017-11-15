@@ -4,7 +4,7 @@ import { App } from './app.model';
 @Component({
     selector: 'app-detail-component',
     templateUrl: 'app-detail.component.html',
-    styleUrls: ['app-detail.component.css']
+    styleUrls: ['app-detail.component.scss']
 })
 export class AppDetailComponent {
     public selectedApp = new App();
