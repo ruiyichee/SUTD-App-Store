@@ -8,10 +8,14 @@ body {
   background-color: white;
 }
 
-.mat-dialog-container {
-  max-width: none !important;
+.cdk-overlay-pane{
+  max-width: 100vw !important;
 }
 
 .close-button {
   float: right;
+}
+
+.back-button {
+  float: left;
 }

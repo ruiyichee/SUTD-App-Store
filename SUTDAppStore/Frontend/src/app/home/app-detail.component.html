@@ -1,2 +1,7 @@
 <button mat-icon-button class="close-button" (click)="closeDialog()"><mat-icon>close</mat-icon></button>
-<h1>{{selectedApp.app_name}}</h1>
+<h1>{{selectedApp.AppName}}</h1>
+<div class="description-section">
+    <span class="title">Description</span>
+    <br>
+    <span>{{selectedApp.description}}</span>
+</div>
