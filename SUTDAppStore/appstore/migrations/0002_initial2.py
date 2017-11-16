@@ -12,7 +12,7 @@ def load_data_from_sql(filename):
     with connection.cursor() as c:
         c.execute(sql_statement)
 
-initial_data = lambda x,y: load_data_from_sql('SUTDAppStoreSchema.sql')
+initial_data = lambda x,y: load_data_from_sql('Schema_15Nov.sql')
 initial_value = lambda x,y: load_data_from_sql('Data.sql')
 
 class Migration(migrations.Migration):

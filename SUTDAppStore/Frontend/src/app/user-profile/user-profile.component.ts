@@ -1,4 +1,4 @@
-import { User } from './user.model';
+import { User } from './../models/user.model';
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 

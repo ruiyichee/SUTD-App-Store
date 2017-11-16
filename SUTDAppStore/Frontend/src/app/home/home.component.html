@@ -46,6 +46,12 @@
 <h2 class="main-title" style="text-align:left;">Popular Apps</h2>
 <div class="app-con">
   <mat-card *ngFor="let app of appList; let i = index" (click)="openApp(i)">
-    <h4>{{app.AppName}}</h4>
+
+    <h4>{{app.appName}}</h4>
+    <mat-card-actions>
+      <button mat-icon-button (click)="downloadApp(i, $event)">
+        <mat-icon>file_download</mat-icon>
+      </button>
+    </mat-card-actions>
   </mat-card>
 </div>

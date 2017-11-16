@@ -1,22 +1,31 @@
-mat-card{
-    cursor: pointer;
-}
 div.top-con {
-    // display: flex;
-    // justify-content: space-between;
-    img {
-        max-height: 3rem;
-    }
+  // display: flex;
+  // justify-content: space-between;
+  img {
+    max-height: 3rem;
+  }
 }
 
 div.action-con {
+  display: flex;
+  justify-content: space-between;
+  div.searchbar {
     display: flex;
-    justify-content: space-between;
-    div.searchbar {
-        display: flex;
-        justify-content: flex-start;
-        mat-form-field {
-            margin-right: 1.5rem;
-        }
+    justify-content: flex-start;
+    mat-form-field {
+      margin-right: 1.5rem;
     }
+  }
+}
+
+div.app-con {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  height: 100%;
+  mat-card {
+    cursor: pointer;
+    width: calc(75%/3);
+    margin-bottom: 2rem;
+  }
 }

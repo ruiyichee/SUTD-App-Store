@@ -1,4 +1,4 @@
-import { App } from './app.model';
+import { App } from './../models/app.model';
 import { AppDetailComponent } from './app-detail.component';
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
@@ -35,7 +35,19 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  openApp(i): void {
+  openApp(i) {
+    // const newURL = this.url + (i+1);
+    // console.log(newURL);
+    // this.http.get(newURL).toPromise().then((res) => {
+    //   console.log(res.json());
+    //   const dialogRef = this.dialog.open(AppDetailComponent, {
+    //       panelClass: 'full-width-dialog',
+    //       height: '100vh',
+    //       width: '100vw',
+    //     });
+    
+    //     dialogRef.componentInstance.selectedApp = this.appList[i];
+    // });
     const dialogRef = this.dialog.open(AppDetailComponent, {
       panelClass: 'full-width-dialog',
       height: '100vh',
@@ -45,7 +57,19 @@ export class HomeComponent implements OnInit {
     dialogRef.componentInstance.selectedApp = this.appList[i];
   }
 
-  openSettings(): void {
-
+  downloadApp(i, event) {
+    const newURL = this.url + (i+1) + '/';
+    const appToBeDownloaded = this.appList[i];
+    // TODO: GET the appfile from DB
+    console.log('trying to download app');
+    console.log('not done downloading file yet');
+    console.log('Increment to DB');    
+    let incrementor = 1;
+    this.http.post(newURL, incrementor).toPromise().then((res) => {
+      console.log(res.json());
+      console.log('succeeded');
+    });
+    event.stopPropagation();
   }
+
 }

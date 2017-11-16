@@ -1,7 +1,54 @@
-<button mat-icon-button class="close-button" (click)="closeDialog()"><mat-icon>close</mat-icon></button>
-<h1>{{selectedApp.AppName}}</h1>
+<button mat-icon-button class="close-button" (click)="closeDialog()">
+  <mat-icon>close</mat-icon>
+</button>
+<div class="top-section">
+  <img [src]="appIcon">
+  <div class="text-button-con">
+    <div class="text-section">
+      <h1>{{selectedApp.appName}}</h1>
+      <h2>{{selectedApp.category}}</h2>
+    </div>
+    <div class="button-section">
+      <a [href]="selectedApp.downloadLink" target="_blank" *ngIf="selectedApp.platform =='Android'" mat-raised-button>
+        <mat-icon>file_download</mat-icon>Download App</a>
+    </div>
+  </div>
+
+</div>
+<div class="screenshot-section">
+  <span *ngFor="let screenshot of screenshots">
+    <img [src]="screenshot">
+  </span>
+</div>
+<hr>
 <div class="description-section">
-    <span class="title">Description</span>
-    <br>
-    <span>{{selectedApp.description}}</span>
+  <span class="title">Description</span>
+  <br>
+  <span>{{selectedApp.description}}</span>
+</div>
+<hr>
+<div class="information-section">
+  <span class="title">Information</span>
+  <br>
+
+  <div class="column-con">
+    <div class="column">
+      <div class="column-child">
+        <div class="subtitle">Developer(s)</div>
+        <span class="data" *ngFor="let developer of selectedApp.developers">{{developer}}</span>
+      </div>
+      <div class="column-child">
+        <div class="subtitle">Genre</div>
+        <span class="data">
+          {{selectedApp.genre}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="feedback-section">
+  <span class="title">Feedback</span>
+  <br>
+  <span *ngFor="let feedback of feedbacks">{{feedback}}</span>
 </div>

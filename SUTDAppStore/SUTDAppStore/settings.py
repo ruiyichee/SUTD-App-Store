@@ -88,7 +88,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'SUTDAppstore',
-        'USER': 'SUTDAppstoreUser',
+        'USER': 'SUTDAppstoreUser2',
         'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '',

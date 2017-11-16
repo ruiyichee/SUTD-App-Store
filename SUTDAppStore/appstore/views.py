@@ -63,45 +63,6 @@ def edit_particulars(request):
 	else:
 		form = EmailChangeForm(request.user)
 	return render(request, 'accounts/profile/edit_particulars.html', {'form': form})
-# class IndexView(generic.ListView):
-#     template_name = 'appstore/index.html'
-#     context_object_name = 'latest_app_list'
-#     def get_queryset(self):
-#         """Return the last five published apps."""
-#         return App.objects.order_by('-pub_date')[:5]
-
-# def index(request):
-#     latest_app_list = App.objects.order_by('-pub_date')[:5]
-#     context = {'latest_app_list': latest_app_list}
-#     return render(request, 'appstore/index.html', context)
-
-# def detail(request, app_id):
-#     app = get_object_or_404(App, pk=app_id)
-#     return render(request, 'appstore/detail.html', {'app': app})
-
-# class DetailView(generic.DetailView):
-#     model = App
-#     template_name = 'appstore/detail.html'
-# class app_list(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
-#     queryset = App.objects.all()
-    # testname = 'Test App'
-    # for app in App.objects.raw('SELECT * FROM appstore_app WHERE app_name = %s', [testname]):
-    #     print(app)
-    #     cursor.execute("")
-        # --> tuple which is not what i want
-#     # queryset = []
-#     # for app in App.objects.raw('SELECT * FROM appstore_app'):
-#     #     print(app)
-#     #     queryset.append(app)
-    
-#     serializer_class = AppSerializer
-
-#     def get(self, request, *args, **kwargs):
-#         return self.list(request, *args, **kwargs)
-
-#     def post(self, request, *args, **kwargs):
-#         return self.create(request, *args, **kwargs)
-
 
 @api_view(['GET', 'POST'])
 def app_list(request):
@@ -111,10 +72,10 @@ def app_list(request):
     print(request.method)
     with connection.cursor() as cursor:
         if request.method == 'GET':
-            cursor.execute("SELECT Aid, AppName, Description, Genre FROM Application")
+            cursor.execute("SELECT aid, app_name, description, genre FROM application")
             rows = cursor.fetchall()
             result = []
-            keys = ('Aid','AppName','Description', 'Genre')
+            keys = ('aid','appName','description', 'genre')
             for row in rows:
                 result.append(dict(zip(keys,row)))
             jsonObj = json.dumps(result)
@@ -128,35 +89,59 @@ def app_list(request):
         #         return Response(serializer.data, status=status.HTTP_201_CREATED)
         #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# @api_view(['GET', 'PUT', 'DELETE'])
-# def app_detail(request, pk):
-#     """
-#     Retrieve, update or delete a app instance.
-#     """
-#     print(request.body)
-#     print(request)
-#     print(pk)
-#     try:
-#         app = App.objects.get(pk=pk)
-#         print(app)
-#     except App.DoesNotExist:
-#         return Response(status=status.HTTP_404_NOT_FOUND)
+@api_view(['GET', 'POST', 'DELETE'])
+def app_detail(request, pk):
+    """
+    Retrieve, update or delete a app instance.
+    """
+    print(request.body)
+    print(request)
+    print(pk)
+    if request.method == 'GET':
+        with connection.cursor() as cursor:
+            appid = pk
+            print(type(appid))
+            cursor.execute("SELECT description, genre FROM application WHERE aid = %s", [appid])
+            selected_app = cursor.fetchall()
+            print(selected_app)
+            result = []
+            keys = ('description', 'genre')
+            for row in selected_app:
+                result.append(dict(zip(keys,row)))
+            jsonObj = json.dumps(result)
+            return HttpResponse(jsonObj, content_type="application/json")
 
-#     if request.method == 'GET':
-#         serializer = AppSerializer(app,context={'request': request})
-#         return Response(serializer.data)
+    elif request.method == 'POST':
+        with connection.cursor() as cursor:
+            appid = pk
+            print(type(appid))
+            cursor.execute("UPDATE application SET no_of_downloads = no_of_downloads + 1 WHERE application.aid = %s;", [appid])
+            result = cursor.fetchall()
+            jsonObj = json.dumps(result)
+            return HttpResponse(jsonObj, content_type="application/json")
 
-#     elif request.method == 'PUT':
-#         serializer = AppSerializer(app, data=request.data,context={'request': request})
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['GET', 'POST', 'DELETE'])
+def feedback(request, pk):
+    """
+    Retrieve, update or delete a feedback instance.
+    """
+    if request.method == 'GET':
+        with connection.cursor() as cursor:
+            appid = pk
+            cursor.execute("SELECT stars, comments from feedback, gives, application, auth_user WHERE gives.aid = %s AND auth_user.id = gives.id;", [appid])
+            selected_feedback = cursor.fetchall()
+            print(selected_feedback)
+            result = []
+            keys = ('stars', 'comments')
+            for row in selected_feedback:
+                result.append(dict(zip(keys,row)))
+            jsonObj = json.dumps(result)
+            return HttpResponse(jsonObj, content_type="application/json")
 
-#     elif request.method == 'DELETE':
-#         app.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
-
-# class user_list(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
-#     queryset = App.objects.all()
-#     serializer_class = AppSerializer
+    elif request.method == 'POST':
+        with connection.cursor() as cursor:
+            appid = pk
+            cursor.execute("UPDATE application SET no_of_downloads = no_of_downloads + 1 WHERE Application.Aid = %s;", [appid])
+            result = cursor.fetchall()
+            jsonObj = json.dumps(result)
+            return HttpResponse(jsonObj, content_type="application/json")

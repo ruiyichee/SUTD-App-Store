@@ -21,8 +21,9 @@ from appstore import views
 
 urlpatterns = [
     url(r'^appstore/$', views.app_list),
-    # url(r'^appstore/(?P<pk>\d+)/$', views.app_detail),
-
+    url(r'^appstore/(?P<pk>\d+)/$', views.app_detail),
+    url(r'^feedback/(?P<pk>\d+)/$', views.feedback),
+    
     url(r'^admin/$', admin.site.urls),
 	url(r'^login/$', auth_views.login, name='login'),
 	url(r'^logout/$', auth_views.logout, {'next_page': '/login'}, name='logout'),
