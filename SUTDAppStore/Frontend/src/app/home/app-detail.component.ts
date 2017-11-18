@@ -1,7 +1,8 @@
 import { App } from './../models/app.model';
-import { MatDialogRef } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AppFeedbackComponent } from './app-feedback/app-feedback.component';
 
 @Component({
     selector: 'app-detail-component',
@@ -19,6 +20,7 @@ export class AppDetailComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<AppDetailComponent>,
         private http: Http,
+        private dialog: MatDialog
     ) { }
 
     ngOnInit(): void {
@@ -71,4 +73,11 @@ export class AppDetailComponent implements OnInit {
         });
         event.stopPropagation();
     }
+    openFeedback() {
+        const dialogRef = this.dialog.open(AppFeedbackComponent, {
+          panelClass: 'full-width-dialog',
+          height: '80vh',
+          width: '80vw',
+        });    
+      }
 }

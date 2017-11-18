@@ -6,13 +6,11 @@
   <img [src]="appIcon">
   <div class="text-button-con">
     <div class="text-section">
-      <h2>{{selectedApp.appName}}</h2>
-      <h3>{{selectedApp.genre}}</h3>
+      <span class="title">{{selectedApp.appName}}</span>
+      <span>{{selectedApp.genre}}</span>
     </div>
     <div class="button-section">
-      <h4>Overall Ranking: 5</h4>
-      <h4>No of Downloads: 500</h4>
-      <button mat-raised-button color="accent">
+      <button mat-raised-button color="primary">
         <mat-icon>file_download</mat-icon>
         Download App
       </button>
@@ -22,11 +20,11 @@
   </div>
 
 </div>
-<div class="screenshot-section">
+<!-- <div class="screenshot-section">
   <span *ngFor="let screenshot of screenshots">
     <img [src]="screenshot">
   </span>
-</div>
+</div> -->
 <hr>
 <div class="description-section">
   <span class="title">Description</span>
@@ -74,7 +72,7 @@
   <span class="title">Reviews</span>
   <br>
   <div class="general-con">
-    <button mat-raised-button color="accent">
+    <button mat-raised-button color="primary" (click)="openFeedback()">
       <mat-icon>rate_review</mat-icon>
       Write a Review
     </button>

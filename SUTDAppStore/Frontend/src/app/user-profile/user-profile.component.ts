@@ -4,9 +4,9 @@ import { Http, Response } from '@angular/http';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import { MatPaginator } from '@angular/material';
+import { PageEvent } from '@angular/material';
 
 import 'rxjs/add/observable/of';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-user-profile',
@@ -24,14 +24,21 @@ export class UserProfileComponent implements OnInit {
   displayedFeedbackColumns = ['fid', 'stars', 'comments', 'feed_date'];
   purchaseDataSource: any;
   feedbackDataSource: any;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  length = 100;
+  pageSize = 10;
+  pageSizeOptions = [5, 10, 25, 100];
+
+  pageEvent: PageEvent;
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+  }
 
   ngOnInit() {
+    feedbackHistory = [];
+    purchaseHistory = [];
     // fetch user information
-    this.selectedUser.first_name = 'Jeremy';
-    this.selectedUser.last_name = 'Rose';
-    this.selectedUser.email = 'jeremyrose@gmail.com';
-    this.selectedUser.username = 'jeremyrose';
     this.http.get(this.userUrl).toPromise().then((res) => {
       const jsonArray = res.json();
       for (let i = 0; i < jsonArray.length; i++) {
@@ -46,7 +53,7 @@ export class UserProfileComponent implements OnInit {
 
       }
       console.log(purchaseHistory);
-      this.purchaseDataSource = new PurchaseDataSource(this.paginator);
+      this.purchaseDataSource = new PurchaseDataSource();
     });
     // fetch feedback info
     this.http.get(this.feedbackUrl).toPromise().then((res) => {
@@ -90,9 +97,6 @@ export class FeedbackDataSource extends DataSource<any> {
 
 export class PurchaseDataSource extends DataSource<any> {
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  constructor(private _paginator: MatPaginator) {
-    super();
-  }
   connect(): Observable<Purchase[]> {
     console.log('PURCHASE');
     console.log(purchaseHistory);

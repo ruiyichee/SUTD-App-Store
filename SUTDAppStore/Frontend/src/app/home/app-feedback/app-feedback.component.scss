@@ -1,0 +1,21 @@
+div.container {
+    div.top-row {
+        display: flex;
+        mat-input-container {
+            width: 100%;
+        }
+    }
+    div.second-row {
+        mat-input-container {
+            width: 100%;
+        }
+    }
+    div.last-row {
+        mat-input-container {
+            width: 100%;
+        }
+    }
+    button {
+        float: right;
+    }
+}

@@ -11,6 +11,8 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { PurchaseComponent } from './purchase/purchase.component';
+import { AppUploadComponent } from './home/app-upload.component';
+import { AppFeedbackComponent } from './home/app-feedback/app-feedback.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -26,7 +28,9 @@ const routes: Routes = [
 
 @NgModule({
   entryComponents: [
-    AppDetailComponent
+    AppDetailComponent,
+    AppUploadComponent,
+    AppFeedbackComponent
   ],
   declarations: [
     AppComponent,
@@ -34,7 +38,9 @@ const routes: Routes = [
     HomeComponent,
     UserProfileComponent,
     AppDetailComponent,
-    PurchaseComponent
+    PurchaseComponent,
+    AppUploadComponent,
+    AppFeedbackComponent
   ],
   imports: [
     BrowserModule,

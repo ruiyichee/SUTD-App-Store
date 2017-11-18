@@ -1,11 +1,20 @@
-<h2 class="main-title" style="text-align:center;">SUTD Appstore</h2>
-<div class="login-container">
-  <mat-form-field>
-    <input matInput placeholder="Enter Username">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Enter Password" [type]="hide ? 'password' : 'text'">
-    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-  </mat-form-field>
-  <button mat-raised-button (click)="login()">Log In</button>  
+<div class="container">
+  <div class="logo-con">
+    <img src="assets/img/SUTDAppstoreLogoLogin2.png">
+  </div>
+  <div class="login-con">
+    <mat-form-field>
+      <input matInput placeholder="Enter Username">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Enter Password" [type]="hide ? 'password' : 'text'">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </mat-form-field>
+    <button mat-raised-button (click)="login()">Log In</button>
+  </div>
+  <div class="bottom-con">
+    <p style="text-align:center;">Don't have an account? Sign up
+      <a href="">here</a>
+    </p>
+  </div>
 </div>

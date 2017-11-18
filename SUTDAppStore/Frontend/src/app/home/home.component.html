@@ -1,6 +1,6 @@
 <div class="top-con">
   <img src="assets/img/SUTDAppstoreLogo.png">
-  <button mat-mini-fab class="close-button" [matMenuTriggerFor]="menu">
+  <button mat-mini-fab color="primary" class="close-button" [matMenuTriggerFor]="menu">
     <mat-icon>person</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
@@ -33,11 +33,12 @@
     </mat-form-field>
     <mat-input-container>
       <input matInput placeholder="Search by App Name">
-      <mat-icon matPrefix>search</mat-icon>
+      <!-- <mat-icon matPrefix>search</mat-icon> -->
     </mat-input-container>
   </div>
   <div class="upload">
-    <button mat-raised-button>
+    <button mat-raised-button color="primary" (click)="uploadApp()">
+      <mat-icon>add</mat-icon>
       Upload App
     </button>
   </div>

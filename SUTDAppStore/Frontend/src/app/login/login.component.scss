@@ -1,6 +1,20 @@
-div.login-container {
+div.login-con {
+  display: flex;
+  flex-direction: column;
+  margin-left: 12rem;
+  margin-right: 12rem;
+}
+
+div.logo-con {
+  display: flex;
+  justify-content: center;
+  img {
+    max-height: 15rem;
+  }
+}
+div.container {
+    height: 90vh;
     display: flex;
     flex-direction: column;
-    margin-left: 12rem;
-    margin-right: 12rem;
+    justify-content: space-between;
 }

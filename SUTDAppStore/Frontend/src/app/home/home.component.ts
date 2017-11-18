@@ -1,3 +1,4 @@
+import { AppUploadComponent } from './app-upload.component';
 import { App } from './../models/app.model';
 import { AppDetailComponent } from './app-detail.component';
 import { Component, OnInit } from '@angular/core';
@@ -36,18 +37,6 @@ export class HomeComponent implements OnInit {
   }
 
   openApp(i) {
-    // const newURL = this.url + (i+1);
-    // console.log(newURL);
-    // this.http.get(newURL).toPromise().then((res) => {
-    //   console.log(res.json());
-    //   const dialogRef = this.dialog.open(AppDetailComponent, {
-    //       panelClass: 'full-width-dialog',
-    //       height: '100vh',
-    //       width: '100vw',
-    //     });
-    
-    //     dialogRef.componentInstance.selectedApp = this.appList[i];
-    // });
     const dialogRef = this.dialog.open(AppDetailComponent, {
       panelClass: 'full-width-dialog',
       height: '100vh',
@@ -55,6 +44,14 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.componentInstance.selectedApp = this.appList[i];
+  }
+
+  uploadApp() {
+    const dialogRef = this.dialog.open(AppUploadComponent, {
+      panelClass: 'full-width-dialog',
+      height: '80vh',
+      width: '80vw',
+    });
   }
 
   downloadApp(i, event) {

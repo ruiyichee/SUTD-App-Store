@@ -1,0 +1,35 @@
+<button mat-icon-button class="close-button" (click)="closeDialog()">
+  <mat-icon>close</mat-icon>
+</button>
+<h2 class="main-title" style="text-align:left;">App Feedback</h2>
+<div class="container">
+  <form (ngSubmit)="send()">
+    <div class="top-row">
+      <mat-input-container>
+        <input matInput placeholder="Comments">
+        <mat-error>Comments are
+          <strong>required</strong>
+        </mat-error>
+      </mat-input-container>
+    </div>
+    <!-- <div class="second-row">
+              <mat-input-container>
+                <input matInput placeholder="Description">
+                <mat-error>Description is
+                  <strong>required</strong>
+                </mat-error>
+              </mat-input-container>
+            </div> -->
+    <div class="last-row">
+      <mat-input-container>
+        <textarea matInput autosize minRows="20" placeholder="Description"></textarea>
+        <mat-error>
+          Description is
+          <strong>required</strong>
+        </mat-error>
+      </mat-input-container>
+    </div>
+    <button mat-raised-button type="submit" (click)="closeDialog()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit">Confirm</button>
+  </form>
+</div>
