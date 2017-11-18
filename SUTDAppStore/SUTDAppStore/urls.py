@@ -23,7 +23,9 @@ urlpatterns = [
     url(r'^appstore/$', views.app_list),
     url(r'^appstore/(?P<pk>\d+)/$', views.app_detail),
     url(r'^appstore/feedback/(?P<pk>\d+)/$', views.app_feedback),
+    url(r'^user/(?P<pk>\d+)/$', views.user),
     url(r'^user/feedback/(?P<pk>\d+)/$', views.user_feedback),
+    url(r'^user/purchase/(?P<pk>\d+)/$', views.user_purchase),
 
     url(r'^admin/$', admin.site.urls),
 	url(r'^login/$', auth_views.login, name='login'),

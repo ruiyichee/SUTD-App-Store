@@ -74,7 +74,10 @@
   <span class="title">Reviews</span>
   <br>
   <div class="general-con">
-
+    <button mat-raised-button color="accent">
+      <mat-icon>rate_review</mat-icon>
+      Write a Review
+    </button>
     <div class="star-group">
       <mat-icon>star_border</mat-icon>
       <mat-icon>star_border</mat-icon>
@@ -84,12 +87,10 @@
     </div>
   </div>
   <br>
-  <button mat-raised-button color="accent">
-    <mat-icon>rate_review</mat-icon>
-    Write a Review
-  </button>
-  <br>
   <div class="feedback-con">
-    <mat-card *ngFor="let feedback of feedbacks">{{feedback.stars}}</mat-card>
+    <mat-card *ngFor="let feedback of feedbacks; let i = index">
+      <h4>{{feedback.stars}}</h4>
+      <span>{{feedback.comments}}</span>
+    </mat-card>
   </div>
 </div>

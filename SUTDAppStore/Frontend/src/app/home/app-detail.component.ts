@@ -23,7 +23,7 @@ export class AppDetailComponent implements OnInit {
 
     ngOnInit(): void {
         // fake description and screenshot and icon
-        this.selectedApp.description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. ';
+        this.selectedApp.description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. ';
         this.appIcon = "assets/img/appicon1.svg";
         this.screenshots.push('assets/img/screenshot1.svg');
         this.screenshots.push('assets/img/screenshot1.svg');
@@ -39,11 +39,16 @@ export class AppDetailComponent implements OnInit {
             const jsonArray = res.json();
             for (let i = 0; i < jsonArray.length; i++) {
                 let localFeedback;
+                jsonArray[i].comments = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. ';
                 localFeedback = jsonArray[i];
                 this.feedbacks.push(localFeedback)
+
             }
             console.log(this.feedbacks);
         });
+        for (let i = 0; i < this.feedbacks.length; i++) {
+
+        }
     }
 
     closeDialog() {

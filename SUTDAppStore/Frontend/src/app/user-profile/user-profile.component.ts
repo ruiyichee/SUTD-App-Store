@@ -1,9 +1,12 @@
 import { User } from './../models/user.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import {DataSource} from '@angular/cdk/collections';
-import {Observable} from 'rxjs/Observable';
+import { DataSource } from '@angular/cdk/collections';
+import { Observable } from 'rxjs/Observable';
+import { MatPaginator } from '@angular/material';
+
 import 'rxjs/add/observable/of';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-user-profile',
@@ -12,59 +15,90 @@ import 'rxjs/add/observable/of';
 })
 export class UserProfileComponent implements OnInit {
 
-  url: string = 'http://localhost:8000/user/feedback/1/';
+  feedbackUrl = 'http://localhost:8000/user/feedback/1/';
+  userUrl = 'http://localhost:8000/user/2/';
+  purchaseUrl = 'http://localhost:8000/user/purchase/2/';
   constructor(private http: Http) { }
   selectedUser = new User();
-  displayedColumns = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new ExampleDataSource();
+  displayedPurchaseColumns = ['aid', 'app_name', 'price', 'purchase_date', 'genre'];
+  displayedFeedbackColumns = ['fid', 'stars', 'comments', 'feed_date'];
+  purchaseDataSource: any;
+  feedbackDataSource: any;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  
   ngOnInit() {
+    // fetch user information
     this.selectedUser.first_name = 'Jeremy';
     this.selectedUser.last_name = 'Rose';
     this.selectedUser.email = 'jeremyrose@gmail.com';
     this.selectedUser.username = 'jeremyrose';
-     this.http.get(this.url).toPromise().then((res) => {
+    this.http.get(this.userUrl).toPromise().then((res) => {
+      const jsonArray = res.json();
+      for (let i = 0; i < jsonArray.length; i++) {
+        this.selectedUser = jsonArray[i];
+      }
+    });
+    // fetch purchase info
+    this.http.get(this.purchaseUrl).toPromise().then((res) => {
+      const jsonArray = res.json();
+      for (let i = 0; i < jsonArray.length; i++) {
+        purchaseHistory.push(jsonArray[i]);
 
-     });
+      }
+      console.log(purchaseHistory);
+      this.purchaseDataSource = new PurchaseDataSource(this.paginator);
+    });
+    // fetch feedback info
+    this.http.get(this.feedbackUrl).toPromise().then((res) => {
+      const jsonArray = res.json();
+      for (let i = 0; i < jsonArray.length; i++) {
+        feedbackHistory.push(jsonArray[i]);
+      }
+      console.log(feedbackHistory);
+      this.feedbackDataSource = new FeedbackDataSource();
+    });
   }
 
 }
-export interface Element {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+
+export interface Feedback {
+  fid: number;
+  stars: number;
+  comments: string;
+  feed_date: string;
 }
+export interface Purchase {
+  aid: number;
+  app_name: string;
+  price: number;
+  purchase_date: string;
+  genre: string;
+}
+let feedbackHistory = []
+let purchaseHistory = []
 
-const data: Element[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
-  {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
-  {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
-  {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
-  {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
-  {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
-  {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
-  {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
-  {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
-  {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
-];
-
-export class ExampleDataSource extends DataSource<any> {
+export class FeedbackDataSource extends DataSource<any> {
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Element[]> {
-    return Observable.of(data);
+  connect(): Observable<Feedback[]> {
+    console.log('FEEDBACK');
+    console.log(feedbackHistory);
+    return Observable.of(feedbackHistory);
   }
 
-  disconnect() {}
+  disconnect() { }
 }
+
+export class PurchaseDataSource extends DataSource<any> {
+  /** Connect function called by the table to retrieve one stream containing the data to render. */
+  constructor(private _paginator: MatPaginator) {
+    super();
+  }
+  connect(): Observable<Purchase[]> {
+    console.log('PURCHASE');
+    console.log(purchaseHistory);
+    return Observable.of(purchaseHistory);
+  }
+
+  disconnect() { }
+}
+

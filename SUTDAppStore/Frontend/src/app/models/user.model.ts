@@ -5,5 +5,4 @@ export class User {
     last_name: string;
     email: string;
     dob: string;
-    uploads: string;
 }
