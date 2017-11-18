@@ -11,7 +11,7 @@ import { Http, Response } from '@angular/http';
 export class AppDetailComponent implements OnInit {
 
     public selectedApp = new App();
-    url: string = 'http://localhost:8000/feedback/';
+    url: string = 'http://localhost:8000/appstore/feedback/';
     feedbacks = [];
     screenshots = [];
     appIcon: string;

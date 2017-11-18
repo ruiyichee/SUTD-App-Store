@@ -40,37 +40,86 @@ INSERT INTO feedback (stars, comments, feed_date) VALUES (5, NULL, 20100118);
 INSERT INTO feedback (stars, comments, feed_date) VALUES (4, NULL, 20100119);
 INSERT INTO feedback (stars, comments, feed_date) VALUES (2, NULL, 20100120);
 
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password1", 20110103, 0, "username1", "aastha", "chouhan", "username1@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password2", 20110104, 0, "username2", "Mayli", "Yap", "username2@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password3", 20110105, 0, "username3", "Ruiyi", "Chee", "username3@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password4", 20110106, 0, "username4", "Ji Sheng", "Yin", "username4@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password5", 20110107, 0, "username5", "matthew", "matt", "username5@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password6", 20110108, 0, "username6", "Shalv", "Parekh", "username6@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password7", 20110109, 0, "username7", "anu", "chopra", "username7@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password8", 20110110, 0, "username8", "kelly", "khoo", "username8@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password9", 20110111, 0, "username9", "choo", "jiahui", "username9@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password10", 20110112, 0, "username10", "jayne", "lim", "username10@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password11", 20110113, 0, "username11", "asyiqin", "nurul", "username11@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password12", 20110114, 0, "username12", "shruthi", "shaghar", "username12@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password13", 20110115, 0, "username13", "joon", "keat", "username13@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password14", 20110116, 0, "username14", "deeksha", "shetty", "username14@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password15", 20110117, 0, "username15", "monisha", "jawahar", "username15@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password16", 20110118, 0, "username16", "jishna", "bole", "username16@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password17", 20110119, 0, "username17", "sita", "rajgopal", "username17@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password18", 20110120, 0, "username18", "amithabh", "bachhan", "username18@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password19", 20110121, 0, "username19", "kareena", "kapoor", "username19@abc.com", 0, 0, 20100103, NULL);
+INSERT INTO auth_user (password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, dob ) VALUES ("password20", 20110122, 0, "username20", "ed", "sheeren", "username20@abc.com", 0, 0, 20100103, NULL);
 
+INSERT INTO gives (id, aid, fid) VALUES (1,1,1);
+INSERT INTO gives (id, aid, fid) VALUES (2,1,2);
+INSERT INTO gives (id, aid, fid) VALUES (3,2,3);
+INSERT INTO gives (id, aid, fid) VALUES (4,3,4);
+INSERT INTO gives (id, aid, fid) VALUES (5,3,5);
+INSERT INTO gives (id, aid, fid) VALUES (6,3,6);
+INSERT INTO gives (id, aid, fid) VALUES (7,3,7);
+INSERT INTO gives (id, aid, fid) VALUES (8,3,8);
+INSERT INTO gives (id, aid, fid) VALUES (9,3,9);
+INSERT INTO gives (id, aid, fid) VALUES (10,1,10);
+INSERT INTO gives (id, aid, fid) VALUES (11,2,11);
+INSERT INTO gives (id, aid, fid) VALUES (12,2,12);
+INSERT INTO gives (id, aid, fid) VALUES (13,4,13);
+INSERT INTO gives (id, aid, fid) VALUES (14,5,14);
+INSERT INTO gives (id, aid, fid) VALUES (14,4,15);
+INSERT INTO gives (id, aid, fid) VALUES (15,2,16);
+INSERT INTO gives (id, aid, fid) VALUES (15,2,17);
+INSERT INTO gives (id, aid, fid) VALUES (15,3,18);
+INSERT INTO gives (id, aid, fid) VALUES (16,4,19);
+INSERT INTO gives (id, aid, fid) VALUES (16,2,20);
 
+INSERT INTO purchases (id, aid, purchase_date) VALUES (1,1,20150516);
+INSERT INTO purchases (id, aid, purchase_date) VALUES (2,1,20140415);
+INSERT INTO purchases (id, aid, purchase_date) VALUES (3,2,20160415);
+INSERT INTO purchases (id, aid, purchase_date) VALUES (4,3,20170612);
+INSERT INTO purchases (id, aid, purchase_date) VALUES (5,3,20140712);
+INSERT INTO purchases (id, aid, purchase_date) VALUES (6,3,20130811);
+INSERT INTO purchases (id, aid, purchase_date) VALUES (7,3,20190612);
+INSERT INTO purchases (id, aid, purchase_date) VALUES (8,3,20180403);
+INSERT INTO purchases (id, aid, purchase_date) VALUES (9,3,20120911);
+INSERT INTO purchases (id, aid, purchase_date) VALUES (10,1,20110403);
+INSERT INTO purchases (id, aid, purchase_date) VALUES (11,2,20110403);
+INSERT INTO purchases (id, aid, purchase_date) VALUES (12,2,20120912);
+INSERT INTO purchases (id, aid, purchase_date) VALUES (13,4,20130410);
+INSERT INTO purchases (id, aid, purchase_date) VALUES (14,5,20140119);
+INSERT INTO purchases (id, aid, purchase_date) VALUES (15,2,20170415);
+INSERT INTO purchases (id, aid, purchase_date) VALUES (14,4,20150317);
+INSERT INTO purchases (id, aid, purchase_date) VALUES (15,3,20180911);
+INSERT INTO purchases (id, aid, purchase_date) VALUES (16,4,20190310);
+INSERT INTO purchases (id, aid, purchase_date) VALUES (16,2,20110905);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+INSERT INTO creates (id, aid) VALUES (1,1);
+INSERT INTO creates (id, aid) VALUES (1,2);
+INSERT INTO creates (id, aid) VALUES (1,3);
+INSERT INTO creates (id, aid) VALUES (2,4);
+INSERT INTO creates (id, aid) VALUES (3,5);
+INSERT INTO creates (id, aid) VALUES (4,6);
+INSERT INTO creates (id, aid) VALUES (7,7);
+INSERT INTO creates (id, aid) VALUES (8,8);
+INSERT INTO creates (id, aid) VALUES (10,9);
+INSERT INTO creates (id, aid) VALUES (10,10);
+INSERT INTO creates (id, aid) VALUES (10,11);
+INSERT INTO creates (id, aid) VALUES (10,12);
+INSERT INTO creates (id, aid) VALUES (11,13);
+INSERT INTO creates (id, aid) VALUES (12,14);
+INSERT INTO creates (id, aid) VALUES (13,15);
+INSERT INTO creates (id, aid) VALUES (14,16);
+INSERT INTO creates (id, aid) VALUES (15,17);
+INSERT INTO creates (id, aid) VALUES (15,18);
+INSERT INTO creates (id, aid) VALUES (18,19);
+INSERT INTO creates (id, aid) VALUES (19,20);
 

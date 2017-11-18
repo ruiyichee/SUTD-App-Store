@@ -1,38 +1,103 @@
 <button mat-icon-button class="back-button" routerLink="/home" routerLinkActive="active">
   <mat-icon>arrow_back</mat-icon>
 </button>
-<h2 class="main-title" style="text-align:center;">User Profile</h2>
+<br>
 <div class="profile-con">
-  <div class="icon-con">
-    <img src="assets/img/user-profile.svg">
-  </div>
-  <div class="info-con">
-    <h4>
-      First Name:
-    </h4>
-    <span>{{selectedUser.first_name}}</span>
-    <br>
-    <h4>
-      Last Name:
-    </h4>
-    <span>{{selectedUser.last_name}}</span>
-    <br>
-    <h4>
-      Username:
-    </h4>
-    <span>{{selectedUser.username}}</span>
-    <br>
-    <!-- <h4>
-      Password:
-    </h4>
-    <span>{{selectedUser.email}}</span>
-    <br> -->
-    <h4>
-      Email Address:
-    </h4>
-    <span>{{selectedUser.email}}</span>
-    <br>
+  <h2>User Profile
+    <button mat-raised-button class="close-button" routerLink="/home" routerLinkActive="active">
+      Edit Profile
+    </button>
+  </h2>
+
+  <div class="personal-info-con">
+
+    <div class="icon-con">
+      <img src="assets/img/user-profile.svg">
+    </div>
+    <div class="info-con">
+        <div class="subtitle">First Name</div>
+      <span>{{selectedUser.first_name}}</span>
+      <br>
+      <div class="subtitle">Last Name</div>
+      <span>{{selectedUser.last_name}}</span>
+      <br>
+      <div class="subtitle">Username</div>
+      <span>{{selectedUser.username}}</span>
+      <br>
+      <div class="subtitle">Email</div>
+      <span>{{selectedUser.email}}</span>
+      <br>
+    </div>
 
   </div>
+  <h2>Purchase History</h2>
+  <div class="purchase-con">
+    <mat-table #table [dataSource]="dataSource">
 
+      <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+      </ng-container>
+
+      <!-- Color Column -->
+      <ng-container matColumnDef="symbol">
+        <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+  <h2>Review History</h2>
+  <div class="review-con">
+    <mat-table #table [dataSource]="dataSource">
+
+      <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+      </ng-container>
+
+      <!-- Color Column -->
+      <ng-container matColumnDef="symbol">
+        <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
 </div>

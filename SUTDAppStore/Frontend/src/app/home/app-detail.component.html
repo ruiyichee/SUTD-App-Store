@@ -1,16 +1,23 @@
 <button mat-icon-button class="close-button" (click)="closeDialog()">
   <mat-icon>close</mat-icon>
 </button>
+<h2 class="main-title" style="text-align:left;">App Details</h2>
 <div class="top-section">
   <img [src]="appIcon">
   <div class="text-button-con">
     <div class="text-section">
-      <h1>{{selectedApp.appName}}</h1>
-      <h2>{{selectedApp.category}}</h2>
+      <h2>{{selectedApp.appName}}</h2>
+      <h3>{{selectedApp.genre}}</h3>
     </div>
     <div class="button-section">
-      <a [href]="selectedApp.downloadLink" target="_blank" *ngIf="selectedApp.platform =='Android'" mat-raised-button>
-        <mat-icon>file_download</mat-icon>Download App</a>
+      <h4>Overall Ranking: 5</h4>
+      <h4>No of Downloads: 500</h4>
+      <button mat-raised-button color="accent">
+        <mat-icon>file_download</mat-icon>
+        Download App
+      </button>
+      <!-- <a [href]="selectedApp.downloadLink" target="_blank" *ngIf="selectedApp.platform =='Android'" mat-raised-button>
+        <mat-icon>file_download</mat-icon>Download App</a> -->
     </div>
   </div>
 
@@ -33,22 +40,56 @@
 
   <div class="column-con">
     <div class="column">
-      <div class="column-child">
-        <div class="subtitle">Developer(s)</div>
-        <span class="data" *ngFor="let developer of selectedApp.developers">{{developer}}</span>
-      </div>
-      <div class="column-child">
-        <div class="subtitle">Genre</div>
-        <span class="data">
-          {{selectedApp.genre}}
-        </span>
-      </div>
+      <div class="subtitle">Developer(s)</div>
+      <span class="data" *ngFor="let developer of selectedApp.developers">{{developer}}</span>
+    </div>
+    <div class="column">
+      <div class="subtitle">Genre</div>
+      <span class="data">
+        {{selectedApp.genre}}
+      </span>
+    </div>
+    <div class="column">
+      <div class="subtitle">Platform</div>
+      <span class="data">
+        Android
+      </span>
+    </div>
+    <div class="column">
+      <div class="subtitle">Size</div>
+      <span class="data">
+        1.5MB
+      </span>
+    </div>
+    <div class="column">
+      <div class="subtitle">Last Updated</div>
+      <span class="data">
+        11 Oct 2017
+      </span>
     </div>
   </div>
 </div>
 <hr>
 <div class="feedback-section">
-  <span class="title">Feedback</span>
+  <span class="title">Reviews</span>
   <br>
-  <span *ngFor="let feedback of feedbacks">{{feedback}}</span>
+  <div class="general-con">
+
+    <div class="star-group">
+      <mat-icon>star_border</mat-icon>
+      <mat-icon>star_border</mat-icon>
+      <mat-icon>star_border</mat-icon>
+      <mat-icon>star_border</mat-icon>
+      <mat-icon>star_border</mat-icon>
+    </div>
+  </div>
+  <br>
+  <button mat-raised-button color="accent">
+    <mat-icon>rate_review</mat-icon>
+    Write a Review
+  </button>
+  <br>
+  <div class="feedback-con">
+    <mat-card *ngFor="let feedback of feedbacks">{{feedback.stars}}</mat-card>
+  </div>
 </div>

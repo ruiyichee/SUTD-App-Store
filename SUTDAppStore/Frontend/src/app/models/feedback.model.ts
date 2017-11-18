@@ -2,5 +2,6 @@ export class Feedback {
     fid: string;
     stars: string;
     comments: string;
-    // date: string;
+    username: string;
+    feed_date: string;
 }

@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { MatMenuModule , MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatCardModule, MatDialogModule } from '@angular/material';
+import { MatTableModule, MatMenuModule , MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatCardModule, MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
@@ -46,6 +46,7 @@ const routes: Routes = [
     MatCardModule,
     MatDialogModule,
     MatMenuModule,
+    MatTableModule,
     BrowserAnimationsModule,
     HttpModule,
     RouterModule.forRoot(routes)

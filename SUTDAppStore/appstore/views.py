@@ -11,6 +11,7 @@ from django.contrib.auth import update_session_auth_hash
 # from .serializers import *
 from rest_framework import status , generics , mixins
 from django.db import connection
+from datetime import date, datetime
 
 import json
 
@@ -121,18 +122,44 @@ def app_detail(request, pk):
             return HttpResponse(jsonObj, content_type="application/json")
 
 @api_view(['GET', 'POST', 'DELETE'])
-def feedback(request, pk):
+def app_feedback(request, pk):
     """
     Retrieve, update or delete a feedback instance.
     """
     if request.method == 'GET':
         with connection.cursor() as cursor:
             appid = pk
-            cursor.execute("SELECT stars, comments from feedback, gives, application, auth_user WHERE gives.aid = %s AND auth_user.id = gives.id;", [appid])
+            cursor.execute("SELECT DISTINCT stars, comments, username, feed_date from feedback, gives, application, auth_user WHERE gives.aid = %s AND auth_user.id = gives.id;", [appid])
             selected_feedback = cursor.fetchall()
             print(selected_feedback)
             result = []
-            keys = ('stars', 'comments')
+            keys = ('stars', 'comments', 'username', 'feed_date')
+            for row in selected_feedback:
+                result.append(dict(zip(keys,row)))
+            jsonObj = json.dumps(result, default=json_serial)
+            return HttpResponse(jsonObj, content_type="application/json")
+
+    elif request.method == 'POST':
+        with connection.cursor() as cursor:
+            appid = pk
+            cursor.execute("UPDATE application SET no_of_downloads = no_of_downloads + 1 WHERE Application.Aid = %s;", [appid])
+            result = cursor.fetchall()
+            jsonObj = json.dumps(result)
+            return HttpResponse(jsonObj, content_type="application/json")
+
+@api_view(['GET', 'POST', 'DELETE'])
+def user_feedback(request, pk):
+    """
+    Retrieve, update or delete a feedback instance.
+    """
+    if request.method == 'GET':
+        with connection.cursor() as cursor:
+            appid = pk
+            cursor.execute("SELECT DISTINCT stars, comments, username, feed_date from feedback, gives, application, auth_user WHERE gives.aid = %s AND auth_user.id = gives.id;", [appid])
+            selected_feedback = cursor.fetchall()
+            print(selected_feedback)
+            result = []
+            keys = ('stars', 'comments', 'username', 'feed_date')
             for row in selected_feedback:
                 result.append(dict(zip(keys,row)))
             jsonObj = json.dumps(result)
@@ -145,3 +172,11 @@ def feedback(request, pk):
             result = cursor.fetchall()
             jsonObj = json.dumps(result)
             return HttpResponse(jsonObj, content_type="application/json")
+
+
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+
+    if isinstance(obj, (datetime, date)):
+        return obj.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))
