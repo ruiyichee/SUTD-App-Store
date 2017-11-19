@@ -12,7 +12,6 @@ from django.contrib.auth import update_session_auth_hash
 from rest_framework import status , generics , mixins
 from django.db import connection
 from datetime import date, datetime
-
 import json
 
 # Create your views here.
@@ -83,12 +82,20 @@ def app_list(request):
             return HttpResponse(jsonObj, content_type="application/json")
             # serializer = AppSerializer(apps,context={'request': request} ,many=True)
             # return Response(serializer.data)
-        # elif request.method == 'POST':
-        #     serializer = AppSerializer(data=request.data)
-        #     if serializer.is_valid():
-        #         serializer.save()
-        #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-        #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        elif request.method == 'POST':
+            print(request.body)
+            postedApp = request.body
+            jsonApp=json.loads(postedApp)
+            appName = jsonApp['app_name']
+            appDescription = jsonApp['description']
+            appGenre = jsonApp['genre']
+            appDateTime = 20171120
+            appPrice = 5.0
+            appDownloads = 0
+            # cursor.execute("INSERT INTO application (date_of_upload, price, app_name, description, genre, no_of_downloads) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');", ([appDateTime], [appPrice], [appName], [appDescription], [appGenre], [appDownloads]))
+            cursor.execute("INSERT INTO application (date_of_upload, price, app_name, description, genre, no_of_downloads) VALUES (%s, %s, %s, %s, %s, %s);", (appDateTime, appPrice, appName, appDescription, appGenre, appDownloads))
+
+            return HttpResponse("IT SUCCEEDED")
 
 @api_view(['GET', 'POST', 'DELETE'])
 def app_detail(request, pk):
@@ -129,14 +136,16 @@ def app_feedback(request, pk):
     if request.method == 'GET':
         with connection.cursor() as cursor:
             appid = pk
-            cursor.execute("SELECT DISTINCT stars, comments, username, feed_date from feedback, gives, application, auth_user WHERE gives.aid = %s AND auth_user.id = gives.id;", [appid])
+            cursor.execute("SELECT stars, comments, username, feed_date FROM feedback f, gives g, application a, auth_user WHERE g.aid= a.aid AND g.id=auth_user.id AND f.fid=g.fid and a.aid = %s;", [appid])
             selected_feedback = cursor.fetchall()
             print(selected_feedback)
             result = []
             keys = ('stars', 'comments', 'username', 'feed_date')
             for row in selected_feedback:
                 result.append(dict(zip(keys,row)))
+            print('Working til here')
             jsonObj = json.dumps(result, default=json_serial)
+            print('Working til dumps')
             return HttpResponse(jsonObj, content_type="application/json")
 
 @api_view(['GET', 'POST', 'DELETE'])

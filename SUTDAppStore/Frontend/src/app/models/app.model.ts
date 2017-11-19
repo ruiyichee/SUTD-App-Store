@@ -1,6 +1,6 @@
 export class App {
     aid: string;
-    appName: string;
+    app_name: string;
     description: string;
     genre: string;
     // appIcon: string;

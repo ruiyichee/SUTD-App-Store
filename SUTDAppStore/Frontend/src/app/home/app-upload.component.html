@@ -3,33 +3,35 @@
 </button>
 <h2 class="main-title" style="text-align:left;">App Upload</h2>
 <div class="container">
-  <form (ngSubmit)="send()">
-      <div class="top-row">
-        <mat-input-container>
-          <input matInput placeholder="App Name" >
-          <mat-error>App Name is
-            <strong>required</strong>
-          </mat-error>
-        </mat-input-container>
-      </div>
-      <!-- <div class="second-row">
-        <mat-input-container>
-          <input matInput placeholder="Description">
-          <mat-error>Description is
-            <strong>required</strong>
-          </mat-error>
-        </mat-input-container>
-      </div> -->
-      <div class="last-row">
-        <mat-input-container>
-          <textarea matInput autosize minRows="20" placeholder="Description"></textarea>
-          <mat-error>
-            Description is
-            <strong>required</strong>
-          </mat-error>
-        </mat-input-container>
-      </div>
-      <button mat-raised-button type="submit" (click)="closeDialog()">Cancel</button>      
-      <button mat-raised-button type="submit">Confirm</button>
+  <form (ngSubmit)="upload()">
+    <div class="top-row">
+      <mat-input-container>
+        <input matInput placeholder="Enter App Name" [(ngModel)]="enteredApp.app_name" [ngModelOptions]="{standalone: true}">
+        <mat-error>App Name is
+          <strong>required</strong>
+        </mat-error>
+      </mat-input-container>
+    </div>
+    <div class="second-row">
+      <mat-form-field>
+        <mat-select placeholder="Select Genre" [(ngModel)]="enteredApp.genre" [ngModelOptions]="{standalone: true}">
+          <mat-option *ngFor="let genre of genres" [value]="genre">
+            {{genre}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="last-row">
+      <mat-input-container>
+        <textarea matInput autosize minRows="20" placeholder="Enter Description" [(ngModel)]="enteredApp.description" [ngModelOptions]="{standalone: true}"></textarea>
+        <mat-error>
+          Description is
+          <strong>required</strong>
+        </mat-error>
+      </mat-input-container>
+    </div>
+    <button mat-raised-button (click)="autocomplete()">Lazy Me</button>
+    <button mat-raised-button type="submit" (click)="closeDialog()">Cancel</button>
+    <button mat-raised-button type="submit">Confirm</button>
   </form>
 </div>

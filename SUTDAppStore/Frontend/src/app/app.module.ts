@@ -15,6 +15,7 @@ import { AppUploadComponent } from './home/app-upload.component';
 import { AppFeedbackComponent } from './home/app-feedback/app-feedback.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NgProgressModule } from 'ngx-progressbar';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -60,6 +61,7 @@ const routes: Routes = [
     NgProgressModule,
     BrowserAnimationsModule,
     HttpModule,
+    FormsModule,
     RouterModule.forRoot(routes)
   ],
   providers: [Title],
