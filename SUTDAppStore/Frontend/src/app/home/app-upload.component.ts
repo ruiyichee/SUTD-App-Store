@@ -11,9 +11,6 @@ import { Headers } from '@angular/http';
 })
 export class AppUploadComponent implements OnInit {
     genres = ['2D', '3D'];
-    // enteredAppName = '';
-    // enteredGenre = '';
-    // enteredDescription = '';
     appUploadURL = 'http://localhost:8000/appstore/';
     enteredApp = new App();
     headers = new Headers({

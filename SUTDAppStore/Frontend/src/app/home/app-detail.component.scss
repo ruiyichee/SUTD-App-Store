@@ -65,10 +65,50 @@ div.general-con {
 div.feedback-con {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
+  h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    div.icon-buttons {
+      display: flex;
+      mat-icon {
+        margin-right: 1rem;         
+        cursor: pointer;
+      }
+      mat-icon.thumb-up {
+        color: green;
+        opacity: 0.3;
+      }
+      mat-icon.thumb-down {
+        color: red;
+        opacity: 0.3;
+      }
+      mat-icon.thumb-up:hover {
+        color: green;
+        opacity: 0.8;
+        
+      }
+      mat-icon.thumb-down:hover {
+        color: red;
+        opacity: 0.8;
+        
+      }
+      div.count-con {
+        display: flex;
+        flex-direction: column;
+        span {
+          margin-right: 1rem;
+          margin-bottom: 0.5rem;
+          font-weight: 400;
+          font-size: 1rem;
+          text-align: center;
+        }
+      }
+    }
+  }
   mat-card {
-    cursor: pointer;
-    width: calc(70%/2);
+    width: calc(85%/2);
     margin-bottom: 2rem;
   }
 }

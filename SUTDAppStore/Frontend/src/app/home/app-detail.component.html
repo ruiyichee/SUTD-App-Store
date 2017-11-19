@@ -6,7 +6,7 @@
   <img [src]="appIcon">
   <div class="text-button-con">
     <div class="text-section">
-      <span class="title">{{selectedApp.appName}}</span>
+      <h3 class="title">{{selectedApp.appName}}</h3>
       <span>{{selectedApp.genre}}</span>
     </div>
     <div class="button-section">
@@ -87,7 +87,19 @@
   <br>
   <div class="feedback-con">
     <mat-card *ngFor="let feedback of feedbacks; let i = index">
-      <h4>{{feedback.stars}}</h4>
+      <h2>{{feedback.stars}}
+        <div class="icon-buttons">
+          <div class="count-con">
+            <span>21</span>
+            <mat-icon class="thumb-up">thumb_up</mat-icon>
+          </div>
+          <div class="count-con">
+            <span>3</span>
+            <mat-icon class="thumb-down">thumb_down</mat-icon>
+          </div>
+        </div>
+
+      </h2>
       <span>{{feedback.comments}}</span>
     </mat-card>
   </div>

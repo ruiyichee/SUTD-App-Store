@@ -77,7 +77,6 @@ export class AppDetailComponent implements OnInit {
     openFeedback() {
         const dialogRef = this.dialog.open(AppFeedbackComponent, {
           panelClass: 'full-width-dialog',
-          height: '80vh',
           width: '80vw',
         });    
       }
