@@ -11,15 +11,16 @@
           <strong>required</strong>
         </mat-error>
       </mat-input-container>
+      <mat-form-field>
+            <mat-select placeholder="Select Genre" [(ngModel)]="enteredApp.genre" [ngModelOptions]="{standalone: true}">
+              <mat-option *ngFor="let genre of genres" [value]="genre">
+                {{genre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
     </div>
     <div class="second-row">
-      <mat-form-field>
-        <mat-select placeholder="Select Genre" [(ngModel)]="enteredApp.genre" [ngModelOptions]="{standalone: true}">
-          <mat-option *ngFor="let genre of genres" [value]="genre">
-            {{genre}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      
     </div>
     <div class="last-row">
       <mat-input-container>
@@ -30,7 +31,7 @@
         </mat-error>
       </mat-input-container>
     </div>
-    <button mat-raised-button (click)="autocomplete()">Lazy Me</button>
+    <!-- <button mat-raised-button (click)="autocomplete()">Lazy Me</button> -->
     <button mat-raised-button type="submit" (click)="closeDialog()">Cancel</button>
     <button mat-raised-button type="submit">Confirm</button>
   </form>

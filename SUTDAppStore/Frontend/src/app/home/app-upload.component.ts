@@ -40,6 +40,12 @@ export class AppUploadComponent implements OnInit {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         this.http.post(this.appUploadURL, JSON.stringify(this.enteredApp), {headers: this.headers}).toPromise().then((res) => {
+            
+            console.log(res);
+            // check if it succeeded
+            if (res.status === 200) {
+                this.dialogRef.close();            
+            }
         });
     }
     autocomplete() {

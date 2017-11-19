@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit {
   uploadApp() {
     const dialogRef = this.dialog.open(AppUploadComponent, {
       panelClass: 'full-width-dialog',
-      height: '80vh',
+      // height: '80vh',
       width: '80vw',
     });
   }
