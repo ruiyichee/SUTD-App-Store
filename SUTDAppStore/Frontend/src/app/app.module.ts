@@ -1,5 +1,5 @@
 import { AppDetailComponent } from './home/app-detail.component';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
@@ -13,7 +13,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { PurchaseComponent } from './purchase/purchase.component';
 import { AppUploadComponent } from './home/app-upload.component';
 import { AppFeedbackComponent } from './home/app-feedback/app-feedback.component';
-
+import { NavbarComponent } from './navbar/navbar.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -40,7 +40,8 @@ const routes: Routes = [
     AppDetailComponent,
     PurchaseComponent,
     AppUploadComponent,
-    AppFeedbackComponent
+    AppFeedbackComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +59,7 @@ const routes: Routes = [
     HttpModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [Title],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

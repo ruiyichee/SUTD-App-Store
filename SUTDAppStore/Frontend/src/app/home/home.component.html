@@ -1,20 +1,11 @@
-<div class="top-con">
-  <img src="assets/img/SUTDAppstoreLogo.png">
-  <button mat-mini-fab color="primary" class="close-button" [matMenuTriggerFor]="menu">
-    <mat-icon>person</mat-icon>
+<app-navbar></app-navbar>
+<h2>Apps List
+  <button mat-raised-button class="close-button" (click)="uploadApp()">
+    <mat-icon>add</mat-icon>
+    Upload App
   </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink="/user-profile" routerLinkActive="active">
-      <mat-icon>settings</mat-icon>
-      <span>Settings</span>
-    </button>
-    <button mat-menu-item routerLink="/login" routerLinkActive="active">
-      <mat-icon>directions_run</mat-icon>
-      <span>Sign Out</span>
-    </button>
-  </mat-menu>
-</div>
-<br>
+</h2>
+
 <div class="action-con">
   <div class="searchbar">
     <mat-form-field>
@@ -36,18 +27,10 @@
       <!-- <mat-icon matPrefix>search</mat-icon> -->
     </mat-input-container>
   </div>
-  <div class="upload">
-    <button mat-raised-button color="primary" (click)="uploadApp()">
-      <mat-icon>add</mat-icon>
-      Upload App
-    </button>
-  </div>
 </div>
 
-<h2 class="main-title" style="text-align:left;">Popular Apps</h2>
 <div class="app-con">
   <mat-card *ngFor="let app of appList; let i = index" (click)="openApp(i)">
-
     <h4>{{app.appName}}</h4>
     <mat-card-actions>
       <button mat-icon-button (click)="downloadApp(i, $event)">
@@ -56,3 +39,5 @@
     </mat-card-actions>
   </mat-card>
 </div>
+<mat-paginator [length]="20" [pageIndex]="0" [pageSize]="20" [pageSizeOptions]="[5, 10, 20, 100]">
+</mat-paginator>

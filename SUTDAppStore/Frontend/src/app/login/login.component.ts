@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -11,9 +12,14 @@ export class LoginComponent implements OnInit {
   url: string = 'http://localhost:8000/login/';
   enteredUsername = '';
   enteredPassword = '';
-  constructor(private http: Http) { }
+  constructor(
+    private http: Http,
+    private titleService: Title
+    
+  ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('SUTD Appstore');    
   }
 
   login() {

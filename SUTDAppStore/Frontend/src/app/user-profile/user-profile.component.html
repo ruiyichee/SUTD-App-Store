@@ -1,21 +1,20 @@
-<button mat-icon-button class="back-button" routerLink="/home" routerLinkActive="active">
+<!-- <button mat-icon-button class="back-button" routerLink="/home" routerLinkActive="active">
   <mat-icon>arrow_back</mat-icon>
 </button>
 <br>
 <br>
-<br>
+<br> -->
+<app-navbar></app-navbar>
 <div class="profile-con">
-  <h2>User Profile
-    <button mat-raised-button class="close-button" routerLink="/home" routerLinkActive="active" color="primary">
-      Edit Profile
+  <h2>
+    User Profile
+    <button mat-raised-button class="close-button" routerLink="/home" routerLinkActive="active">
+      <mat-icon>mode_edit</mat-icon>
+      <span>Edit Profile</span>
     </button>
   </h2>
 
   <div class="personal-info-con">
-
-    <div class="icon-con">
-      <img src="assets/img/user-profile.svg">
-    </div>
     <div class="info-con">
       <div class="subtitle">First Name</div>
       <span>{{selectedUser.first_name}}</span>
@@ -98,7 +97,6 @@
       <mat-row *matRowDef="let row; columns: displayedFeedbackColumns;"></mat-row>
     </mat-table>
     <mat-paginator 
-    #paginator
     [length]="20"
     [pageIndex]="0"
     [pageSize]="20"

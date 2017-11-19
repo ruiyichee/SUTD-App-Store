@@ -4,6 +4,7 @@ import { AppDetailComponent } from './app-detail.component';
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -18,11 +19,13 @@ export class HomeComponent implements OnInit {
   selectedApp: App;
   constructor(
     private http: Http,
-    private dialog: MatDialog
-  ) { 
+    private dialog: MatDialog,
+    private titleService: Title
+  ) {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('Home');
     this.http.get(this.url).toPromise().then((res) => {
       this.appList = [];
       console.log(res.json().length);
@@ -55,12 +58,12 @@ export class HomeComponent implements OnInit {
   }
 
   downloadApp(i, event) {
-    const newURL = this.url + (i+1) + '/';
+    const newURL = this.url + (i + 1) + '/';
     const appToBeDownloaded = this.appList[i];
     // TODO: GET the appfile from DB
     console.log('trying to download app');
     console.log('not done downloading file yet');
-    console.log('Increment to DB');    
+    console.log('Increment to DB');
     let incrementor = 1;
     this.http.post(newURL, incrementor).toPromise().then((res) => {
       console.log(res.json());

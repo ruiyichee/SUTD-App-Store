@@ -5,6 +5,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import { MatPaginator } from '@angular/material';
 import { PageEvent } from '@angular/material';
+import { Title } from '@angular/platform-browser';
 
 import 'rxjs/add/observable/of';
 
@@ -18,7 +19,11 @@ export class UserProfileComponent implements OnInit {
   feedbackUrl = 'http://localhost:8000/user/feedback/1/';
   userUrl = 'http://localhost:8000/user/2/';
   purchaseUrl = 'http://localhost:8000/user/purchase/2/';
-  constructor(private http: Http) { }
+  constructor(
+    private http: Http,
+    private titleService: Title
+
+  ) { }
   selectedUser = new User();
   displayedPurchaseColumns = ['aid', 'app_name', 'price', 'purchase_date', 'genre'];
   displayedFeedbackColumns = ['fid', 'stars', 'comments', 'feed_date'];
@@ -36,6 +41,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('User Profile');
     feedbackHistory = [];
     purchaseHistory = [];
     // fetch user information
