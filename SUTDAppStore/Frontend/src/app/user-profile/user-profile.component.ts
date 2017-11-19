@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { MatPaginator } from '@angular/material';
 import { PageEvent } from '@angular/material';
 import { Title } from '@angular/platform-browser';
+import { NgProgress } from 'ngx-progressbar';
 
 import 'rxjs/add/observable/of';
 
@@ -21,8 +22,8 @@ export class UserProfileComponent implements OnInit {
   purchaseUrl = 'http://localhost:8000/user/purchase/2/';
   constructor(
     private http: Http,
-    private titleService: Title
-
+    private titleService: Title,
+    public ngProgress: NgProgress
   ) { }
   selectedUser = new User();
   displayedPurchaseColumns = ['aid', 'app_name', 'price', 'purchase_date', 'genre'];
@@ -45,6 +46,7 @@ export class UserProfileComponent implements OnInit {
     feedbackHistory = [];
     purchaseHistory = [];
     // fetch user information
+    this.ngProgress.start();        
     this.http.get(this.userUrl).toPromise().then((res) => {
       const jsonArray = res.json();
       for (let i = 0; i < jsonArray.length; i++) {
@@ -70,6 +72,7 @@ export class UserProfileComponent implements OnInit {
       console.log(feedbackHistory);
       this.feedbackDataSource = new FeedbackDataSource();
     });
+    this.ngProgress.done();    
   }
 
 }

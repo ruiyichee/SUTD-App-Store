@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AppFeedbackComponent } from './app-feedback/app-feedback.component';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
     selector: 'app-detail-component',
@@ -20,11 +21,13 @@ export class AppDetailComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<AppDetailComponent>,
         private http: Http,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        public ngProgress: NgProgress        
     ) { }
 
     ngOnInit(): void {
         // fake description and screenshot and icon
+        this.ngProgress.start();            
         this.selectedApp.description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. ';
         this.appIcon = "assets/img/appicon1.svg";
         this.screenshots.push('assets/img/screenshot1.svg');
@@ -48,9 +51,7 @@ export class AppDetailComponent implements OnInit {
             }
             console.log(this.feedbacks);
         });
-        for (let i = 0; i < this.feedbacks.length; i++) {
-
-        }
+        this.ngProgress.done();        
     }
 
     closeDialog() {

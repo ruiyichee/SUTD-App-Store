@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Title } from '@angular/platform-browser';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-home',
@@ -20,12 +21,14 @@ export class HomeComponent implements OnInit {
   constructor(
     private http: Http,
     private dialog: MatDialog,
-    private titleService: Title
+    private titleService: Title,
+    public ngProgress: NgProgress
   ) {
   }
 
   ngOnInit() {
     this.titleService.setTitle('Home');
+    this.ngProgress.start();    
     this.http.get(this.url).toPromise().then((res) => {
       this.appList = [];
       console.log(res.json().length);
@@ -36,6 +39,7 @@ export class HomeComponent implements OnInit {
         this.appList.push(localApp)
       }
       console.log(this.appList);
+      this.ngProgress.done();
     });
   }
 

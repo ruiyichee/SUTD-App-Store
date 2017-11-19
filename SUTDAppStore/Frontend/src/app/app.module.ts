@@ -14,6 +14,8 @@ import { PurchaseComponent } from './purchase/purchase.component';
 import { AppUploadComponent } from './home/app-upload.component';
 import { AppFeedbackComponent } from './home/app-feedback/app-feedback.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { NgProgressModule } from 'ngx-progressbar';
+
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -55,6 +57,7 @@ const routes: Routes = [
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
+    NgProgressModule,
     BrowserAnimationsModule,
     HttpModule,
     RouterModule.forRoot(routes)
