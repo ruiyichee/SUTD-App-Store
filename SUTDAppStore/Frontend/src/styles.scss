@@ -18,3 +18,21 @@ body {
 .back-button {
   float: left;
 }
+
+.success-snackbar{
+  width: 80vw;
+  background-color: black;
+  color: white;
+  button {
+    color: white;
+  }
+}
+
+.failure-snackbar{
+  width: 80vw;
+  background-color: red;
+  color: white;
+  button {
+    color: white;
+  }
+}

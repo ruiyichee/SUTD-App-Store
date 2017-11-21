@@ -1,5 +1,5 @@
 import { App } from './../models/app.model';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatSnackBar } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, RequestOptions } from '@angular/http';
 // import { HttpHeaders } from '@angular/common/http/src/headers';
@@ -19,6 +19,7 @@ export class AppUploadComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<AppUploadComponent>,
         private http: Http,
+        public snackBar: MatSnackBar
     ) { }
 
     ngOnInit() {
@@ -41,7 +42,19 @@ export class AppUploadComponent implements OnInit {
             console.log(res);
             // check if it succeeded
             if (res.status === 200) {
-                this.dialogRef.close();            
+                this.dialogRef.close();  
+                this.snackBar.open('Successfully uploaded App', 'OK', {
+                    duration: 3000,
+                    extraClasses: ['success-snackbar']      
+                    
+                  });
+            } else {
+                this.dialogRef.close();                  
+                this.snackBar.open('Failed to upload App', 'OK', {
+                    duration: 3000,
+                    extraClasses: ['failure-snackbar']      
+                    
+                  });
             }
         });
     }
