@@ -17,6 +17,7 @@ export class AppDetailComponent implements OnInit {
     feedbacks = [];
     screenshots = [];
     appIcon: string;
+    averageFeedbackScore = 0;
 
     constructor(
         public dialogRef: MatDialogRef<AppDetailComponent>,
@@ -47,11 +48,19 @@ export class AppDetailComponent implements OnInit {
                 jsonArray[i].comments = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. ';
                 localFeedback = jsonArray[i];
                 this.feedbacks.push(localFeedback)
-
             }
             console.log(this.feedbacks);
+            let totalScore = 0;
+            for (let i = 0; i < this.feedbacks.length; i++) {
+                let currentScore = +this.feedbacks[i].stars;
+                totalScore += currentScore;
+            }
+            this.averageFeedbackScore = Math.ceil(totalScore/this.feedbacks.length);
+            // Math.ceil(this.averageFeedbackScore);
+            console.log(this.averageFeedbackScore);
+            this.ngProgress.done(); 
         });
-        this.ngProgress.done();        
+               
     }
 
     closeDialog() {

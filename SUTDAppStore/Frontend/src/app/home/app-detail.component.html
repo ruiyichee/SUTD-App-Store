@@ -78,7 +78,40 @@
       <mat-icon>rate_review</mat-icon>
       Write a Review
     </button>
-    <div class="star-group">
+    <div class="star-group" *ngIf="averageFeedbackScore === 1">
+      <span>Overall Rating: </span>
+      <mat-icon>star_rate</mat-icon>
+      <mat-icon>star_border</mat-icon>
+      <mat-icon>star_border</mat-icon>
+      <mat-icon>star_border</mat-icon>
+      <mat-icon>star_border</mat-icon>
+    </div>
+    <div class="star-group" *ngIf="averageFeedbackScore === 2">
+      <span>Overall Rating: </span>
+      <mat-icon>star_rate</mat-icon>
+      <mat-icon>star_rate</mat-icon>
+      <mat-icon>star_border</mat-icon>
+      <mat-icon>star_border</mat-icon>
+      <mat-icon>star_border</mat-icon>
+    </div>
+    <div class="star-group" *ngIf="averageFeedbackScore === 3">
+      <span>Overall Rating: </span>
+      <mat-icon>star_rate</mat-icon>
+      <mat-icon>star_rate</mat-icon>
+      <mat-icon>star_rate</mat-icon>
+      <mat-icon>star_border</mat-icon>
+      <mat-icon>star_border</mat-icon>
+    </div>
+    <div class="star-group" *ngIf="averageFeedbackScore === 4">
+      <span>Overall Rating: </span>
+      <mat-icon>star_rate</mat-icon>
+      <mat-icon>star_rate</mat-icon>
+      <mat-icon>star_rate</mat-icon>
+      <mat-icon>star_rate</mat-icon>
+      <mat-icon>star_border</mat-icon>
+    </div>
+    <div class="star-group" *ngIf="averageFeedbackScore === 5">
+      <span>Overall Rating: </span>
       <mat-icon>star_rate</mat-icon>
       <mat-icon>star_rate</mat-icon>
       <mat-icon>star_rate</mat-icon>
@@ -92,6 +125,10 @@
       <h2 *ngIf="feedback.stars === 1">
         <div class="star-group">
           <mat-icon>star_rate</mat-icon>
+          <mat-icon>star_border</mat-icon>
+          <mat-icon>star_border</mat-icon>
+          <mat-icon>star_border</mat-icon>
+          <mat-icon>star_border</mat-icon>
         </div>
         <div class="icon-buttons">
           <div class="count-con">
@@ -108,6 +145,9 @@
         <div class="star-group">
           <mat-icon>star_rate</mat-icon>
           <mat-icon>star_rate</mat-icon>
+          <mat-icon>star_border</mat-icon>
+          <mat-icon>star_border</mat-icon>
+          <mat-icon>star_border</mat-icon>
         </div>
         <div class="icon-buttons">
           <div class="count-con">
@@ -125,6 +165,8 @@
           <mat-icon>star_rate</mat-icon>
           <mat-icon>star_rate</mat-icon>
           <mat-icon>star_rate</mat-icon>
+          <mat-icon>star_border</mat-icon>
+          <mat-icon>star_border</mat-icon>
         </div>
         <div class="icon-buttons">
           <div class="count-con">
@@ -143,6 +185,7 @@
           <mat-icon>star_rate</mat-icon>
           <mat-icon>star_rate</mat-icon>
           <mat-icon>star_rate</mat-icon>
+          <mat-icon>star_border</mat-icon>
         </div>
         <div class="icon-buttons">
           <div class="count-con">
