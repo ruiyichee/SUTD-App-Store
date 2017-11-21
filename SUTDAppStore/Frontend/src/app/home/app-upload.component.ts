@@ -1,6 +1,6 @@
 import { App } from './../models/app.model';
-import { MatDialogRef } from '@angular/material';
-import { Component, OnInit } from '@angular/core';
+import { MatDialogRef, MatSnackBar } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http, Response, RequestOptions } from '@angular/http';
 // import { HttpHeaders } from '@angular/common/http/src/headers';
 import { Headers } from '@angular/http';
@@ -10,6 +10,8 @@ import { Headers } from '@angular/http';
     styleUrls: ['app-upload.component.scss']
 })
 export class AppUploadComponent implements OnInit {
+    @ViewChild('fileInput') fileInput;
+    
     genres = ['2D', '3D'];
     appUploadURL = 'http://localhost:8000/appstore/';
     enteredApp = new App();
@@ -19,6 +21,7 @@ export class AppUploadComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<AppUploadComponent>,
         private http: Http,
+        public snackBar: MatSnackBar
     ) { }
 
     ngOnInit() {
@@ -29,9 +32,6 @@ export class AppUploadComponent implements OnInit {
     }
 
     upload() {
-        console.log(this.enteredApp.app_name);
-        console.log(this.enteredApp.genre);
-        console.log(this.enteredApp.description);
         console.log(this.enteredApp);
         console.log('attempting post request');
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -41,7 +41,19 @@ export class AppUploadComponent implements OnInit {
             console.log(res);
             // check if it succeeded
             if (res.status === 200) {
-                this.dialogRef.close();            
+                this.dialogRef.close();  
+                this.snackBar.open('Successfully uploaded App', 'OK', {
+                    duration: 3000,
+                    extraClasses: ['success-snackbar']      
+                    
+                  });
+            } else {
+                this.dialogRef.close();                  
+                this.snackBar.open('Failed to upload App', 'OK', {
+                    duration: 3000,
+                    extraClasses: ['failure-snackbar']      
+                    
+                  });
             }
         });
     }
@@ -50,5 +62,25 @@ export class AppUploadComponent implements OnInit {
         this.enteredApp.genre = '2D';
         this.enteredApp.description = 'Description here';
     }
+
+    private uploadFile() {
+        const fileBrowser = this.fileInput.nativeElement;
+        if (fileBrowser.files && fileBrowser.files[0]) {
+        //   const formData = new FormData();
+        //   formData.append('files', fileBrowser.files[0]);
+        //   const xhr = new XMLHttpRequest();
+        //   xhr.open('POST', '/api/Data/UploadFiles', true);
+        //   xhr.onload = function () {
+        //     if (this['status'] === 200) {
+        //         const responseText = this['responseText'];
+        //         const files = JSON.parse(responseText);
+        //         //todo: emit event
+        //     } else {
+        //       //todo: error handling
+        //     }
+        //   };
+        //   xhr.send(formData);
+        }
+      }
 
 }

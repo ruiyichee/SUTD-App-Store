@@ -60,6 +60,13 @@ div.general-con {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  div.star-group {
+    display: flex;
+    align-items: center;
+    span {
+      margin-right: 0.5rem;
+    }
+  }
 }
 
 div.feedback-con {

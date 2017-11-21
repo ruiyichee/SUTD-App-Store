@@ -5,7 +5,6 @@
     Upload App
   </button>
 </h2>
-
 <div class="action-con">
   <div class="searchbar">
     <mat-form-field>
@@ -32,11 +31,13 @@
 <div class="app-con">
   <mat-card *ngFor="let app of appList; let i = index" (click)="openApp(i)">
     <h4>{{app.appName}}</h4>
-    <mat-card-actions>
+    <img md-card-image src="assets/img/appicon1.svg" alt="fake icon">
+    <!-- <mat-card-actions>
       <button mat-icon-button (click)="downloadApp(i, $event)">
         <mat-icon>file_download</mat-icon>
       </button>
-    </mat-card-actions>
+    </mat-card-actions> -->
+
   </mat-card>
 </div>
 <mat-paginator [length]="20" [pageIndex]="0" [pageSize]="20" [pageSizeOptions]="[5, 10, 20, 100]">

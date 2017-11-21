@@ -3,7 +3,7 @@ export class App {
     app_name: string;
     description: string;
     genre: string;
-    // appIcon: string;
+    appIcon: string;
     // screenshot1: string;
     // screenshot2: string;
     // screenshot3: string;

@@ -12,15 +12,16 @@
         </mat-error>
       </mat-input-container>
       <mat-form-field>
-            <mat-select placeholder="Select Genre" [(ngModel)]="enteredApp.genre" [ngModelOptions]="{standalone: true}">
-              <mat-option *ngFor="let genre of genres" [value]="genre">
-                {{genre}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+        <mat-select placeholder="Select Genre" [(ngModel)]="enteredApp.genre" [ngModelOptions]="{standalone: true}">
+          <mat-option *ngFor="let genre of genres" [value]="genre">
+            {{genre}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-    <div class="second-row">
-      
+    <div>
+      <input type="file" #fileInput placeholder="Upload file..." />
+      <!-- <button mat-raised-button type="button" (click)="uploadFile()">Upload</button> -->
     </div>
     <div class="last-row">
       <mat-input-container>

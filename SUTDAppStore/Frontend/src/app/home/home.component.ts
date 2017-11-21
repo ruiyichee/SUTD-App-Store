@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
     private http: Http,
     private dialog: MatDialog,
     private titleService: Title,
-    public ngProgress: NgProgress
+    public ngProgress: NgProgress,
   ) {
   }
 
@@ -75,5 +75,4 @@ export class HomeComponent implements OnInit {
     });
     event.stopPropagation();
   }
-
 }
