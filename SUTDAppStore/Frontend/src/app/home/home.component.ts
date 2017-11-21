@@ -6,6 +6,7 @@ import { Http, Response } from '@angular/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Title } from '@angular/platform-browser';
 import { NgProgress } from 'ngx-progressbar';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
   years = ['2017', '2016', '2015', '2014'];
   selectedApp: App;
   constructor(
-    private http: Http,
+    private http: HttpClient,
     private dialog: MatDialog,
     private titleService: Title,
     public ngProgress: NgProgress,
@@ -29,15 +30,20 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Home');
     this.ngProgress.start();    
+    // this.http.get(this.url).subscribe(
+    //   data => console.log(data)      
+    // );
     this.http.get(this.url).toPromise().then((res) => {
       this.appList = [];
-      console.log(res.json().length);
-      const jsonArray = res.json();
-      for (let i = 0; i < jsonArray.length; i++) {
-        let localApp;
-        localApp = jsonArray[i];
-        this.appList.push(localApp)
-      }
+      console.log(res);
+      console.log(typeof res);
+      // console.log(res.json().length);
+      const jsonArray = res;
+      // for (let i = 0; i < jsonArray.length; i++) {
+      //   let localApp;
+      //   localApp = jsonArray[i];
+      //   this.appList.push(localApp)
+      // }
       console.log(this.appList);
       this.ngProgress.done();
     });
@@ -70,7 +76,7 @@ export class HomeComponent implements OnInit {
     console.log('Increment to DB');
     let incrementor = 1;
     this.http.post(newURL, incrementor).toPromise().then((res) => {
-      console.log(res.json());
+      // console.log(res.json());
       console.log('succeeded');
     });
     event.stopPropagation();
