@@ -25,13 +25,18 @@ SECRET_KEY = 'gr&%58@86fv43m46&@qx80uwy1&aeh1tx-q$7+x6_+=hd^^lva'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-CORS_ORIGIN_ALLOW_ALL = True     
+#CORS_ORIGIN_ALLOW_ALL = True     
 
 ALLOWED_HOSTS = []
 
 REST_FRAMEWORK = {
-'DEFAULT_PERMISSION_CLASSES':
-    [],
+    'DEFAULT_PERMISSION_CLASSES':(
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',   
+    ),
 'PAGE_SIZE': 10
 }
 
@@ -46,7 +51,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +71,18 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
+
+#CORS_ALLOW_CREDENTIALS = True
+
+CSRF_USE_SESSIONS = True
+
 ROOT_URLCONF = 'SUTDAppStore.urls'
+
+AUTHENTICATION_BACKENDS = (
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 TEMPLATES = [
     {

@@ -1,33 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Title } from '@angular/platform-browser';
+import { Router, ActivatedRoute } from '@angular/router';
+// import { Title } from '@angular/platform-browser';
+import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  moduleId: module.id,
+  templateUrl: 'login.component.html',
+  styleUrls: ['login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  hide = true;  
-  url: string = 'http://localhost:8000/login/';
-  enteredUsername = '';
-  enteredPassword = '';
+  model: any = {};
+  loading = false;
+  returnUrl: string;
+
   constructor(
-    private http: Http,
-    private titleService: Title
-    
-  ) { }
+      private route: ActivatedRoute,
+      private router: Router,
+      private authenticationService: AuthenticationService,
+//       private alertService: AlertService
+) { }
 
   ngOnInit() {
-    this.titleService.setTitle('SUTD Appstore');    
+      // reset login status
+      this.authenticationService.logout();
+
+      // get return url from route parameters or default to '/'
+      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   login() {
-    console.log('trying to log in');
-    // send username and password as a JSON to Django to process
-    this.http.post(this.url, this.enteredUsername).toPromise().then((res) => {
-      console.log(res.status);
-    });
+    console.log(this.model.username + this.model.password);
+      this.loading = true;
+      this.authenticationService.login(this.model.username, this.model.password)
+          .subscribe(
+              data => {
+                  console.log("testing");
+                  this.router.navigate([this.returnUrl]);
+              },
+              error => {
+                console.log("Error logging in");
+                 // this.alertService.error(error);
+                  this.loading = false;
+              });
   }
-
 }

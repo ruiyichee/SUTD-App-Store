@@ -20,6 +20,8 @@ from django.contrib.auth import views as auth_views
 from appstore import views
 
 urlpatterns = [
+    url(r'^login/$', auth_views.login, name='login'),
+    url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^appstore/$', views.app_list),
     url(r'^appstore/(?P<pk>\d+)/$', views.app_detail),
     url(r'^appstore/feedback/(?P<pk>\d+)/$', views.app_feedback),
@@ -28,7 +30,7 @@ urlpatterns = [
     url(r'^user/purchase/(?P<pk>\d+)/$', views.user_purchase),
 
     url(r'^admin/$', admin.site.urls),
-	url(r'^login/$', auth_views.login, name='login'),
+#	url(r'^login/$', auth_views.login, name='login'),
 	url(r'^logout/$', auth_views.logout, {'next_page': '/login'}, name='logout'),
 	url(r'^signup/$', views.signup, name='signup'),
 	url(r'^password/$', views.change_password, name='change_password'),
