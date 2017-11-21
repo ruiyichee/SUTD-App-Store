@@ -1,3 +1,4 @@
+import { AppService } from './../service/app.service';
 import { AppUploadComponent } from './app-upload.component';
 import { App } from './../models/app.model';
 import { AppDetailComponent } from './app-detail.component';
@@ -19,34 +20,25 @@ export class HomeComponent implements OnInit {
   developers = ['Jeremy Rose', 'Jon Wong', 'Dorien'];
   years = ['2017', '2016', '2015', '2014'];
   selectedApp: App;
+  randomVar: any;
   constructor(
     private http: HttpClient,
     private dialog: MatDialog,
     private titleService: Title,
     public ngProgress: NgProgress,
+    private appService: AppService,
   ) {
   }
 
   ngOnInit() {
     this.titleService.setTitle('Home');
-    this.ngProgress.start();    
-    // this.http.get(this.url).subscribe(
-    //   data => console.log(data)      
-    // );
-    this.http.get(this.url).toPromise().then((res) => {
-      this.appList = [];
-      console.log(res);
-      console.log(typeof res);
-      // console.log(res.json().length);
-      const jsonArray = res;
-      // for (let i = 0; i < jsonArray.length; i++) {
-      //   let localApp;
-      //   localApp = jsonArray[i];
-      //   this.appList.push(localApp)
-      // }
-      console.log(this.appList);
+    this.ngProgress.start();
+    this.appService.getApps().subscribe((apps) => {
+      this.appList = apps;
       this.ngProgress.done();
-    });
+    },
+      (err) => { console.log(err) }
+    );
   }
 
   openApp(i) {

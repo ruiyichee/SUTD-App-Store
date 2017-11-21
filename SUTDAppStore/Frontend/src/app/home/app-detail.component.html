@@ -121,7 +121,7 @@
   </div>
   <br>
   <div class="feedback-con">
-    <mat-card *ngFor="let feedback of feedbacks; let i = index">
+    <mat-card *ngFor="let feedback of feedbackList; let i = index">
       <h2 *ngIf="feedback.stars === 1">
         <div class="star-group">
           <mat-icon>star_rate</mat-icon>

@@ -1,4 +1,3 @@
-import { Purchase } from './../user-profile/user-profile.component';
 import { Feedback } from './../models/feedback.model';
 import { App } from './../models/app.model';
 import { Injectable } from '@angular/core';
@@ -8,31 +7,25 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
-import { User } from '../models/user.model';
 
 @Injectable()
-export class UserService {
-    feedbackUrl = 'http://localhost:8000/user/feedback/1/';
-    userUrl = 'http://localhost:8000/user/2/';
-    purchaseUrl = 'http://localhost:8000/user/purchase/2/';
+export class AppService {
+    private appUrl = 'http://localhost:8000/appstore/';
+    private feedbackUrl = 'http://localhost:8000/appstore/feedback/';
 
     constructor(private http: HttpClient) { }
-    getUserDetails(): Observable<User[]> {
-        return this.http.get<User[]>(this.userUrl)
+
+    getApps(): Observable<App[]> {
+        return this.http.get<App[]>(this.appUrl)
             .do(data => console.log('All: ' + JSON.stringify(data)))
             .catch(this.handleError);
     }
 
-    getFeedbackHistory(): Observable<Feedback[]> {
-        return this.http.get<Feedback[]>(this.feedbackUrl)
-            .do(data => console.log('All: ' + JSON.stringify(data)))
-            .catch(this.handleError);
-    }
-
-    getPurchaseHistory(): Observable<Purchase[]> {
-        return this.http.get<Purchase[]>(this.purchaseUrl)
-            .do(data => console.log('All: ' + JSON.stringify(data)))
-            .catch(this.handleError);
+    getFeedbacks(appID): Observable<Feedback[]> {
+        const appFeedbackUrl = this.feedbackUrl + appID + '/';
+        return this.http.get<Feedback[]>(appFeedbackUrl)
+        .do(data => console.log('All: ' + JSON.stringify(data)))
+        .catch(this.handleError);
     }
 
     private handleError(err: HttpErrorResponse) {
@@ -48,4 +41,4 @@ export class UserService {
         console.error(errorMessage);
         return Observable.throw(errorMessage);
     }
-}    
+}

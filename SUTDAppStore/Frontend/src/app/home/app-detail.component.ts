@@ -1,3 +1,4 @@
+import { AppService } from './../service/app.service';
 import { App } from './../models/app.model';
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
@@ -14,7 +15,7 @@ export class AppDetailComponent implements OnInit {
 
     public selectedApp = new App();
     url: string = 'http://localhost:8000/appstore/feedback/';
-    feedbacks = [];
+    feedbackList = [];
     screenshots = [];
     appIcon: string;
     averageFeedbackScore = 0;
@@ -23,44 +24,38 @@ export class AppDetailComponent implements OnInit {
         public dialogRef: MatDialogRef<AppDetailComponent>,
         private http: Http,
         private dialog: MatDialog,
-        public ngProgress: NgProgress        
+        public ngProgress: NgProgress,
+        private appService: AppService
     ) { }
 
     ngOnInit(): void {
         // fake description and screenshot and icon
-        this.ngProgress.start();            
+        this.ngProgress.start();
         this.selectedApp.description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. ';
         this.appIcon = "assets/img/appicon1.svg";
         this.screenshots.push('assets/img/screenshot1.svg');
         this.screenshots.push('assets/img/screenshot1.svg');
         this.screenshots.push('assets/img/screenshot1.svg');
-        
+
         // get feedback
         const appID = this.selectedApp.aid;
         console.log(appID);
-        const newURL = this.url + appID + '/'; 
-        this.http.get(newURL).toPromise().then((res) => {
-            this.feedbacks = [];
-            console.log(res.json().length);
-            const jsonArray = res.json();
-            for (let i = 0; i < jsonArray.length; i++) {
-                let localFeedback;
-                jsonArray[i].comments = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. ';
-                localFeedback = jsonArray[i];
-                this.feedbacks.push(localFeedback)
-            }
-            console.log(this.feedbacks);
-            let totalScore = 0;
-            for (let i = 0; i < this.feedbacks.length; i++) {
-                let currentScore = +this.feedbacks[i].stars;
-                totalScore += currentScore;
-            }
-            this.averageFeedbackScore = Math.ceil(totalScore/this.feedbacks.length);
-            // Math.ceil(this.averageFeedbackScore);
-            console.log(this.averageFeedbackScore);
-            this.ngProgress.done(); 
-        });
-               
+        const newURL = this.url + appID + '/';
+        this.appService.getFeedbacks(appID).subscribe(
+            (feedbacks) => {
+                this.feedbackList = feedbacks;
+                let totalScore = 0;
+                for (let i = 0; i < this.feedbackList.length; i++) {
+                    let currentScore = +this.feedbackList[i].stars;
+                    totalScore += currentScore;
+                }
+                this.averageFeedbackScore = Math.ceil(totalScore / this.feedbackList.length);
+                console.log(this.averageFeedbackScore);
+                this.ngProgress.done();
+
+            },
+            (err) => { console.log(err) }
+        );
     }
 
     closeDialog() {
@@ -70,7 +65,7 @@ export class AppDetailComponent implements OnInit {
     downloadApp(event) {
         const appID = this.selectedApp.aid;
         console.log(appID);
-        const newURL = this.url + appID + '/';        
+        const newURL = this.url + appID + '/';
         const appToBeDownloaded = this.selectedApp;
         // TODO: GET the appfile from DB
         console.log('trying to download app');
@@ -85,8 +80,8 @@ export class AppDetailComponent implements OnInit {
     }
     openFeedback() {
         const dialogRef = this.dialog.open(AppFeedbackComponent, {
-          panelClass: 'full-width-dialog',
-          width: '80vw',
-        });    
-      }
+            panelClass: 'full-width-dialog',
+            width: '80vw',
+        });
+    }
 }

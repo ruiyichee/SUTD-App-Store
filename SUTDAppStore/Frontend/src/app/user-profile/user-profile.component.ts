@@ -1,3 +1,4 @@
+import { UserService } from './../service/user.service';
 import { User } from './../models/user.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http, Response } from '@angular/http';
@@ -23,7 +24,8 @@ export class UserProfileComponent implements OnInit {
   constructor(
     private http: Http,
     private titleService: Title,
-    public ngProgress: NgProgress
+    public ngProgress: NgProgress,
+    private userService: UserService
   ) { }
   selectedUser = new User();
   displayedPurchaseColumns = ['aid', 'app_name', 'price', 'purchase_date', 'genre'];
@@ -46,33 +48,25 @@ export class UserProfileComponent implements OnInit {
     feedbackHistory = [];
     purchaseHistory = [];
     // fetch user information
-    this.ngProgress.start();        
-    this.http.get(this.userUrl).toPromise().then((res) => {
-      const jsonArray = res.json();
-      for (let i = 0; i < jsonArray.length; i++) {
-        this.selectedUser = jsonArray[i];
-      }
-    });
-    // fetch purchase info
-    this.http.get(this.purchaseUrl).toPromise().then((res) => {
-      const jsonArray = res.json();
-      for (let i = 0; i < jsonArray.length; i++) {
-        purchaseHistory.push(jsonArray[i]);
-
-      }
-      console.log(purchaseHistory);
+    this.ngProgress.start();  
+    this.userService.getUserDetails().subscribe((user) => {
+      this.selectedUser = user[0];
+    },
+      (err) => { console.log(err) }
+    );
+    this.userService.getPurchaseHistory().subscribe((purchases) => {
+      purchaseHistory = purchases;
       this.purchaseDataSource = new PurchaseDataSource();
-    });
-    // fetch feedback info
-    this.http.get(this.feedbackUrl).toPromise().then((res) => {
-      const jsonArray = res.json();
-      for (let i = 0; i < jsonArray.length; i++) {
-        feedbackHistory.push(jsonArray[i]);
-      }
-      console.log(feedbackHistory);
-      this.feedbackDataSource = new FeedbackDataSource();
-    });
-    this.ngProgress.done();    
+    },
+      (err) => { console.log(err) }
+    );
+    this.userService.getFeedbackHistory().subscribe((feedbacks) => {
+      feedbackHistory = feedbacks;
+      this.feedbackDataSource = new FeedbackDataSource();      
+      this.ngProgress.done();
+    },
+      (err) => { console.log(err) }
+    );
   }
 
 }

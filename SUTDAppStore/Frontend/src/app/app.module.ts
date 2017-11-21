@@ -1,3 +1,4 @@
+import { AppService } from './service/app.service';
 import { TokenInterceptor } from './interceptor/token.interceptor';
 import { AppDetailComponent } from './home/app-detail.component';
 import { BrowserModule, Title } from '@angular/platform-browser';
@@ -77,6 +78,7 @@ const routes: Routes = [
   providers: [Title,
     UserService,
     AuthenticationService,
+    AppService,
     AuthGuard, {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
