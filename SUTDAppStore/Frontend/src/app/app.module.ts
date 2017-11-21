@@ -17,6 +17,12 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { NgProgressModule } from 'ngx-progressbar';
 import { FormsModule } from '@angular/forms';
 
+//import { AlertComponent } from './_directives/index';
+import { AuthGuard } from './guards/logged-in.guard';
+//import { AlertService } from './service/index';
+import { AuthenticationService } from './service/authentication.service';
+import { UserService } from './service/user.service';
+
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -64,7 +70,11 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [Title],
+  providers: [Title,
+  UserService,
+  AuthenticationService,
+  AuthGuard,
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

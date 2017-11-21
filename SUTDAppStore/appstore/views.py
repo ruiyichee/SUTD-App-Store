@@ -1,4 +1,5 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.http import HttpResponse
 # from .models import App
@@ -65,6 +66,7 @@ def edit_particulars(request):
 	return render(request, 'accounts/profile/edit_particulars.html', {'form': form})
 
 @api_view(['GET', 'POST'])
+@permission_classes((IsAuthenticated,))
 def app_list(request):
     """
     List all apps, or create a new app.
