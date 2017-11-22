@@ -1,0 +1,51 @@
+<button mat-icon-button class="close-button" (click)="closeDialog()">
+  <mat-icon>close</mat-icon>
+</button>
+<h2 class="main-title" style="text-align:left;">Sign Up</h2>
+<div class="container">
+  <form (ngSubmit)="signup()">
+    <div class="top-row">
+      <mat-input-container>
+        <input matInput placeholder="Enter First Name">
+        <mat-error>First Name is
+          <strong>required</strong>
+        </mat-error>
+      </mat-input-container>
+      <mat-input-container>
+        <input matInput placeholder="Enter Last Name">
+        <mat-error>Last Name is
+          <strong>required</strong>
+        </mat-error>
+      </mat-input-container>
+    </div>
+    <div class="second-row">
+      <mat-input-container>
+        <input matInput placeholder="Enter Email Address">
+        <mat-error>Email is
+          <strong>required</strong>
+        </mat-error>
+      </mat-input-container>
+    </div>
+    <div class="third-row">
+      <mat-form-field>
+        <input matInput placeholder="Enter Password" [type]="hide ? 'password' : 'text'">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="fourth-row">
+      <mat-form-field>
+        <input matInput placeholder="Reenter Password" [type]="hide ? 'password' : 'text'">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="last-row">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Select Birthday">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <button mat-raised-button (click)="closeDialog()">Cancel</button>
+    <button mat-raised-button type="submit">Confirm</button>
+  </form>
+</div>

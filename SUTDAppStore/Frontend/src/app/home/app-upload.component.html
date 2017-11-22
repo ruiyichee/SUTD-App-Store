@@ -25,7 +25,7 @@
     </div>
     <div class="last-row">
       <mat-input-container>
-        <textarea matInput autosize minRows="20" placeholder="Enter Description" [(ngModel)]="enteredApp.description" [ngModelOptions]="{standalone: true}"></textarea>
+        <textarea matInput matTextareaAutosize matAutosizeMinRows="2" placeholder="Enter Description" [(ngModel)]="enteredApp.description" [ngModelOptions]="{standalone: true}"></textarea>
         <mat-error>
           Description is
           <strong>required</strong>

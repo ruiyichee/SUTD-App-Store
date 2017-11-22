@@ -1,7 +1,9 @@
+import { SignupComponent } from './signup.component';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-// import { Title } from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 import { AuthenticationService } from '../service/authentication.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   moduleId: module.id,
@@ -17,10 +19,13 @@ export class LoginComponent implements OnInit {
       private route: ActivatedRoute,
       private router: Router,
       private authenticationService: AuthenticationService,
+      private title: Title,
+      private dialog: MatDialog,      
 //       private alertService: AlertService
 ) { }
 
   ngOnInit() {
+      this.title.setTitle('Login');
       // reset login status
       this.authenticationService.logout();
 
@@ -43,5 +48,12 @@ export class LoginComponent implements OnInit {
                  // this.alertService.error(error);
                   this.loading = false;
               });
+  }
+  signup() {
+    const dialogRef = this.dialog.open(SignupComponent, {
+      panelClass: 'full-width-dialog',      
+      // width: '80vw',
+  });
+
   }
 }

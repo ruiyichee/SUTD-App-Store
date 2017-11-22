@@ -1,3 +1,4 @@
+import { SignupComponent } from './login/signup.component';
 import { AppService } from './service/app.service';
 import { TokenInterceptor } from './interceptor/token.interceptor';
 import { AppDetailComponent } from './home/app-detail.component';
@@ -7,7 +8,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { MatSnackBarModule, MatPaginatorModule, MatTableModule, MatMenuModule, MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatCardModule, MatDialogModule } from '@angular/material';
+import { MatNativeDateModule, MatDatepickerModule, MatSnackBarModule, MatPaginatorModule, MatTableModule, MatMenuModule, MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatCardModule, MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
@@ -27,7 +28,7 @@ import { AuthenticationService } from './service/authentication.service';
 import { UserService } from './service/user.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'user-profile', component: UserProfileComponent },
@@ -42,7 +43,8 @@ const routes: Routes = [
   entryComponents: [
     AppDetailComponent,
     AppUploadComponent,
-    AppFeedbackComponent
+    AppFeedbackComponent,
+    SignupComponent
   ],
   declarations: [
     AppComponent,
@@ -53,6 +55,7 @@ const routes: Routes = [
     PurchaseComponent,
     AppUploadComponent,
     AppFeedbackComponent,
+    SignupComponent,
     NavbarComponent
   ],
   imports: [
@@ -68,6 +71,8 @@ const routes: Routes = [
     MatTableModule,
     MatPaginatorModule,
     MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     NgProgressModule,
     BrowserAnimationsModule,
     HttpModule,
