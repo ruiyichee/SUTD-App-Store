@@ -39,12 +39,11 @@ export class LoginComponent implements OnInit {
       this.authenticationService.login(this.model.username, this.model.password)
           .subscribe(
               data => {
-                  console.log("testing");
                   console.log(data);
-                  this.router.navigate([this.returnUrl]);
+                  console.log(this.returnUrl);
+                  this.router.navigate(['/home']);
               },
               error => {
-                console.log("Error logging in");
                  // this.alertService.error(error);
                   this.loading = false;
               });
