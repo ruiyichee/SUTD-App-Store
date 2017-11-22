@@ -1,3 +1,5 @@
+import { NgProgress } from 'ngx-progressbar';
+import { AppService } from './../service/app.service';
 import { App } from './../models/app.model';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -11,17 +13,19 @@ import { Headers } from '@angular/http';
 })
 export class AppUploadComponent implements OnInit {
     @ViewChild('fileInput') fileInput;
-    
+
     genres = ['2D', '3D'];
     appUploadURL = 'http://localhost:8000/appstore/';
     enteredApp = new App();
     headers = new Headers({
         'Content-Type': 'application/json'
-      });
+    });
     constructor(
         public dialogRef: MatDialogRef<AppUploadComponent>,
         private http: Http,
-        public snackBar: MatSnackBar
+        public snackBar: MatSnackBar,
+        private appService: AppService,
+        public ngProgress: NgProgress,        
     ) { }
 
     ngOnInit() {
@@ -34,28 +38,26 @@ export class AppUploadComponent implements OnInit {
     upload() {
         console.log(this.enteredApp);
         console.log('attempting post request');
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        this.http.post(this.appUploadURL, JSON.stringify(this.enteredApp), {headers: this.headers}).toPromise().then((res) => {
-            
-            console.log(res);
-            // check if it succeeded
-            if (res.status === 200) {
-                this.dialogRef.close();  
+        this.ngProgress.start();
+        this.appService.setApp(this.enteredApp).subscribe((res) => {
+            if (res === '201') {
+                this.dialogRef.close();
                 this.snackBar.open('Successfully uploaded App', 'OK', {
                     duration: 3000,
-                    extraClasses: ['success-snackbar']      
-                    
-                  });
+                    extraClasses: ['success-snackbar']
+
+                });
             } else {
-                this.dialogRef.close();                  
+                this.dialogRef.close();
                 this.snackBar.open('Failed to upload App', 'OK', {
                     duration: 3000,
-                    extraClasses: ['failure-snackbar']      
-                    
-                  });
+                    extraClasses: ['failure-snackbar']
+
+                });
             }
-        });
+            this.ngProgress.done();
+        }, (err) => { console.log(err) }
+        );
     }
     autocomplete() {
         this.enteredApp.app_name = 'Test';
@@ -66,21 +68,21 @@ export class AppUploadComponent implements OnInit {
     private uploadFile() {
         const fileBrowser = this.fileInput.nativeElement;
         if (fileBrowser.files && fileBrowser.files[0]) {
-        //   const formData = new FormData();
-        //   formData.append('files', fileBrowser.files[0]);
-        //   const xhr = new XMLHttpRequest();
-        //   xhr.open('POST', '/api/Data/UploadFiles', true);
-        //   xhr.onload = function () {
-        //     if (this['status'] === 200) {
-        //         const responseText = this['responseText'];
-        //         const files = JSON.parse(responseText);
-        //         //todo: emit event
-        //     } else {
-        //       //todo: error handling
-        //     }
-        //   };
-        //   xhr.send(formData);
+            //   const formData = new FormData();
+            //   formData.append('files', fileBrowser.files[0]);
+            //   const xhr = new XMLHttpRequest();
+            //   xhr.open('POST', '/api/Data/UploadFiles', true);
+            //   xhr.onload = function () {
+            //     if (this['status'] === 200) {
+            //         const responseText = this['responseText'];
+            //         const files = JSON.parse(responseText);
+            //         //todo: emit event
+            //     } else {
+            //       //todo: error handling
+            //     }
+            //   };
+            //   xhr.send(formData);
         }
-      }
+    }
 
 }

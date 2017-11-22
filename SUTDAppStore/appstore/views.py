@@ -96,8 +96,7 @@ def app_list(request):
             appDownloads = 0
             # cursor.execute("INSERT INTO application (date_of_upload, price, app_name, description, genre, no_of_downloads) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');", ([appDateTime], [appPrice], [appName], [appDescription], [appGenre], [appDownloads]))
             cursor.execute("INSERT INTO application (date_of_upload, price, app_name, description, genre, no_of_downloads) VALUES (%s, %s, %s, %s, %s, %s);", (appDateTime, appPrice, appName, appDescription, appGenre, appDownloads))
-
-            return HttpResponse("IT SUCCEEDED")
+            return HttpResponse('201',status=status.HTTP_201_CREATED)
 
 @api_view(['GET', 'POST', 'DELETE'])
 def app_detail(request, pk):
