@@ -25,21 +25,16 @@ export class AuthenticationService {
                 if (user) {
                     console.log('logged in');
                     localStorage.setItem('token', token);
-
+                    localStorage.setItem('username', username);
                 }
                 return user;
-                // if (user && user.token) {
-                //     console.log(user.token);
-                //     console.log("Logged in");
-                //     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                //     localStorage.setItem('currentUser', JSON.stringify(user));
-                // }
             });
     }
 
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('token');
+        localStorage.removeItem('username')
     }
 
     public getToken(): string {

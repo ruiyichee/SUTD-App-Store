@@ -1,3 +1,6 @@
+Q3 feedback history
+SELECT DISTINCT stars, comments, username, feed_date FROM feedback f, gives g, application a, auth_user WHERE g.id=%s AND f.fid=g.fid AND auth_user.id = %s;
+
 Qs 4
 # Display games #
 SELECT * FROM Application;
@@ -15,7 +18,7 @@ UPDATE application
 SET no_of_downloads = no_of_downloads + 1
 WHERE application.aid = NEW.aid;
 
-Q6 DONEEEEE
+Q6 DONEEEEE select all feedbacks for the app
 SELECT stars, comments, username, feed_date
 FROM feedback f, gives g, application a, auth_user
 WHERE g.aid= a.aid AND g.id=auth_user.id AND f.fid=g.fid and a.aid = %s;

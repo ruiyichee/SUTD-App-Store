@@ -48,27 +48,26 @@ export class UserProfileComponent implements OnInit {
     feedbackHistory = [];
     purchaseHistory = [];
     // fetch user information
-    this.ngProgress.start();  
+    this.ngProgress.start();
     this.userService.getUserDetails().subscribe((user) => {
       this.selectedUser = user[0];
-    },
-      (err) => { console.log(err) }
-    );
-    this.userService.getPurchaseHistory().subscribe((purchases) => {
-      purchaseHistory = purchases;
-      this.purchaseDataSource = new PurchaseDataSource();
-    },
-      (err) => { console.log(err) }
-    );
-    this.userService.getFeedbackHistory().subscribe((feedbacks) => {
-      feedbackHistory = feedbacks;
-      this.feedbackDataSource = new FeedbackDataSource();      
-      this.ngProgress.done();
+      this.userService.getPurchaseHistory(this.selectedUser.id).subscribe((purchases) => {
+        purchaseHistory = purchases;
+        this.purchaseDataSource = new PurchaseDataSource();
+      },
+        (err) => { console.log(err) }
+      );
+      this.userService.getFeedbackHistory(this.selectedUser.id).subscribe((feedbacks) => {
+        feedbackHistory = feedbacks;
+        this.feedbackDataSource = new FeedbackDataSource();
+        this.ngProgress.done();
+      },
+        (err) => { console.log(err) }
+      );
     },
       (err) => { console.log(err) }
     );
   }
-
 }
 
 export interface Feedback {

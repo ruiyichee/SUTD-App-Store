@@ -32,13 +32,7 @@ export class AppService {
     }
 
     setApp(app): Observable<any> {
-        // let headers = new Headers({ 'Content-Type': 'application/json' });
-        // return this.http.post<any>(this.appUrl, JSON.stringify(app), {headers: this.headers})
-        // .do(data => console.log(JSON.stringify(data)))
-        // // .catch(this.handleError);
-
         return this.http.post(this.appUrl, JSON.stringify(app), {headers: this.headers,responseType: 'text'}) // ...using post request
-        // .map((res) => console.log(res)) // ...and calling .json() on the response to return data
         .catch(this.handleError); //...errors if any
     }
 

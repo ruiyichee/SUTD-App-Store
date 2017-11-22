@@ -12,25 +12,30 @@ import { User } from '../models/user.model';
 
 @Injectable()
 export class UserService {
-    feedbackUrl = 'http://localhost:8000/user/feedback/1/';
-    userUrl = 'http://localhost:8000/user/2/';
-    purchaseUrl = 'http://localhost:8000/user/purchase/2/';
+    feedbackUrl = 'http://localhost:8000/user/feedback/';
+    userUrl = 'http://localhost:8000/user/';
+    purchaseUrl = 'http://localhost:8000/user/purchase/';
 
     constructor(private http: HttpClient) { }
     getUserDetails(): Observable<User[]> {
-        return this.http.get<User[]>(this.userUrl)
+        let currentUser = localStorage.getItem('username');
+        const currentUserUrl = this.userUrl + currentUser + '/';
+        console.log(currentUserUrl);
+        return this.http.get<User[]>(currentUserUrl)
             .do(data => console.log('All: ' + JSON.stringify(data)))
             .catch(this.handleError);
     }
 
-    getFeedbackHistory(): Observable<Feedback[]> {
-        return this.http.get<Feedback[]>(this.feedbackUrl)
+    getFeedbackHistory(userID): Observable<Feedback[]> {
+        const currentUserFeedbackUrl = this.feedbackUrl + userID + '/';
+        return this.http.get<Feedback[]>(currentUserFeedbackUrl)
             .do(data => console.log('All: ' + JSON.stringify(data)))
             .catch(this.handleError);
     }
 
-    getPurchaseHistory(): Observable<Purchase[]> {
-        return this.http.get<Purchase[]>(this.purchaseUrl)
+    getPurchaseHistory(userID): Observable<Purchase[]> {
+        const currentUserPurchaseUrl = this.purchaseUrl + userID + '/';        
+        return this.http.get<Purchase[]>(currentUserPurchaseUrl)
             .do(data => console.log('All: ' + JSON.stringify(data)))
             .catch(this.handleError);
     }

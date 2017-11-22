@@ -157,7 +157,7 @@ def user_feedback(request, pk):
     if request.method == 'GET':
         with connection.cursor() as cursor:
             userid = pk
-            cursor.execute("SELECT DISTINCT feedback.fid, stars, comments, username, feed_date from feedback, gives, application, auth_user WHERE auth_user.id = %s;", [userid])
+            cursor.execute("SELECT DISTINCT f.fid, stars, comments, username, feed_date FROM feedback f, gives g, application a, auth_user WHERE g.id=%s AND f.fid=g.fid AND auth_user.id = %s;", (userid, userid))
             selected_feedback = cursor.fetchall()
             print(selected_feedback)
             result = []
@@ -187,18 +187,18 @@ def user_purchase(request, pk):
             return HttpResponse(jsonObj, content_type="application/json")
 
 @api_view(['GET', 'POST', 'DELETE'])
-def user(request, pk):
+def user(request, username):
     """
     Retrieve, update or delete a user instance.
     """
     if request.method == 'GET':
         with connection.cursor() as cursor:
-            userid = pk
-            cursor.execute("SELECT username, first_name, last_name, email, dob from auth_user WHERE auth_user.id = %s;", [userid])
+            currentUsername = username
+            cursor.execute("SELECT id, username, first_name, last_name, email, dob from auth_user WHERE auth_user.username = %s;", [currentUsername])
             selected_feedback = cursor.fetchall()
             print(selected_feedback)
             result = []
-            keys = ('username', 'first_name', 'last_name', 'email', 'dob')
+            keys = ('id', 'username', 'first_name', 'last_name', 'email', 'dob')
             for row in selected_feedback:
                 result.append(dict(zip(keys,row)))
             jsonObj = json.dumps(result, default = json_serial)

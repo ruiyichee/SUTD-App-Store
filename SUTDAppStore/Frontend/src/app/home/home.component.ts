@@ -73,4 +73,6 @@ export class HomeComponent implements OnInit {
     });
     event.stopPropagation();
   }
+
+  
 }
