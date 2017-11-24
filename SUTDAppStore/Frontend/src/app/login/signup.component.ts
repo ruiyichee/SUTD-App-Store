@@ -43,12 +43,11 @@ export class SignupComponent implements OnInit {
         this.authService.signup(this.newUser.username, this.newUser.password1, this.newUser.password2, this.newUser.email)
             .subscribe(
             data => {
-                console.log(data);
                 if (data.status === 201) {
-                    console.log('it worked');
+                    console.log('signup worked');
                     this.dialogRef.close();                    
                 }else {
-                    console.log('it failed');
+                    console.log('signup failed');
                 }
             },
             error => {
