@@ -15,6 +15,7 @@ export class AppDetailComponent implements OnInit {
 
     public selectedApp = new App();
     url: string = 'http://localhost:8000/appstore/feedback/';
+    endorsementUrl = 'http://localhost:8000/appstore/feedback/endorsement/'
     feedbackList = [];
     screenshots = [];
     appIcon: string;
@@ -33,9 +34,9 @@ export class AppDetailComponent implements OnInit {
         this.ngProgress.start();
         this.selectedApp.description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. ';
         this.appIcon = "assets/img/appicon1.svg";
-        this.screenshots.push('assets/img/screenshot1.svg');
-        this.screenshots.push('assets/img/screenshot1.svg');
-        this.screenshots.push('assets/img/screenshot1.svg');
+        // this.screenshots.push('assets/img/screenshot1.svg');
+        // this.screenshots.push('assets/img/screenshot1.svg');
+        // this.screenshots.push('assets/img/screenshot1.svg');
 
         // get feedback
         const appID = this.selectedApp.aid;
@@ -51,6 +52,22 @@ export class AppDetailComponent implements OnInit {
                 }
                 this.averageFeedbackScore = Math.ceil(totalScore / this.feedbackList.length);
                 console.log(this.averageFeedbackScore);
+                console.log(this.feedbackList);
+                
+            },
+            (err) => { console.log(err) }
+        );
+        this.appService.getFeedbackEndorsement(appID).subscribe(
+            (endorsements) => {
+                console.log(endorsements);
+                for (let i = 0; i < this.feedbackList.length; i++) {
+                    for (let j = 0; j < endorsements.length; j++) {
+                        if (endorsements[j].fid == this.feedbackList[i].fid) {
+                            this.feedbackList[i].thumbs_up = endorsements[j].up;
+                            this.feedbackList[i].thumbs_down = endorsements[j].down;
+                        }
+                    }
+                }
                 this.ngProgress.done();
 
             },

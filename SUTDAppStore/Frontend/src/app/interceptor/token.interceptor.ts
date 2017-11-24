@@ -16,7 +16,6 @@ export class TokenInterceptor implements HttpInterceptor {
     constructor(public auth: AuthenticationService) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         console.log(request);
-        console.log('interceptted');
         if (request.url === this.signupUrl) {
             return next.handle(request);
 

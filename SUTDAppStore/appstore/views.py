@@ -13,6 +13,7 @@ from django.contrib.auth import update_session_auth_hash
 from rest_framework import status , generics , mixins
 from django.db import connection
 from datetime import date, datetime
+from decimal import Decimal
 import json
 
 # Create your views here.
@@ -145,11 +146,11 @@ def app_feedback(request, pk):
     if request.method == 'GET':
         with connection.cursor() as cursor:
             appid = pk
-            cursor.execute("SELECT stars, comments, username, feed_date FROM feedback f, gives g, application a, auth_user WHERE g.aid= a.aid AND g.id=auth_user.id AND f.fid=g.fid and a.aid = %s;", [appid])
+            cursor.execute("SELECT f.fid, stars, comments, username, feed_date FROM feedback f, gives g, application a, auth_user WHERE g.aid= a.aid AND g.id=auth_user.id AND f.fid=g.fid and a.aid = %s;", [appid])
             selected_feedback = cursor.fetchall()
             print(selected_feedback)
             result = []
-            keys = ('stars', 'comments', 'username', 'feed_date')
+            keys = ('fid', 'stars', 'comments', 'username', 'feed_date')
             for row in selected_feedback:
                 result.append(dict(zip(keys,row)))
             print('Working til here')
@@ -158,28 +159,23 @@ def app_feedback(request, pk):
             return HttpResponse(jsonObj, content_type="application/json")
 
 @api_view(['GET', 'POST', 'DELETE'])
-def app_feedback_endorsement(request, pk, pk2):
+def app_feedback_endorsement(request, pk):
     """
     Retrieve, update or delete a endorsement instance of a feedback
     """
-    print(pk)
-    print(pk2)
     if request.method == 'GET':
         with connection.cursor() as cursor:
-            print(pk)
-            print('hello')
+            appid = pk
             # appid = pk
-            # cursor.execute("SELECT stars, comments, username, feed_date FROM feedback f, gives g, application a, auth_user WHERE g.aid= a.aid AND g.id=auth_user.id AND f.fid=g.fid and a.aid = %s;", [appid])
-            # selected_feedback = cursor.fetchall()
-            # print(selected_feedback)
-            # result = []
-            # keys = ('stars', 'comments', 'username', 'feed_date')
-            # for row in selected_feedback:
-            #     result.append(dict(zip(keys,row)))
-            # print('Working til here')
-            # jsonObj = json.dumps(result, default=json_serial)
-            # print('Working til dumps')
-            # return HttpResponse(jsonObj, content_type="application/json")
+            cursor.execute("Select f.fid, sum(case when e.thumbs=1 then 1 else 0 end) AS up, sum(case when e.thumbs=-1 then 1 else 0 end) AS down FROM receives r, endorsement e, feedback f, gives g where r.eid=e.eid and r.fid=f.fid and f.fid=g.fid and g.aid=%s group by f.fid;", [appid])
+            selected_endorsement = cursor.fetchall()
+            print(selected_endorsement)
+            result = []
+            keys = ('fid', 'up', 'down')
+            for row in selected_endorsement:
+                result.append(dict(zip(keys,row)))
+            jsonObj = json.dumps(result, default=json_serial)
+            return HttpResponse(jsonObj, content_type="application/json")
 
 
 @api_view(['GET', 'POST', 'DELETE'])
@@ -243,4 +239,6 @@ def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
     if isinstance(obj, (datetime, date)):
         return obj.isoformat()
+    if isinstance(obj, Decimal):
+        return str(obj)
     raise TypeError ("Type %s not serializable" % type(obj))

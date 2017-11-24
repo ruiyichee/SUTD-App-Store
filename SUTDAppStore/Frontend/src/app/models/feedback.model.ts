@@ -4,4 +4,6 @@ export class Feedback {
     comments: string;
     username: string;
     feed_date: string;
+    thumbs_up: string;
+    thumbs_down: string;
 }

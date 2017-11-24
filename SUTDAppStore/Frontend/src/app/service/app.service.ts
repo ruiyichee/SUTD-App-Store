@@ -1,3 +1,4 @@
+import { Endorsement } from './../models/endorsement.model';
 import { RequestOptions } from '@angular/http';
 import { Feedback } from './../models/feedback.model';
 import { App } from './../models/app.model';
@@ -13,6 +14,7 @@ import 'rxjs/add/operator/map';
 export class AppService {
     private appUrl = 'http://localhost:8000/appstore/';
     private feedbackUrl = 'http://localhost:8000/appstore/feedback/';
+    private feedbackEndorsementUrl = 'http://localhost:8000/appstore/feedback/endorsement/';
     headers = new HttpHeaders({
         'Content-Type': 'application/json'
       });
@@ -31,7 +33,12 @@ export class AppService {
         .catch(this.handleError);
     }
 
-    // getFeedbackEndorsement():
+    getFeedbackEndorsement(appID): Observable<Endorsement[]> {
+        const appFeedbackEndorsementUrl = this.feedbackEndorsementUrl + appID + '/';
+        return this.http.get<Endorsement[]>(appFeedbackEndorsementUrl)
+        .do(data => console.log('get success'))
+        .catch(this.handleError);
+    }
 
     setApp(app): Observable<any> {
         return this.http.post(this.appUrl, JSON.stringify(app), {headers: this.headers,responseType: 'text'}) // ...using post request
