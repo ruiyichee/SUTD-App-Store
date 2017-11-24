@@ -15,6 +15,7 @@ export class UserService {
     feedbackUrl = 'http://localhost:8000/user/feedback/';
     userUrl = 'http://localhost:8000/user/';
     purchaseUrl = 'http://localhost:8000/user/purchase/';
+    endorsementUrl = 'http://localhost:8000/user/endorsement/';
 
     constructor(private http: HttpClient) { }
     getUserDetails(): Observable<User[]> {
@@ -36,6 +37,13 @@ export class UserService {
     getPurchaseHistory(userID): Observable<Purchase[]> {
         const currentUserPurchaseUrl = this.purchaseUrl + userID + '/';        
         return this.http.get<Purchase[]>(currentUserPurchaseUrl)
+            .do(data => console.log('All: ' + JSON.stringify(data)))
+            .catch(this.handleError);
+    }
+
+    getEndorsementHistory(userID): Observable<any[]> {
+        const currentUserEndorsementUrl = this.endorsementUrl + userID + '/';        
+        return this.http.get<any[]>(currentUserEndorsementUrl)
             .do(data => console.log('All: ' + JSON.stringify(data)))
             .catch(this.handleError);
     }

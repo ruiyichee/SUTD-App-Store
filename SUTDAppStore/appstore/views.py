@@ -44,36 +44,6 @@ def signup(request):
 
             # cursor.execute("INSERT INTO application (date_of_upload, price, app_name, description, genre, no_of_downloads) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');", ([appDateTime], [appPrice], [appName], [appDescription], [appGenre], [appDownloads]))
 
-def change_password(request):
-    
-	if request.method == "POST":
-		form = PasswordChangeForm(request.user, request.POST)
-		if form.is_valid():
-			user = form.save()
-			update_session_auth_hash(request, user)
-			messages.success(request, 'Your password was successfully updated!')
-			return redirect('/appstore')
-		else:
-			messages.error(request, 'Please correct the error below.')
-	else:
-		form = PasswordChangeForm(request.user)
-	return render(request, 'accounts/change_password.html', {'form': form})
-
-def edit_particulars(request):
-	#form = EmailChangeForm(request.user)
-	if request.method=='POST':
-		form = EmailChangeForm(request.user, request.POST)
-		if form.is_valid():
-			user = form.save()
-			update_session_auth_hash(request, user)
-			messages.success(request, 'Your email was successfully updated!')
-			return redirect('/appstore')
-		else:
-			messages.error(request, 'Please correct the error below.')
-	else:
-		form = EmailChangeForm(request.user)
-	return render(request, 'accounts/profile/edit_particulars.html', {'form': form})
-
 @api_view(['GET', 'POST'])
 @permission_classes((IsAuthenticated,))
 def app_list(request):
@@ -211,6 +181,24 @@ def user_purchase(request, pk):
             result = []
             keys = ('aid', 'app_name', 'price', 'purchase_date', 'genre')
             for row in selected_feedback:
+                result.append(dict(zip(keys,row)))
+            jsonObj = json.dumps(result, default = json_serial)
+            return HttpResponse(jsonObj, content_type="application/json")
+
+@api_view(['GET', 'POST', 'DELETE'])
+def user_endorsement(request, pk):
+    """
+    Retrieve, update or delete a purchase instance.
+    """
+    if request.method == 'GET':
+        with connection.cursor() as cursor:
+            userid = pk
+            cursor.execute("select et.eid, f.fid, a.app_name, et.thumbs from feedback f, receives r, application a, endorsement et, writes w, gives g where w.id=%s and w.eid=et.eid and r.eid=et.eid and r.fid=f.fid and f.fid=g.fid and g.aid=a.aid;", [userid])
+            selected_endorsement = cursor.fetchall()
+            print(selected_endorsement)
+            result = []
+            keys = ('eid', 'fid', 'app_name', 'thumbs')
+            for row in selected_endorsement:
                 result.append(dict(zip(keys,row)))
             jsonObj = json.dumps(result, default = json_serial)
             return HttpResponse(jsonObj, content_type="application/json")

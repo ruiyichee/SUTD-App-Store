@@ -66,8 +66,6 @@
       <mat-header-row *matHeaderRowDef="displayedPurchaseColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedPurchaseColumns;"></mat-row>
     </mat-table>
-    <mat-paginator [length]="20" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
-      </mat-paginator>
   </div>
   <h2>Feedback History</h2>
   <div class="feedback-con">
@@ -96,11 +94,33 @@
       <mat-header-row *matHeaderRowDef="displayedFeedbackColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedFeedbackColumns;"></mat-row>
     </mat-table>
-    <mat-paginator 
-    [length]="20"
-    [pageIndex]="0"
-    [pageSize]="20"
-    [pageSizeOptions]="[5, 10, 20, 100]">    
-  </mat-paginator>
+  </div>
+  <h2>Endorsement History</h2>
+  <div class="feedback-con">
+    <mat-table #table [dataSource]="feedbackDataSource">
+
+      <ng-container matColumnDef="fid">
+        <mat-header-cell *matHeaderCellDef> Feedback ID </mat-header-cell>
+        <mat-cell *matCellDef="let feedback"> {{feedback.fid}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="stars">
+        <mat-header-cell *matHeaderCellDef> Stars </mat-header-cell>
+        <mat-cell *matCellDef="let feedback"> {{feedback.stars}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="comments">
+        <mat-header-cell *matHeaderCellDef> Comments </mat-header-cell>
+        <mat-cell *matCellDef="let feedback"> {{feedback.comments}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="feed_date">
+        <mat-header-cell *matHeaderCellDef> Feedback Date </mat-header-cell>
+        <mat-cell *matCellDef="let feedback"> {{feedback.feed_date}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedFeedbackColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedFeedbackColumns;"></mat-row>
+    </mat-table>
   </div>
 </div>

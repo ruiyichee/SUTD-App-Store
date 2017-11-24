@@ -9,11 +9,12 @@ from django.db import connection, migrations
 def load_data_from_sql(filename):
     file_path = os.path.join(os.path.dirname(__file__), '../sql/', filename)
     sql_statement = open(file_path).read()
+    print(sql_statement)
     with connection.cursor() as c:
         c.execute(sql_statement)
 
-initial_data = lambda x,y: load_data_from_sql('Schema_15Nov.sql')
-initial_value = lambda x,y: load_data_from_sql('Data.sql')
+initial_schema = lambda x,y: load_data_from_sql('final_schema.sql')
+initial_value = lambda x,y: load_data_from_sql('data_set.sql')
 
 class Migration(migrations.Migration):
 
@@ -22,5 +23,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(initial_data),
+        migrations.RunPython(initial_schema),
+        # migrations.RunPython(initial_value),
     ]

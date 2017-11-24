@@ -32,6 +32,7 @@ export class UserProfileComponent implements OnInit {
   displayedFeedbackColumns = ['fid', 'stars', 'comments', 'feed_date'];
   purchaseDataSource: any;
   feedbackDataSource: any;
+  endorsementDataSource: any;
 
   length = 100;
   pageSize = 10;
@@ -48,6 +49,8 @@ export class UserProfileComponent implements OnInit {
     feedbackHistory = [];
     purchaseHistory = [];
     // fetch user information
+    console.log('id here');
+    console.log(this.selectedUser.id);
     this.ngProgress.start();
     this.userService.getUserDetails().subscribe((user) => {
       this.selectedUser = user[0];
@@ -60,6 +63,12 @@ export class UserProfileComponent implements OnInit {
       this.userService.getFeedbackHistory(this.selectedUser.id).subscribe((feedbacks) => {
         feedbackHistory = feedbacks;
         this.feedbackDataSource = new FeedbackDataSource();
+      },
+        (err) => { console.log(err) }
+      );
+      this.userService.getEndorsementHistory(this.selectedUser.id).subscribe((endorsements) => {
+        endorsementHistory = endorsements;
+        this.endorsementDataSource = new EndorsementDataSource();
         this.ngProgress.done();
       },
         (err) => { console.log(err) }
@@ -67,6 +76,7 @@ export class UserProfileComponent implements OnInit {
     },
       (err) => { console.log(err) }
     );
+    
   }
 }
 
@@ -85,11 +95,11 @@ export interface Purchase {
 }
 let feedbackHistory = []
 let purchaseHistory = []
+let endorsementHistory = []
 
 export class FeedbackDataSource extends DataSource<any> {
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<Feedback[]> {
-    console.log('FEEDBACK');
     console.log(feedbackHistory);
     return Observable.of(feedbackHistory);
   }
@@ -100,9 +110,18 @@ export class FeedbackDataSource extends DataSource<any> {
 export class PurchaseDataSource extends DataSource<any> {
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<Purchase[]> {
-    console.log('PURCHASE');
     console.log(purchaseHistory);
     return Observable.of(purchaseHistory);
+  }
+
+  disconnect() { }
+}
+
+export class EndorsementDataSource extends DataSource<any> {
+  /** Connect function called by the table to retrieve one stream containing the data to render. */
+  connect(): Observable<any[]> {
+    console.log(endorsementHistory);
+    return Observable.of(endorsementHistory);
   }
 
   disconnect() { }
