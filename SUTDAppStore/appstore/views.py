@@ -1,5 +1,5 @@
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from django.http import HttpResponse
 # from .models import App
@@ -22,21 +22,29 @@ import json
 #         # 'latest_question_list': latest_question_list,
 #     }
 #     return HttpResponse(template.render(context, request))
+@api_view(['GET', 'POST'])
+@permission_classes((AllowAny,))
 def signup(request):
-	if request.method == "POST":
-		form = SignUpForm(request.POST)
-		if form.is_valid():
-			form.save()
-			username = form.cleaned_data.get('username')
-			raw_password = form.cleaned_data.get('password1')
-			user = authenticate(username=username, password=raw_password)
-			login(request, user)
-			return redirect('/login')
-	else:
-		form = SignUpForm()
-	return render(request, 'signup.html', {'form':form})
+    jsonUser = json.loads(request.body)
+    if (request.method == "POST"):
+        with connection.cursor() as cursor:
+            username = jsonUser['username']
+            first_name = jsonUser['first_name']
+            last_name = jsonUser['last_name']
+            email = jsonUser['email']
+            password = jsonUser['password1']
+            dob = 20110103
+            is_superuser = 0
+            is_staff = 0
+            is_active = 0
+            date_joined = 20110103
+            cursor.execute("INSERT INTO auth_user (date_joined, is_active, is_staff, is_superuser, username, first_name, last_name, email, password, dob) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);", (date_joined, is_active, is_staff, is_superuser, username, first_name, last_name, email, password, dob))
+            return HttpResponse('201',status=status.HTTP_201_CREATED)
+
+            # cursor.execute("INSERT INTO application (date_of_upload, price, app_name, description, genre, no_of_downloads) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');", ([appDateTime], [appPrice], [appName], [appDescription], [appGenre], [appDownloads]))
 
 def change_password(request):
+    
 	if request.method == "POST":
 		form = PasswordChangeForm(request.user, request.POST)
 		if form.is_valid():
@@ -148,6 +156,31 @@ def app_feedback(request, pk):
             jsonObj = json.dumps(result, default=json_serial)
             print('Working til dumps')
             return HttpResponse(jsonObj, content_type="application/json")
+
+@api_view(['GET', 'POST', 'DELETE'])
+def app_feedback_endorsement(request, pk, pk2):
+    """
+    Retrieve, update or delete a endorsement instance of a feedback
+    """
+    print(pk)
+    print(pk2)
+    if request.method == 'GET':
+        with connection.cursor() as cursor:
+            print(pk)
+            print('hello')
+            # appid = pk
+            # cursor.execute("SELECT stars, comments, username, feed_date FROM feedback f, gives g, application a, auth_user WHERE g.aid= a.aid AND g.id=auth_user.id AND f.fid=g.fid and a.aid = %s;", [appid])
+            # selected_feedback = cursor.fetchall()
+            # print(selected_feedback)
+            # result = []
+            # keys = ('stars', 'comments', 'username', 'feed_date')
+            # for row in selected_feedback:
+            #     result.append(dict(zip(keys,row)))
+            # print('Working til here')
+            # jsonObj = json.dumps(result, default=json_serial)
+            # print('Working til dumps')
+            # return HttpResponse(jsonObj, content_type="application/json")
+
 
 @api_view(['GET', 'POST', 'DELETE'])
 def user_feedback(request, pk):

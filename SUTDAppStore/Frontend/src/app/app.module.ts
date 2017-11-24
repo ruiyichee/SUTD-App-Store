@@ -26,6 +26,7 @@ import { AuthGuard } from './guards/logged-in.guard';
 //import { AlertService } from './service/index';
 import { AuthenticationService } from './service/authentication.service';
 import { UserService } from './service/user.service';
+import { SignupService } from './service/signup.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -84,6 +85,7 @@ const routes: Routes = [
     UserService,
     AuthenticationService,
     AppService,
+    SignupService,
     AuthGuard, {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

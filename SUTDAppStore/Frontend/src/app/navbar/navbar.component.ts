@@ -15,6 +15,17 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    this.authenticationService.logout();
+    this.authenticationService.logout()
+      .subscribe(
+      data => {
+        console.log(data);
+        if (data.status === 200) {
+          console.log('logged out successfully');
+        }
+      },
+      error => {
+        console.log(error);
+      }
+      );
   }
 }

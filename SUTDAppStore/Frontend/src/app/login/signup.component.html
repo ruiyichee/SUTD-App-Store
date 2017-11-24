@@ -3,17 +3,18 @@
 </button>
 <h2 class="main-title" style="text-align:left;">Sign Up</h2>
 <h4>Fill in the form to create an account</h4>
+<button mat-raised-button (click)="autocomplete()">Autocomplete</button>
 <div class="container">
-  <form (ngSubmit)="signup()">
+  <!-- <form (ngSubmit)="signup()"> -->
     <div class="top-row">
       <mat-input-container>
-        <input matInput placeholder="Enter First Name">
+        <input matInput placeholder="Enter First Name" name="first_name" [(ngModel)]="newUser.first_name">
         <mat-error>First Name is
           <strong>required</strong>
         </mat-error>
       </mat-input-container>
       <mat-input-container>
-        <input matInput placeholder="Enter Last Name">
+        <input matInput placeholder="Enter Last Name" name = "last_name" [(ngModel)]="newUser.last_name">
         <mat-error>Last Name is
           <strong>required</strong>
         </mat-error>
@@ -21,7 +22,7 @@
     </div>
     <div class="row">
       <mat-input-container>
-        <input matInput placeholder="Enter Email Address">
+        <input matInput placeholder="Enter Email Address" name = "email" [(ngModel)]="newUser.email">
         <mat-error>Email is
           <strong>required</strong>
         </mat-error>
@@ -29,7 +30,7 @@
     </div>
     <div class="row">
       <mat-input-container>
-        <input matInput placeholder="Enter Username">
+        <input matInput placeholder="Enter Username" name = "username" [(ngModel)]="newUser.username">
         <mat-error>Username is
           <strong>required</strong>
         </mat-error>
@@ -37,24 +38,24 @@
     </div>
     <div class="row">
       <mat-form-field>
-        <input matInput placeholder="Enter Password" [type]="hide ? 'password' : 'text'">
+        <input matInput placeholder="Enter Password" [type]="hide ? 'password' : 'text'" name = "password1" [(ngModel)]="newUser.password1">
         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
       </mat-form-field>
     </div>
     <div class="row">
       <mat-form-field>
-        <input matInput placeholder="Reenter Password" [type]="hide ? 'password' : 'text'">
+        <input matInput placeholder="Reenter Password" [type]="hide ? 'password' : 'text'" name = "password2" [(ngModel)]="newUser.password2">
         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
       </mat-form-field>
     </div>
     <div class="row">
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Select Birthday">
+        <input matInput [matDatepicker]="picker" placeholder="Select Birthday" name = "DOB" [(ngModel)]="newUser.dob">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
     <button mat-raised-button (click)="closeDialog()">Cancel</button>
-    <button mat-raised-button type="submit">Confirm</button>
-  </form>
+    <button mat-raised-button (click)="signup()">Confirm</button>
+  <!-- </form> -->
 </div>

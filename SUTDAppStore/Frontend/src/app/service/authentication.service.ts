@@ -7,7 +7,8 @@ import { AuthConfig, tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
 export class AuthenticationService {
-    constructor(private http: Http) { }
+    constructor(
+        private http: Http) { }
 
     login(username: string, password: string) {
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -31,10 +32,31 @@ export class AuthenticationService {
             });
     }
 
+    signup(username: string, password1: string, password2: string, email: string) {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        console.log('trying to signup from auth service');
+        return this.http.post('http://127.0.0.1:8000/rest-auth/registration/', JSON.stringify({ username: username, password1: password1, password2: password2, email: email }), options)
+            .map((response: Response) => {
+                console.log(response);
+                return response;
+            });
+    }
+
     logout() {
-        // remove user from local storage to log user out
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
         localStorage.removeItem('token');
-        localStorage.removeItem('username')
+        localStorage.removeItem('username');
+        console.log('trying to logout');
+        // remove user from local storage to log user out
+        return this.http.post('http://127.0.0.1:8000/rest-auth/logout/', JSON.stringify({}), options)
+        .map((response: Response) => {
+            console.log('got a response from logout');
+            console.log(response);
+            return response;
+        });
+        
     }
 
     public getToken(): string {

@@ -20,19 +20,20 @@ from django.contrib.auth import views as auth_views
 from appstore import views
 
 urlpatterns = [
-    url(r'^login/$', auth_views.login, name='login'),
+    # url(r'^login/$', auth_views.login, name='login'),
     url(r'^rest-auth/', include('rest_auth.urls')),
+    url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^appstore/$', views.app_list),
     url(r'^appstore/(?P<pk>\d+)/$', views.app_detail),
     url(r'^appstore/feedback/(?P<pk>\d+)/$', views.app_feedback),
     url(r'^user/(?P<username>[\w.@+-]+)/$', views.user),
     url(r'^user/feedback/(?P<pk>\d+)/$', views.user_feedback),
     url(r'^user/purchase/(?P<pk>\d+)/$', views.user_purchase),
-
+    url(r'^appstore/(?P<pk>\d+)/(?P<pk2>\d+)$', views.app_feedback_endorsement),
+	# url(r'^signup/$', views.signup),
     url(r'^admin/$', admin.site.urls),
 #	url(r'^login/$', auth_views.login, name='login'),
 	url(r'^logout/$', auth_views.logout, {'next_page': '/login'}, name='logout'),
-	url(r'^signup/$', views.signup, name='signup'),
 	url(r'^password/$', views.change_password, name='change_password'),
 	url(r'^particulars/$', views.edit_particulars, name='edit_particulars'),
 	url(r'^password_reset/$', auth_views.password_reset, name='password_reset'),

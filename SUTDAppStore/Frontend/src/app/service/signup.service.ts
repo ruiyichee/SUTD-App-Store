@@ -10,32 +10,18 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class AppService {
-    private appUrl = 'http://localhost:8000/appstore/';
-    private feedbackUrl = 'http://localhost:8000/appstore/feedback/';
+export class SignupService {
+    private signupUrl = 'http://localhost:8000/signup/';
     headers = new HttpHeaders({
         'Content-Type': 'application/json'
       });
     constructor(private http: HttpClient) { }
 
-    getApps(): Observable<App[]> {
-        return this.http.get<App[]>(this.appUrl)
-            .do(data => console.log('get success'))
-            .catch(this.handleError);
-    }
-
-    getFeedbacks(appID): Observable<Feedback[]> {
-        const appFeedbackUrl = this.feedbackUrl + appID + '/';
-        return this.http.get<Feedback[]>(appFeedbackUrl)
-        .do(data => console.log('get success'))
-        .catch(this.handleError);
-    }
-
-    // getFeedbackEndorsement():
-
-    setApp(app): Observable<any> {
-        return this.http.post(this.appUrl, JSON.stringify(app), {headers: this.headers,responseType: 'text'}) // ...using post request
-        .catch(this.handleError); //...errors if any
+    setUser(user): Observable<any> {
+        console.log(user);
+        console.log('running set user');
+        return this.http.post(this.signupUrl, JSON.stringify(user), {headers: this.headers,responseType: 'text'}); // ...using post request
+        // .catch(this.handleError); //...errors if any
     }
 
 
