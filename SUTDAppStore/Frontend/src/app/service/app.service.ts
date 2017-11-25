@@ -60,7 +60,6 @@ export class AppService {
 
     searchApp(searchValue): Observable<App[]> {
         if (searchValue === '') {
-            console.log('trying to do app list');
             return this.http.get<App[]>(this.appUrl)
             .do(data => console.log('get success'))
             .catch(this.handleError);

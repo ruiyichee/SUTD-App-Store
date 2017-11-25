@@ -2,7 +2,7 @@
   <mat-icon>close</mat-icon>
 </button>
 <h2 class="main-title" style="text-align:left;">App Details</h2>
-<div class="top-section">
+<!-- <div class="top-section">
   <img [src]="appIcon">
   <div class="text-button-con">
     <div class="text-section">
@@ -14,17 +14,26 @@
         <mat-icon>file_download</mat-icon>
         Download App
       </button>
-      <!-- <a [href]="selectedApp.downloadLink" target="_blank" *ngIf="selectedApp.platform =='Android'" mat-raised-button>
-        <mat-icon>file_download</mat-icon>Download App</a> -->
     </div>
   </div>
-
-</div>
+</div> -->
 <!-- <div class="screenshot-section">
   <span *ngFor="let screenshot of screenshots">
     <img [src]="screenshot">
   </span>
 </div> -->
+<div class="top-con">
+  <img [src]="appIcon">
+  <h2 class="title">{{selectedApp.app_name}}</h2>
+  <span>{{selectedApp.genre}}</span>
+  <div class="button-con">
+    <button mat-raised-button>
+      <mat-icon>file_download</mat-icon>
+      Download App
+    </button>
+  </div>
+
+</div>
 <hr>
 <div class="description-section">
   <span class="title">Description</span>

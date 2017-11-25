@@ -13,23 +13,38 @@ span.data {
   display: block;
 }
 
-div.top-section {
+div.top-con {
   display: flex;
-  div.text-button-con {
-    width: 100%;
-    display: flex; // flex-direction: column;
-    justify-content: space-between;
+  flex-direction: column;
+  h2, span {
+    text-align: center;
   }
-  div.text-section {
-    margin-left: 1rem;
+  span {
+    margin-bottom: 1rem;
+    font-weight: bold;
   }
-  div.button-section {
-    a {
-      float: right;
-    }
+  div.button-con {
+    display: flex;
+    justify-content: center;
   }
 }
 
+// div.top-section {
+//   display: flex;
+//   div.text-button-con {
+//     width: 100%;
+//     display: flex; // flex-direction: column;
+//     justify-content: space-between;
+//   }
+//   div.text-section {
+//     margin-left: 1rem;
+//   }
+//   div.button-section {
+//     a {
+//       float: right;
+//     }
+//   }
+// }
 div.information-section {
   div.column-con {
     display: flex;
@@ -80,7 +95,7 @@ div.feedback-con {
     div.icon-buttons {
       display: flex;
       mat-icon {
-        margin-right: 1rem;         
+        margin-right: 1rem;
         cursor: pointer;
       }
       mat-icon.thumb-up {
@@ -94,12 +109,10 @@ div.feedback-con {
       mat-icon.thumb-up:hover {
         color: green;
         opacity: 0.8;
-        
       }
       mat-icon.thumb-down:hover {
         color: red;
         opacity: 0.8;
-        
       }
       div.count-con {
         display: flex;
