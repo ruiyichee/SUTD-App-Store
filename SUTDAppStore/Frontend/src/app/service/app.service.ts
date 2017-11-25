@@ -17,9 +17,10 @@ export class AppService {
     private feedbackUrl = 'http://localhost:8000/appstore/feedback/';
     private feedbackEndorsementUrl = 'http://localhost:8000/appstore/feedback/endorsement/';
     private searchUrl = 'http://localhost:8000/appstore/search/';
+    private feedbackSearchUrl = 'http://localhost:8000/appstore/feedback/search/';
     headers = new HttpHeaders({
         'Content-Type': 'application/json'
-      });
+    });
     constructor(private http: HttpClient) { }
 
     getApps(): Observable<App[]> {
@@ -38,46 +39,54 @@ export class AppService {
     getFeedbacks(appID): Observable<Feedback[]> {
         const appFeedbackUrl = this.feedbackUrl + appID + '/';
         return this.http.get<Feedback[]>(appFeedbackUrl)
-        .do(data => console.log('get success'))
-        .catch(this.handleError);
+            .do(data => console.log('get success'))
+            .catch(this.handleError);
+    }
+
+    getNumberOfFeedbacks(number, appID, userID): Observable<any[]> {
+        const appFeedbackSearchUrl = this.feedbackSearchUrl + number + '/' + appID + '/' + userID + '/';
+        console.log(appFeedbackSearchUrl);
+        return this.http.get<any[]>(appFeedbackSearchUrl)
+            .do(data => console.log('get success'))
+            .catch(this.handleError);
     }
 
     getFeedbackEndorsement(appID): Observable<Endorsement[]> {
         const appFeedbackEndorsementUrl = this.feedbackEndorsementUrl + appID + '/';
         return this.http.get<Endorsement[]>(appFeedbackEndorsementUrl)
-        .do(data => console.log('get success'))
-        .catch(this.handleError);
+            .do(data => console.log('get success'))
+            .catch(this.handleError);
     }
 
     setApp(app): Observable<any> {
-        return this.http.post(this.appUrl, JSON.stringify(app), {headers: this.headers,responseType: 'text'}) // ...using post request
-        .catch(this.handleError); //...errors if any
+        return this.http.post(this.appUrl, JSON.stringify(app), { headers: this.headers, responseType: 'text' }) // ...using post request
+            .catch(this.handleError); //...errors if any
     }
 
     setFeedback(feedback, appID): Observable<any> {
-        const appFeedbackUrl = this.feedbackUrl + appID + '/';        
-        return this.http.post(appFeedbackUrl, JSON.stringify(feedback), {headers: this.headers,responseType: 'text'}) // ...using post request
-        .catch(this.handleError); //...errors if any
+        const appFeedbackUrl = this.feedbackUrl + appID + '/';
+        return this.http.post(appFeedbackUrl, JSON.stringify(feedback), { headers: this.headers, responseType: 'text' }) // ...using post request
+            .catch(this.handleError); //...errors if any
     }
 
     setFeedbackEndorsement(feedbackEndorsement, appID): Observable<any> {
-        const appFeedbacEndorsementUrl = this.feedbackEndorsementUrl + appID + '/';        
-        return this.http.post(appFeedbacEndorsementUrl, JSON.stringify(feedbackEndorsement), {headers: this.headers,responseType: 'text'}) // ...using post request
-        .catch(this.handleError); //...errors if any
+        const appFeedbacEndorsementUrl = this.feedbackEndorsementUrl + appID + '/';
+        return this.http.post(appFeedbacEndorsementUrl, JSON.stringify(feedbackEndorsement), { headers: this.headers, responseType: 'text' }) // ...using post request
+            .catch(this.handleError); //...errors if any
     }
 
     searchApp(searchValue): Observable<App[]> {
         if (searchValue === '') {
             return this.http.get<App[]>(this.appUrl)
-            .do(data => console.log('get success'))
-            .catch(this.handleError);
+                .do(data => console.log('get success'))
+                .catch(this.handleError);
         } else {
-            const appSearchUrl = this.searchUrl + searchValue + '/';        
+            const appSearchUrl = this.searchUrl + searchValue + '/';
             return this.http.get<App[]>(appSearchUrl)
-            .do(data => console.log('get success'))
-            .catch(this.handleError);
+                .do(data => console.log('get success'))
+                .catch(this.handleError);
         }
-        
+
     }
 
     private handleError(err: HttpErrorResponse) {

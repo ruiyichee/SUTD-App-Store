@@ -284,10 +284,10 @@ def user_endorsement(request, pk):
             jsonObj = json.dumps(result, default = json_serial)
             return HttpResponse(jsonObj, content_type="application/json")
 
-@api_view(['GET', 'POST', 'DELETE'])
+@api_view(['GET'])
 def user(request, username):
     """
-    Retrieve, update or delete a user instance.
+    Retrieve a user instance.
     """
     if request.method == 'GET':
         with connection.cursor() as cursor:
@@ -305,7 +305,7 @@ def user(request, username):
 @api_view(['GET'])
 def app_search(request, search_value):
     """
-    Retrieve, update or delete a user instance.
+    Performing app search 
     """
     if request.method == 'GET':
         with connection.cursor() as cursor:
@@ -320,6 +320,36 @@ def app_search(request, search_value):
             print(app_list)
             result = []
             keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon')
+            for row in app_list:
+                result.append(dict(zip(keys,row)))
+            jsonObj = json.dumps(result, default = json_serial)
+            return HttpResponse(jsonObj, content_type="application/json")
+
+@api_view(['GET'])
+def feedback_search(request, number, aid, uid):
+    """
+    Performing app search 
+    """
+    if request.method == 'GET':
+        with connection.cursor() as cursor:
+            cursor.execute("""
+            Select a.app_name,r.fid, AVG(e.thumbs) AS avg1
+            FROM 
+            (Select g.id, g.aid, g.fid, f.stars
+            FROM gives g, feedback f
+            WHERE g.fid=f.fid
+            AND g.aid= %s
+            AND g.id <> %s) AS temp, receives r, endorsement e, application a
+            WHERE temp.fid=r.fid
+            AND e.eid=r.eid
+            AND temp.aid=a.aid
+            GROUP BY r.fid 
+            ORDER BY avg1 
+            DESC LIMIT %s ; """, (aid, uid, number))
+            app_list = cursor.fetchall()
+            print(app_list)
+            result = []
+            keys = ('app_name', 'fid', 'avg1')
             for row in app_list:
                 result.append(dict(zip(keys,row)))
             jsonObj = json.dumps(result, default = json_serial)

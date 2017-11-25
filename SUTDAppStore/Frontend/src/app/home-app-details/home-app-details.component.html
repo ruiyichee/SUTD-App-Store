@@ -88,6 +88,13 @@
         <mat-icon>rate_review</mat-icon>
         Write a Review
       </button>
+      <mat-form-field>
+          <mat-select placeholder="Filter number of feedbacks" (change)="filterFeedback()" [(ngModel)]="selectedScore" name="score">
+            <mat-option *ngFor="let score of usefulnessScore" [value]="score">
+              {{score}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       <div class="star-group" *ngIf="averageFeedbackScore === 1">
         <span>Overall Rating: </span>
         <mat-icon>star_rate</mat-icon>
