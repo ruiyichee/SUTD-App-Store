@@ -1,3 +1,4 @@
+import { Endorsement } from './../models/endorsement.model';
 import { RequestOptions } from '@angular/http';
 import { Feedback } from './../models/feedback.model';
 import { App } from './../models/app.model';
@@ -10,20 +11,22 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class SignupService {
-    private signupUrl = 'http://localhost:8000/signup/';
+export class AdminService {
+    private appUrl = 'http://localhost:8000/appstore/';
+    private toRecommendUrl = 'http://localhost:8000/appstore/recommend/';
+    private feedbackUrl = 'http://localhost:8000/appstore/feedback/';
+    private feedbackEndorsementUrl = 'http://localhost:8000/appstore/feedback/endorsement/';
+    private searchUrl = 'http://localhost:8000/appstore/search/';
     headers = new HttpHeaders({
         'Content-Type': 'application/json'
       });
     constructor(private http: HttpClient) { }
 
-    // used to set the rest of the profile, e.g dob, first name, last name
-    setUser(firstname, lastname, username): Observable<any> {
-        let user = {'first_name': firstname, 'last_name': lastname, 'username': username};
-        return this.http.post(this.signupUrl, JSON.stringify(user), {headers: this.headers,responseType: 'text'}); // ...using post request
-        // .catch(this.handleError); //...errors if any
+    getApps(): Observable<App[]> {
+        return this.http.get<App[]>(this.appUrl)
+            .do(data => console.log('get success'))
+            .catch(this.handleError);
     }
-
 
     private handleError(err: HttpErrorResponse) {
         let errorMessage = '';

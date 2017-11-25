@@ -7,4 +7,5 @@ export class User {
     password1: string;
     password2: string;
     dob: string;
+    is_superuser: string;
 }

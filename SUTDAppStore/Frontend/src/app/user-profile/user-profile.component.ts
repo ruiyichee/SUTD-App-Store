@@ -55,6 +55,7 @@ export class UserProfileComponent implements OnInit {
     this.ngProgress.start();
     this.userService.getUserDetails().subscribe((user) => {
       this.selectedUser = user[0];
+      console.log(this.selectedUser);
       this.userService.getPurchaseHistory(this.selectedUser.id).subscribe((purchases) => {
         purchaseHistory = purchases;
         this.purchaseDataSource = new PurchaseDataSource();

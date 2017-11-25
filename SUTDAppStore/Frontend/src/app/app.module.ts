@@ -1,3 +1,4 @@
+import { AdminService } from './service/admin.service';
 import { SignupComponent } from './login/signup.component';
 import { AppService } from './service/app.service';
 import { TokenInterceptor } from './interceptor/token.interceptor';
@@ -7,7 +8,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { MatExpansionModule, MatCheckboxModule, MatNativeDateModule, MatDatepickerModule, MatSnackBarModule, MatPaginatorModule, MatTableModule, MatMenuModule, MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatCardModule, MatDialogModule } from '@angular/material';
+import { MatCheckboxModule, MatNativeDateModule, MatDatepickerModule, MatSnackBarModule, MatPaginatorModule, MatTableModule, MatMenuModule, MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatCardModule, MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
@@ -20,14 +21,14 @@ import { NgProgressModule } from 'ngx-progressbar';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
-//import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './guards/logged-in.guard';
-//import { AlertService } from './service/index';
 import { AuthenticationService } from './service/authentication.service';
 import { UserService } from './service/user.service';
 import { SignupService } from './service/signup.service';
 import { HomeAppDetailsComponent } from './home-app-details/home-app-details.component';
 import { RecommendedAppsComponent } from './recommended-apps/recommended-apps.component';
+import { SalesComponent } from './sales/sales.component';
+import { ChartsModule } from 'ng2-charts';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -35,7 +36,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'user-profile', component: UserProfileComponent },
   { path: 'app-details', component: HomeAppDetailsComponent},
-  // { path: 'recommended-apps', component: RecommendedAppsComponent},  
+  { path: 'sales', component: SalesComponent},  
 ];
 
 @NgModule({
@@ -55,9 +56,11 @@ const routes: Routes = [
     SignupComponent,
     NavbarComponent,
     HomeAppDetailsComponent,
-    RecommendedAppsComponent
+    RecommendedAppsComponent,
+    SalesComponent
   ],
   imports: [
+    ChartsModule,
     BrowserModule,
     MatButtonModule,
     MatIconModule,
@@ -73,7 +76,6 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    MatExpansionModule,
     NgProgressModule,
     BrowserAnimationsModule,
     HttpModule,
@@ -86,6 +88,7 @@ const routes: Routes = [
     AuthenticationService,
     AppService,
     SignupService,
+    AdminService,
     AuthGuard, {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

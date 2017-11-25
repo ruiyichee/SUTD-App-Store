@@ -1,0 +1,39 @@
+<app-navbar></app-navbar>
+<h2>Sales Analysis</h2>
+<div class="barcharts">
+    <div style="display: block">
+        <canvas class="skills-chart" baseChart
+                [datasets]="barChartDataSkills"
+                [labels]="barChartLabelsSkills"
+                [options]="barChartOptions"
+                [legend]="barChartLegend"
+                [chartType]="barChartType"
+                [colors]="barColors"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    <br>
+      <div style="display: block">
+          <canvas class="skills-chart" baseChart
+                  [datasets]="barChartDataSkills"
+                  [labels]="barChartLabelsSkills"
+                  [options]="barChartOptions"
+                  [legend]="barChartLegend"
+                  [chartType]="barChartType"
+                  [colors]="barColors"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)"></canvas>
+        </div>
+    <br>
+        <div style="display: block">
+            <canvas class="skills-chart" baseChart
+                    [datasets]="barChartDataSkills"
+                    [labels]="barChartLabelsSkills"
+                    [options]="barChartOptions"
+                    [legend]="barChartLegend"
+                    [chartType]="barChartType"
+                    [colors]="barColors"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
+          </div>
+</div>

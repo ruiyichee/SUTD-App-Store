@@ -20,7 +20,7 @@ import { Subject } from 'rxjs';
 export class HomeComponent implements OnInit {
   url: string = 'http://localhost:8000/appstore/';
   appList: App[];
-  recommendedAppList: App[];
+  recommendedAppList: App[] = [];
   prices = ['<5', '5 - 10', '> 10'];
   genres = ['3D', '2D'];
   selectedPriceRange = '';

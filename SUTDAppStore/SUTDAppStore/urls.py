@@ -33,7 +33,7 @@ urlpatterns = [
     url(r'^user/purchase/(?P<pk>\d+)/$', views.user_purchase),
     url(r'^user/endorsement/(?P<pk>\d+)/$', views.user_endorsement),
     url(r'^appstore/feedback/endorsement/(?P<pk>\d+)/$', views.app_feedback_endorsement),
-	# url(r'^signup/$', views.signup),
+	url(r'^signup/$', views.signup),
     url(r'^admin/$', admin.site.urls),
 #	url(r'^login/$', auth_views.login, name='login'),
 	# url(r'^logout/$', auth_views.logout, {'next_page': '/login'}, name='logout'),

@@ -29,17 +29,10 @@ def signup(request):
     jsonUser = json.loads(request.body)
     if (request.method == "POST"):
         with connection.cursor() as cursor:
-            username = jsonUser['username']
             first_name = jsonUser['first_name']
             last_name = jsonUser['last_name']
-            email = jsonUser['email']
-            password = jsonUser['password1']
-            dob = 20110103
-            is_superuser = 0
-            is_staff = 0
-            is_active = 0
-            date_joined = 20110103
-            cursor.execute("INSERT INTO auth_user (date_joined, is_active, is_staff, is_superuser, username, first_name, last_name, email, password, dob) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);", (date_joined, is_active, is_staff, is_superuser, username, first_name, last_name, email, password, dob))
+            username = jsonUser['username']
+            cursor.execute("UPDATE auth_user SET first_name = %s, last_name = %s WHERE auth_user.username = %s;", (first_name, last_name, username))
             return HttpResponse('201',status=status.HTTP_201_CREATED)
 
             # cursor.execute("INSERT INTO application (date_of_upload, price, app_name, description, genre, no_of_downloads) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');", ([appDateTime], [appPrice], [appName], [appDescription], [appGenre], [appDownloads]))
@@ -299,11 +292,11 @@ def user(request, username):
     if request.method == 'GET':
         with connection.cursor() as cursor:
             currentUsername = username
-            cursor.execute("SELECT id, username, first_name, last_name, email, dob from auth_user WHERE auth_user.username = %s;", [currentUsername])
+            cursor.execute("SELECT id, username, first_name, last_name, email, dob, is_superuser from auth_user WHERE auth_user.username = %s;", [currentUsername])
             selected_feedback = cursor.fetchall()
             print(selected_feedback)
             result = []
-            keys = ('id', 'username', 'first_name', 'last_name', 'email', 'dob')
+            keys = ('id', 'username', 'first_name', 'last_name', 'email', 'dob', 'is_superuser')
             for row in selected_feedback:
                 result.append(dict(zip(keys,row)))
             jsonObj = json.dumps(result, default = json_serial)

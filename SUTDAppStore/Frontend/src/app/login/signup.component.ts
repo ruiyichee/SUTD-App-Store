@@ -1,7 +1,8 @@
+import { NgProgress } from 'ngx-progressbar';
 import { AuthenticationService } from './../service/authentication.service';
 import { User } from './../models/user.model';
 // import { Feedback } from './../../models/feedback.model';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatSnackBar } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 import { SignupService } from '../service/signup.service';
 
@@ -19,7 +20,9 @@ export class SignupComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<SignupComponent>,
         private signupService: SignupService,
-        private authService: AuthenticationService
+        private authService: AuthenticationService,
+        public snackBar: MatSnackBar,
+        public ngProgress: NgProgress,        
     ) { }
 
     ngOnInit() {
@@ -29,30 +32,39 @@ export class SignupComponent implements OnInit {
         this.dialogRef.close();
     }
 
-    autocomplete() {
-        this.newUser.first_name = 'Dorien';
-        this.newUser.last_name = 'Marien';
-        this.newUser.email = 'dorien@gmail.com';
-        this.newUser.username = 'dorienmarien';
-        this.newUser.password1 = 'password1234';
-        this.newUser.password2 = 'password1234';
-        this.newUser.dob = '11/24/2017';
-    }
-
     signup() {
-        this.authService.signup(this.newUser.username, this.newUser.password1, this.newUser.password2, this.newUser.email)
-            .subscribe(
+        this.ngProgress.start();
+        this.authService.signup(this.newUser.username, this.newUser.password1, this.newUser.password2, this.newUser.email).subscribe(
             data => {
                 if (data.status === 201) {
                     console.log('signup worked');
-                    this.dialogRef.close();                    
-                }else {
+                    this.signupService.setUser(this.newUser.first_name, this.newUser.last_name, this.newUser.username).subscribe(
+                        data => {
+                            if (data === '201') {
+                                this.ngProgress.done();
+                                this.snackBar.open('Successfully signed up', 'OK', {
+                                    duration: 3000,
+                                    extraClasses: ['success-snackbar']
+                
+                                });
+                            }
+                        }
+                    );
+                    this.dialogRef.close();
+                } else {
                     console.log('signup failed');
+                    this.ngProgress.done();                    
+                    this.snackBar.open('Failed to signup', 'OK', {
+                        duration: 3000,
+                        extraClasses: ['failure-snackbar']
+    
+                    });
                 }
             },
             error => {
                 console.log(error)
             });
+        
 
     }
 
