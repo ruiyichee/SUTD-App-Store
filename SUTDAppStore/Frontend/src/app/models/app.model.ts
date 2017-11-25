@@ -1,7 +1,7 @@
 export class App {
+    app_name: string;    
     aid: string;
     uid: string;
-    app_name: string;
     description: string;
     genre: string;
     icon: string;

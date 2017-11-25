@@ -1,7 +1,6 @@
 import { SignupComponent } from './login/signup.component';
 import { AppService } from './service/app.service';
 import { TokenInterceptor } from './interceptor/token.interceptor';
-import { AppDetailComponent } from './home/app-detail.component';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
@@ -27,12 +26,14 @@ import { AuthGuard } from './guards/logged-in.guard';
 import { AuthenticationService } from './service/authentication.service';
 import { UserService } from './service/user.service';
 import { SignupService } from './service/signup.service';
+import { HomeAppDetailsComponent } from './home-app-details/home-app-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'user-profile', component: UserProfileComponent },
+  { path: 'app-details', component: HomeAppDetailsComponent, data : {some_data : 'some value'} }
 
   // { path: 'about', component: AboutComponent },
   // { path: 'contact', component: ContactComponent },
@@ -42,7 +43,6 @@ const routes: Routes = [
 
 @NgModule({
   entryComponents: [
-    AppDetailComponent,
     AppUploadComponent,
     AppFeedbackComponent,
     SignupComponent
@@ -52,12 +52,12 @@ const routes: Routes = [
     LoginComponent,
     HomeComponent,
     UserProfileComponent,
-    AppDetailComponent,
     PurchaseComponent,
     AppUploadComponent,
     AppFeedbackComponent,
     SignupComponent,
-    NavbarComponent
+    NavbarComponent,
+    HomeAppDetailsComponent
   ],
   imports: [
     BrowserModule,

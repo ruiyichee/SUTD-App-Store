@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { User } from './../models/user.model';
 import { UserService } from './../service/user.service';
 import { AppService } from './../service/app.service';
@@ -19,7 +20,7 @@ import { Subject } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
   url: string = 'http://localhost:8000/appstore/';
-  appList = [];
+  appList: App[];
   developers = ['Jeremy Rose', 'Jon Wong', 'Dorien'];
   years = ['2017', '2016', '2015', '2014'];
   selectedApp: App;
@@ -34,8 +35,8 @@ export class HomeComponent implements OnInit {
     private titleService: Title,
     public ngProgress: NgProgress,
     private appService: AppService,
-    private userService: UserService
-
+    private userService: UserService,
+    private router: Router,
   ) {
   }
 
@@ -44,6 +45,7 @@ export class HomeComponent implements OnInit {
     this.ngProgress.start();
     this.appService.getApps().subscribe((apps) => {
       this.appList = apps;
+      console.log(this.appList);
       this.ngProgress.done();
     },
       (err) => { console.log(err) }
@@ -75,16 +77,21 @@ export class HomeComponent implements OnInit {
     );
   }
 
-
-  openApp(i) {
-    const dialogRef = this.dialog.open(AppDetailComponent, {
-      panelClass: 'full-width-dialog',
-      height: '100vh',
-      width: '100vw',
-    });
-
-    dialogRef.componentInstance.selectedApp = this.appList[i];
+  routeToApp(i) {
+    let data = this.appList[i];
+    this.router.navigate(['/app-details', data]);
   }
+
+
+  // openApp(i) {
+  //   const dialogRef = this.dialog.open(AppDetailComponent, {
+  //     panelClass: 'full-width-dialog',
+  //     height: '100vh',
+  //     width: '100vw',
+  //   });
+
+  //   dialogRef.componentInstance.selectedApp = this.appList[i];
+  // }
 
   uploadApp() {
     const dialogRef = this.dialog.open(AppUploadComponent, {

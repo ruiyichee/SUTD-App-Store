@@ -29,17 +29,15 @@
   </div>
 </div>
 
-<div class="app-con">
+<!-- <div class="app-con">
   <mat-card *ngFor="let app of appList; let i = index" (click)="openApp(i)">
     <h4>{{app.app_name}}</h4>
     <img md-card-image src="assets/img/appicon1.svg" alt="fake icon">
-    <!-- <mat-card-actions>
-      <button mat-icon-button (click)="downloadApp(i, $event)">
-        <mat-icon>file_download</mat-icon>
-      </button>
-    </mat-card-actions> -->
-
   </mat-card>
-</div>
-<mat-paginator [length]="20" [pageIndex]="0" [pageSize]="20" [pageSizeOptions]="[5, 10, 20, 100]">
-</mat-paginator>
+</div> -->
+<div class="app-con">
+    <mat-card *ngFor="let app of appList; let i = index" (click)="routeToApp(i)">
+      <h4>{{app.app_name}}</h4>
+      <img md-card-image src="assets/img/appicon1.svg" alt="fake icon">
+    </mat-card>
+  </div>
