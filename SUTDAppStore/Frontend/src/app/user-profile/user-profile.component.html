@@ -96,31 +96,31 @@
     </mat-table>
   </div>
   <h2>Endorsement History</h2>
-  <div class="feedback-con">
-    <mat-table #table [dataSource]="feedbackDataSource">
+  <div class="endorsement-con">
+    <mat-table #table [dataSource]="endorsementDataSource">
+
+      <ng-container matColumnDef="eid">
+        <mat-header-cell *matHeaderCellDef> Endorsement ID </mat-header-cell>
+        <mat-cell *matCellDef="let endorsement"> {{endorsement.eid}} </mat-cell>
+      </ng-container>
 
       <ng-container matColumnDef="fid">
         <mat-header-cell *matHeaderCellDef> Feedback ID </mat-header-cell>
-        <mat-cell *matCellDef="let feedback"> {{feedback.fid}} </mat-cell>
+        <mat-cell *matCellDef="let endorsement"> {{endorsement.fid}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="stars">
-        <mat-header-cell *matHeaderCellDef> Stars </mat-header-cell>
-        <mat-cell *matCellDef="let feedback"> {{feedback.stars}} </mat-cell>
+      <ng-container matColumnDef="app_name">
+        <mat-header-cell *matHeaderCellDef> App Name </mat-header-cell>
+        <mat-cell *matCellDef="let endorsement"> {{endorsement.app_name}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="comments">
-        <mat-header-cell *matHeaderCellDef> Comments </mat-header-cell>
-        <mat-cell *matCellDef="let feedback"> {{feedback.comments}} </mat-cell>
+      <ng-container matColumnDef="thumbs">
+        <mat-header-cell *matHeaderCellDef> Thumbs </mat-header-cell>
+        <mat-cell *matCellDef="let endorsement"> {{endorsement.thumbs}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="feed_date">
-        <mat-header-cell *matHeaderCellDef> Feedback Date </mat-header-cell>
-        <mat-cell *matCellDef="let feedback"> {{feedback.feed_date}} </mat-cell>
-      </ng-container>
-
-      <mat-header-row *matHeaderRowDef="displayedFeedbackColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedFeedbackColumns;"></mat-row>
+      <mat-header-row *matHeaderRowDef="displayedFeedbackEndorsementColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedFeedbackEndorsementColumns;"></mat-row>
     </mat-table>
   </div>
 </div>

@@ -15,10 +15,8 @@ export class TokenInterceptor implements HttpInterceptor {
 
     constructor(public auth: AuthenticationService) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log(request);
         if (request.url === this.signupUrl) {
             return next.handle(request);
-
         } else {
             let tokenDict = localStorage.getItem('token');
             let token = tokenDict['key'];

@@ -17,6 +17,7 @@ export class SignupService {
       });
     constructor(private http: HttpClient) { }
 
+    // used to set the rest of the profile, e.g dob, first name, last name
     setUser(user): Observable<any> {
         console.log(user);
         console.log('running set user');

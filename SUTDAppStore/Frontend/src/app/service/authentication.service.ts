@@ -20,9 +20,6 @@ export class AuthenticationService {
                 // login successful if there's a jwt token in the response
                 let user = response.json();
                 let token = user['key'];
-                console.log(token);
-                console.log(user);
-                console.log(user.token);
                 if (user) {
                     console.log('logged in');
                     localStorage.setItem('token', token);
@@ -47,6 +44,7 @@ export class AuthenticationService {
         let options = new RequestOptions({ headers: headers });
         localStorage.removeItem('token');
         localStorage.removeItem('username');
+        localStorage.removeItem('userid');
         // remove user from local storage to log user out
         return this.http.post('http://127.0.0.1:8000/rest-auth/logout/', JSON.stringify({}), options)
         .map((response: Response) => {

@@ -1,3 +1,4 @@
+import { Endorsement } from './../models/endorsement.model';
 import { Purchase } from './../user-profile/user-profile.component';
 import { Feedback } from './../models/feedback.model';
 import { App } from './../models/app.model';

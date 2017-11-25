@@ -3,27 +3,19 @@
 </button>
 <h2 class="main-title" style="text-align:left;">App Feedback</h2>
 <div class="container">
-  <form (ngSubmit)="send()">
+  <form (ngSubmit)="uploadFeedback()">
     <div class="top-row">
       <mat-form-field>
-        <mat-select placeholder="Select Stars" [(ngModel)]="enteredStars" [ngModelOptions]="{standalone: true}">
+        <mat-select placeholder="Select Stars" [(ngModel)]="enteredStars" name="stars">
           <mat-option *ngFor="let star of stars" [value]="star">
             {{star}}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-    <!-- <div class="second-row">
-              <mat-input-container>
-                <input matInput placeholder="Description">
-                <mat-error>Description is
-                  <strong>required</strong>
-                </mat-error>
-              </mat-input-container>
-            </div> -->
     <div class="last-row">
       <mat-input-container>
-        <textarea matInput matTextareaAutosize matAutosizeMinRows="2" placeholder="Enter Comments"></textarea>
+        <textarea matInput matTextareaAutosize matAutosizeMinRows="2" placeholder="Enter Comments" name="comments" [(ngModel)]="enteredComments"></textarea>
         <mat-error>
           Comment is
           <strong>required</strong>

@@ -1,5 +1,6 @@
 export class App {
     aid: string;
+    uid: string;
     app_name: string;
     description: string;
     genre: string;

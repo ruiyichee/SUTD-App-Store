@@ -7,7 +7,7 @@
 </h2>
 <div class="action-con">
   <div class="searchbar">
-    <mat-form-field>
+    <!-- <mat-form-field>
       <mat-select placeholder="Year">
         <mat-option *ngFor="let year of years" [value]="year">
           {{year}}
@@ -20,8 +20,9 @@
           {{developer}}
         </mat-option>
       </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
     <mat-input-container>
+        <span matPrefix><mat-icon matPrefix>search</mat-icon> &nbsp;</span>        
       <input matInput placeholder="Search by App Name">
       <!-- <mat-icon matPrefix>search</mat-icon> -->
     </mat-input-container>

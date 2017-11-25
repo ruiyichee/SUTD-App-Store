@@ -45,6 +45,17 @@ export class AppService {
         .catch(this.handleError); //...errors if any
     }
 
+    setFeedback(feedback, appID): Observable<any> {
+        const appFeedbackUrl = this.feedbackUrl + appID + '/';        
+        return this.http.post(appFeedbackUrl, JSON.stringify(feedback), {headers: this.headers,responseType: 'text'}) // ...using post request
+        .catch(this.handleError); //...errors if any
+    }
+
+    setFeedbackEndorsement(feedbackEndorsement, appID): Observable<any> {
+        const appFeedbacEndorsementkUrl = this.feedbackEndorsementUrl + appID + '/';        
+        return this.http.post(appFeedbacEndorsementkUrl, JSON.stringify(feedbackEndorsement), {headers: this.headers,responseType: 'text'}) // ...using post request
+        .catch(this.handleError); //...errors if any
+    }
 
     private handleError(err: HttpErrorResponse) {
         let errorMessage = '';

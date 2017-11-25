@@ -67,6 +67,7 @@ def app_list(request):
             print(request.body)
             postedApp = request.body
             jsonApp=json.loads(postedApp)
+            id = jsonApp['uid']
             appName = jsonApp['app_name']
             appDescription = jsonApp['description']
             appGenre = jsonApp['genre']
@@ -75,6 +76,9 @@ def app_list(request):
             appDownloads = 0
             # cursor.execute("INSERT INTO application (date_of_upload, price, app_name, description, genre, no_of_downloads) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');", ([appDateTime], [appPrice], [appName], [appDescription], [appGenre], [appDownloads]))
             cursor.execute("INSERT INTO application (date_of_upload, price, app_name, description, genre, no_of_downloads) VALUES (%s, %s, %s, %s, %s, %s);", (appDateTime, appPrice, appName, appDescription, appGenre, appDownloads))
+            cursor.execute("SELECT LAST_INSERT_ID() as last_id;")
+            aid = cursor.fetchall()
+            cursor.execute("INSERT INTO creates (id, aid) VALUES (%s, %s);", (id,appid))
             return HttpResponse('201',status=status.HTTP_201_CREATED)
 
 @api_view(['GET', 'POST', 'DELETE'])
@@ -128,6 +132,22 @@ def app_feedback(request, pk):
             print('Working til dumps')
             return HttpResponse(jsonObj, content_type="application/json")
 
+    elif request.method == 'POST':
+        with connection.cursor() as cursor:
+            appid = pk
+            print(request.body)
+            postedFeedback = request.body
+            jsonApp=json.loads(postedFeedback)
+            id = jsonApp['uid']
+            feedbackStars = jsonApp['stars']
+            feedbackComments = jsonApp['comments']
+            feedbackDate = 20171120
+            cursor.execute("INSERT INTO feedback (stars, comments, feed_date) VALUES (%s, %s, %s);", (feedbackStars, feedbackComments, feedbackDate))
+            cursor.execute("SELECT LAST_INSERT_ID() as last_id;")
+            fid = cursor.fetchall()
+            cursor.execute("INSERT INTO gives (id, aid, fid) VALUES (%s, %s, %s);", (id,appid,fid))
+            return HttpResponse('201',status=status.HTTP_201_CREATED)
+
 @api_view(['GET', 'POST', 'DELETE'])
 def app_feedback_endorsement(request, pk):
     """
@@ -147,6 +167,21 @@ def app_feedback_endorsement(request, pk):
             jsonObj = json.dumps(result, default=json_serial)
             return HttpResponse(jsonObj, content_type="application/json")
 
+    elif request.method == 'POST':
+        with connection.cursor() as cursor:
+            print(request.body)
+            postedEndorsement = request.body
+            jsonEndorsement=json.loads(postedEndorsement)
+            id = jsonEndorsement['uid']
+            fid = jsonEndorsement['fid']
+            endorsementThumbs = jsonEndorsement['thumbs']
+            cursor.execute("INSERT INTO endorsement (thumbs) VALUES (%s);", [endorsementThumbs])
+            cursor.execute("SELECT LAST_INSERT_ID() as last_id;")
+            eid = cursor.fetchall()
+            cursor.execute("INSERT INTO receives (fid,eid) VALUES (%s, %s);", (fid,eid))
+            cursor.execute("INSERT INTO writes (id,eid) VALUES (%s, %s);", (id,eid))
+            return HttpResponse('201',status=status.HTTP_201_CREATED)
+
 
 @api_view(['GET', 'POST', 'DELETE'])
 def user_feedback(request, pk):
@@ -165,7 +200,6 @@ def user_feedback(request, pk):
                 result.append(dict(zip(keys,row)))
             jsonObj = json.dumps(result, default = json_serial)
             return HttpResponse(jsonObj, content_type="application/json")
-
 
 @api_view(['GET', 'POST', 'DELETE'])
 def user_purchase(request, pk):

@@ -11,9 +11,10 @@ div.action-con {
   justify-content: space-between;
   div.searchbar {
     display: flex;
+    width:100%;
     justify-content: flex-start;
-    mat-form-field {
-      margin-right: 1.5rem;
+    mat-input-container {
+      width: 100%;
     }
   }
 }

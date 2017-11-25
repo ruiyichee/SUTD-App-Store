@@ -2,9 +2,10 @@ import { AppService } from './../service/app.service';
 import { App } from './../models/app.model';
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { AppFeedbackComponent } from './app-feedback/app-feedback.component';
 import { NgProgress } from 'ngx-progressbar';
+import { Endorsement } from '../models/endorsement.model';
 
 @Component({
     selector: 'app-detail-component',
@@ -20,13 +21,16 @@ export class AppDetailComponent implements OnInit {
     screenshots = [];
     appIcon: string;
     averageFeedbackScore = 0;
+    enteredFeedbackEndorsement = new Endorsement();
 
     constructor(
         public dialogRef: MatDialogRef<AppDetailComponent>,
         private http: Http,
         private dialog: MatDialog,
         public ngProgress: NgProgress,
-        private appService: AppService
+        private appService: AppService,
+        public snackBar: MatSnackBar,
+        
     ) { }
 
     ngOnInit(): void {
@@ -80,25 +84,86 @@ export class AppDetailComponent implements OnInit {
     }
 
     downloadApp(event) {
-        const appID = this.selectedApp.aid;
-        console.log(appID);
-        const newURL = this.url + appID + '/';
-        const appToBeDownloaded = this.selectedApp;
-        // TODO: GET the appfile from DB
-        console.log('trying to download app');
-        console.log('not done downloading file yet');
-        console.log('Increment to DB');
-        let incrementor = 1;
-        this.http.post(newURL, incrementor).toPromise().then((res) => {
-            console.log(res.json());
-            console.log('succeeded');
-        });
-        event.stopPropagation();
+        // const appID = this.selectedApp.aid;
+        // console.log(appID);
+        // const newURL = this.url + appID + '/';
+        // const appToBeDownloaded = this.selectedApp;
+        // // TODO: GET the appfile from DB
+        // console.log('trying to download app');
+        // console.log('not done downloading file yet');
+        // console.log('Increment to DB');
+        // let incrementor = 1;
+        // this.http.post(newURL, incrementor).toPromise().then((res) => {
+        //     console.log(res.json());
+        //     console.log('succeeded');
+        // });
+        // event.stopPropagation();
     }
     openFeedback() {
         const dialogRef = this.dialog.open(AppFeedbackComponent, {
             panelClass: 'full-width-dialog',
             width: '80vw',
         });
+        dialogRef.componentInstance.appID = this.selectedApp.aid;
+    }
+
+    endorseUp(i) {
+        this.ngProgress.start();
+        this.enteredFeedbackEndorsement.thumbs = '1';
+        this.enteredFeedbackEndorsement.fid = this.feedbackList[i].fid;
+        this.enteredFeedbackEndorsement.uid = localStorage.getItem('userid');        
+        this.appService.setFeedbackEndorsement(this.enteredFeedbackEndorsement,this.selectedApp.aid).subscribe((res) => {
+            if (res === '201') {
+                this.dialogRef.close();
+                this.ngProgress.done();
+                this.ngOnInit();                             
+                this.snackBar.open('Thanks for your feedback', 'OK', {
+                    duration: 3000,
+                    extraClasses: ['success-snackbar']
+                    
+                });
+            } else {
+                this.dialogRef.close();
+                this.ngProgress.done();                
+                this.ngOnInit();             
+                this.snackBar.open('Failed to feedback', 'OK', {
+                    duration: 3000,
+                    extraClasses: ['failure-snackbar']
+
+                });
+            }
+            this.ngProgress.done();
+        }, (err) => { console.log(err) }
+        );
+    }
+
+    endorseDown(i) {
+        this.ngProgress.start();        
+        this.enteredFeedbackEndorsement.thumbs = '-1';
+        this.enteredFeedbackEndorsement.uid = localStorage.getItem('userid');  
+        this.enteredFeedbackEndorsement.fid = this.feedbackList[i].fid;        
+        this.appService.setFeedbackEndorsement(this.enteredFeedbackEndorsement,this.selectedApp.aid).subscribe((res) => {
+            if (res === '201') {
+                this.dialogRef.close();
+                this.ngProgress.done();   
+                this.ngOnInit();             
+                this.snackBar.open('Thanks for your feedback', 'OK', {
+                    duration: 3000,
+                    extraClasses: ['success-snackbar']
+
+                });
+            } else {
+                this.dialogRef.close();
+                this.ngProgress.done();   
+                this.ngOnInit();                             
+                this.snackBar.open('Failed to feedback', 'OK', {
+                    duration: 3000,
+                    extraClasses: ['failure-snackbar']
+
+                });
+            }
+            this.ngProgress.done();
+        }, (err) => { console.log(err) }
+        );
     }
 }

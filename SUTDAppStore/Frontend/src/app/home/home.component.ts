@@ -1,3 +1,5 @@
+import { User } from './../models/user.model';
+import { UserService } from './../service/user.service';
 import { AppService } from './../service/app.service';
 import { AppUploadComponent } from './app-upload.component';
 import { App } from './../models/app.model';
@@ -21,12 +23,15 @@ export class HomeComponent implements OnInit {
   years = ['2017', '2016', '2015', '2014'];
   selectedApp: App;
   randomVar: any;
+  selectedUser = new User();
   constructor(
     private http: HttpClient,
     private dialog: MatDialog,
     private titleService: Title,
     public ngProgress: NgProgress,
     private appService: AppService,
+    private userService: UserService
+
   ) {
   }
 
@@ -36,6 +41,12 @@ export class HomeComponent implements OnInit {
     this.appService.getApps().subscribe((apps) => {
       this.appList = apps;
       this.ngProgress.done();
+    },
+      (err) => { console.log(err) }
+    );
+    this.userService.getUserDetails().subscribe((user) => {
+      this.selectedUser = user[0];
+      localStorage.setItem('userid', this.selectedUser.id);
     },
       (err) => { console.log(err) }
     );
@@ -74,5 +85,5 @@ export class HomeComponent implements OnInit {
     event.stopPropagation();
   }
 
-  
+
 }

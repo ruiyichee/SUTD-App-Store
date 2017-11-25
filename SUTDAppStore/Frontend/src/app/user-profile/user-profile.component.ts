@@ -1,3 +1,4 @@
+// import { Endorsement } from './../models/endorsement.model';
 import { UserService } from './../service/user.service';
 import { User } from './../models/user.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -30,27 +31,27 @@ export class UserProfileComponent implements OnInit {
   selectedUser = new User();
   displayedPurchaseColumns = ['aid', 'app_name', 'price', 'purchase_date', 'genre'];
   displayedFeedbackColumns = ['fid', 'stars', 'comments', 'feed_date'];
+  displayedFeedbackEndorsementColumns = ['eid', 'fid', 'app_name', 'thumbs'];
   purchaseDataSource: any;
   feedbackDataSource: any;
   endorsementDataSource: any;
 
-  length = 100;
-  pageSize = 10;
-  pageSizeOptions = [5, 10, 25, 100];
+  // length = 100;
+  // pageSize = 10;
+  // pageSizeOptions = [5, 10, 25, 100];
 
-  pageEvent: PageEvent;
+  // pageEvent: PageEvent;
 
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-  }
+  // setPageSizeOptions(setPageSizeOptionsInput: string) {
+  //   this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+  // }
 
   ngOnInit() {
     this.titleService.setTitle('User Profile');
     feedbackHistory = [];
     purchaseHistory = [];
     // fetch user information
-    console.log('id here');
-    console.log(this.selectedUser.id);
+
     this.ngProgress.start();
     this.userService.getUserDetails().subscribe((user) => {
       this.selectedUser = user[0];
@@ -76,7 +77,7 @@ export class UserProfileComponent implements OnInit {
     },
       (err) => { console.log(err) }
     );
-    
+
   }
 }
 
@@ -93,6 +94,14 @@ export interface Purchase {
   purchase_date: string;
   genre: string;
 }
+
+export interface Endorsement {
+  eid: number;
+  fid: number;
+  app_name: string;
+  thumbs: string;
+}
+
 let feedbackHistory = []
 let purchaseHistory = []
 let endorsementHistory = []
@@ -119,7 +128,7 @@ export class PurchaseDataSource extends DataSource<any> {
 
 export class EndorsementDataSource extends DataSource<any> {
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<any[]> {
+  connect(): Observable<Endorsement[]> {
     console.log(endorsementHistory);
     return Observable.of(endorsementHistory);
   }

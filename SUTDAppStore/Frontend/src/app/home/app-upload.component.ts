@@ -39,6 +39,7 @@ export class AppUploadComponent implements OnInit {
         console.log(this.enteredApp);
         console.log('attempting post request');
         this.ngProgress.start();
+        this.enteredApp.uid = localStorage.getItem('userid');
         this.appService.setApp(this.enteredApp).subscribe((res) => {
             if (res === '201') {
                 this.dialogRef.close();

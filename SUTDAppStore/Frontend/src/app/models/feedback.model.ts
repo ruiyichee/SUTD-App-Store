@@ -1,5 +1,6 @@
 export class Feedback {
     fid: string;
+    uid: string;
     stars: string;
     comments: string;
     username: string;
