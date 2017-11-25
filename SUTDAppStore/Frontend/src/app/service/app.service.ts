@@ -15,6 +15,7 @@ export class AppService {
     private appUrl = 'http://localhost:8000/appstore/';
     private feedbackUrl = 'http://localhost:8000/appstore/feedback/';
     private feedbackEndorsementUrl = 'http://localhost:8000/appstore/feedback/endorsement/';
+    private searchUrl = 'http://localhost:8000/appstore/search/';
     headers = new HttpHeaders({
         'Content-Type': 'application/json'
       });
@@ -52,9 +53,24 @@ export class AppService {
     }
 
     setFeedbackEndorsement(feedbackEndorsement, appID): Observable<any> {
-        const appFeedbacEndorsementkUrl = this.feedbackEndorsementUrl + appID + '/';        
-        return this.http.post(appFeedbacEndorsementkUrl, JSON.stringify(feedbackEndorsement), {headers: this.headers,responseType: 'text'}) // ...using post request
+        const appFeedbacEndorsementUrl = this.feedbackEndorsementUrl + appID + '/';        
+        return this.http.post(appFeedbacEndorsementUrl, JSON.stringify(feedbackEndorsement), {headers: this.headers,responseType: 'text'}) // ...using post request
         .catch(this.handleError); //...errors if any
+    }
+
+    searchApp(searchValue): Observable<App[]> {
+        if (searchValue === '') {
+            console.log('trying to do app list');
+            return this.http.get<App[]>(this.appUrl)
+            .do(data => console.log('get success'))
+            .catch(this.handleError);
+        } else {
+            const appSearchUrl = this.searchUrl + searchValue + '/';        
+            return this.http.get<App[]>(appSearchUrl)
+            .do(data => console.log('get success'))
+            .catch(this.handleError);
+        }
+        
     }
 
     private handleError(err: HttpErrorResponse) {

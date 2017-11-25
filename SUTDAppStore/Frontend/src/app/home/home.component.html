@@ -31,7 +31,7 @@
 
 <div class="app-con">
   <mat-card *ngFor="let app of appList; let i = index" (click)="openApp(i)">
-    <h4>{{app.appName}}</h4>
+    <h4>{{app.app_name}}</h4>
     <img md-card-image src="assets/img/appicon1.svg" alt="fake icon">
     <!-- <mat-card-actions>
       <button mat-icon-button (click)="downloadApp(i, $event)">

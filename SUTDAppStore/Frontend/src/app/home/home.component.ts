@@ -25,9 +25,9 @@ export class HomeComponent implements OnInit {
   selectedApp: App;
   randomVar: any;
   selectedUser = new User();
-  searchTextValue = '';  
+  searchTextValue = '';
   private subject: Subject<string> = new Subject();
-  
+
   constructor(
     private http: HttpClient,
     private dialog: MatDialog,
@@ -54,18 +54,25 @@ export class HomeComponent implements OnInit {
     },
       (err) => { console.log(err) }
     );
-    this.subject.debounceTime(500).subscribe(searchTextValue => {
+    this.subject.debounceTime(300).subscribe(searchTextValue => {
       this.handleSearch(searchTextValue);
     });
   }
 
-  onKeyUp(searchTextValue: string){
+  onKeyUp(searchTextValue: string) {
     this.subject.next(searchTextValue);
   }
 
   handleSearch(searchValue: string) {
     this.searchTextValue = searchValue;
     console.log(this.searchTextValue);
+    this.ngProgress.start();
+    this.appService.searchApp(this.searchTextValue).subscribe((apps) => {
+      this.appList = apps;
+      this.ngProgress.done();
+    },
+      (err) => { console.log(err) }
+    );
   }
 
 

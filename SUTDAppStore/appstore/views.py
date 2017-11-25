@@ -53,13 +53,13 @@ def app_list(request):
     print(request.method)
     with connection.cursor() as cursor:
         if request.method == 'GET':
-            cursor.execute("SELECT aid, app_name, description, genre FROM application")
+            cursor.execute("SELECT app_name, aid, price, description, genre, date_of_upload, icon FROM application")
             rows = cursor.fetchall()
             result = []
-            keys = ('aid','appName','description', 'genre')
+            keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon')
             for row in rows:
                 result.append(dict(zip(keys,row)))
-            jsonObj = json.dumps(result)
+            jsonObj = json.dumps(result, default=json_serial)
             return HttpResponse(jsonObj, content_type="application/json")
             # serializer = AppSerializer(apps,context={'request': request} ,many=True)
             # return Response(serializer.data)
@@ -255,6 +255,24 @@ def user(request, username):
             jsonObj = json.dumps(result, default = json_serial)
             return HttpResponse(jsonObj, content_type="application/json")
 
+@api_view(['GET'])
+def app_search(request, search_value):
+    """
+    Retrieve, update or delete a user instance.
+    """
+    if request.method == 'GET':
+        with connection.cursor() as cursor:
+            search_final_value = "%" + search_value + "%"
+            print(search_value)
+            cursor.execute("Select a.app_name, a.aid,  a.price, a.description, a.genre, a.date_of_upload, a.icon FROM application a, creates c WHERE c.aid=a.aid AND (a.app_name LIKE %s OR a.genre LIKE %s OR a.description LIKE %s OR c.id LIKE %s) ORDER BY date_of_upload DESC ;", (search_final_value,search_final_value,search_final_value,search_final_value))
+            app_list = cursor.fetchall()
+            print(app_list)
+            result = []
+            keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon')
+            for row in app_list:
+                result.append(dict(zip(keys,row)))
+            jsonObj = json.dumps(result, default = json_serial)
+            return HttpResponse(jsonObj, content_type="application/json")
 
 
 def json_serial(obj):
