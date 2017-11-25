@@ -96,6 +96,24 @@ export class HomeAppDetailsComponent implements OnInit {
         width: '80vw',
     });
     dialogRef.componentInstance.appID = this.selectedApp.aid;
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.appService.getFeedbacks(this.selectedApp.aid).subscribe(
+        (feedbacks) => {
+            this.feedbackList = feedbacks;
+            let totalScore = 0;
+            for (let i = 0; i < this.feedbackList.length; i++) {
+                let currentScore = +this.feedbackList[i].stars;
+                totalScore += currentScore;
+            }
+            this.averageFeedbackScore = Math.ceil(totalScore / this.feedbackList.length);
+            console.log(this.averageFeedbackScore);
+            console.log(this.feedbackList);
+ 
+        },
+        (err) => { console.log(err) }
+    );
+    });
 }
 
 endorseUp(i) {
