@@ -12,18 +12,29 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AdminService {
-    private appUrl = 'http://localhost:8000/appstore/';
-    private toRecommendUrl = 'http://localhost:8000/appstore/recommend/';
-    private feedbackUrl = 'http://localhost:8000/appstore/feedback/';
-    private feedbackEndorsementUrl = 'http://localhost:8000/appstore/feedback/endorsement/';
+    private popularAppsUrl = 'http://localhost:8000/admin/sales/app/';
+    private popularDevelopersUrl = 'http://localhost:8000/admin/sales/developer/';
+    private popularGenreUrl = 'http://localhost:8000/admin/sales/genre/';
     private searchUrl = 'http://localhost:8000/appstore/search/';
     headers = new HttpHeaders({
         'Content-Type': 'application/json'
       });
     constructor(private http: HttpClient) { }
 
-    getApps(): Observable<App[]> {
-        return this.http.get<App[]>(this.appUrl)
+    getPopularApps(): Observable<any[]> {
+        return this.http.get<any[]>(this.popularAppsUrl)
+            .do(data => console.log('get success'))
+            .catch(this.handleError);
+    }
+
+    getPopularDevelopers(): Observable<any[]> {
+        return this.http.get<any[]>(this.popularDevelopersUrl)
+            .do(data => console.log('get success'))
+            .catch(this.handleError);
+    }
+
+    getPopularGenre(): Observable<any[]> {
+        return this.http.get<any[]>(this.popularGenreUrl)
             .do(data => console.log('get success'))
             .catch(this.handleError);
     }

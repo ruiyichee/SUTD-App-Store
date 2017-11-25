@@ -325,6 +325,71 @@ def app_search(request, search_value):
             jsonObj = json.dumps(result, default = json_serial)
             return HttpResponse(jsonObj, content_type="application/json")
 
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def admin_app_list(request):
+    """
+    List all popular apps
+    """
+    print(request.method)
+    with connection.cursor() as cursor:
+        if request.method == 'GET':
+            cursor.execute("""
+            select distinct app_name, no_of_downloads from application, purchases
+            where purchases.aid=application.aid AND purchase_date 
+            order by no_of_downloads Desc;""")
+            rows = cursor.fetchall()
+            result = []
+            keys = ('app_name', 'no_of_downloads')
+            for row in rows:
+                result.append(dict(zip(keys,row)))
+            jsonObj = json.dumps(result, default=json_serial)
+            return HttpResponse(jsonObj, content_type="application/json")
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def admin_developer_list(request):
+    """
+    List all popular developers
+    """
+    print(request.method)
+    with connection.cursor() as cursor:
+        if request.method == 'GET':
+            cursor.execute("""
+            select DISTINCT first_name , sum(no_of_downloads) from application, purchases, creates, auth_user
+            where purchases.aid=application.aid AND creates.id=purchases.id AND auth_user.id=creates.id
+            group by (creates.id)
+            order by sum(no_of_downloads) desc limit 6;""")
+            rows = cursor.fetchall()
+            result = []
+            keys = ('first_name', 'no_of_downloads')
+            for row in rows:
+                result.append(dict(zip(keys,row)))
+            jsonObj = json.dumps(result, default=json_serial)
+            return HttpResponse(jsonObj, content_type="application/json")
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def admin_genre_list(request):
+    """
+    List all popular genre
+    """
+    print(request.method)
+    with connection.cursor() as cursor:
+        if request.method == 'GET':
+            cursor.execute("""
+            select genre, count(genre) from application, purchases
+            where purchases.aid=application.aid AND purchase_date BETWEEN curdate() - interval 200000 day and curdate()
+            group by genre
+            order by count(genre) desc;""")
+            rows = cursor.fetchall()
+            result = []
+            keys = ('genre', 'count')
+            for row in rows:
+                result.append(dict(zip(keys,row)))
+            jsonObj = json.dumps(result, default=json_serial)
+            return HttpResponse(jsonObj, content_type="application/json")
+
 
 def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
