@@ -4,7 +4,6 @@ import { UserService } from './../service/user.service';
 import { AppService } from './../service/app.service';
 import { AppUploadComponent } from './app-upload.component';
 import { App } from './../models/app.model';
-import { AppDetailComponent } from './app-detail.component';
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -21,8 +20,10 @@ import { Subject } from 'rxjs';
 export class HomeComponent implements OnInit {
   url: string = 'http://localhost:8000/appstore/';
   appList: App[];
-  developers = ['Jeremy Rose', 'Jon Wong', 'Dorien'];
-  years = ['2017', '2016', '2015', '2014'];
+  recommendedAppList: App[];
+  prices = ['<5', '5 - 10', '> 10'];
+  genres = ['3D', '2D'];
+  selectedPriceRange = '';
   selectedApp: App;
   randomVar: any;
   selectedUser = new User();
@@ -53,6 +54,9 @@ export class HomeComponent implements OnInit {
     this.userService.getUserDetails().subscribe((user) => {
       this.selectedUser = user[0];
       localStorage.setItem('userid', this.selectedUser.id);
+      this.appService.getRecommendedApps(this.selectedUser.id).subscribe((apps) => {
+        this.recommendedAppList = apps;
+      })
     },
       (err) => { console.log(err) }
     );
@@ -82,23 +86,9 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/app-details', data]);
   }
 
-
-  // openApp(i) {
-  //   const dialogRef = this.dialog.open(AppDetailComponent, {
-  //     panelClass: 'full-width-dialog',
-  //     height: '100vh',
-  //     width: '100vw',
-  //   });
-
-  //   dialogRef.componentInstance.selectedApp = this.appList[i];
-  // }
-
-  uploadApp() {
-    const dialogRef = this.dialog.open(AppUploadComponent, {
-      panelClass: 'full-width-dialog',
-      // height: '80vh',
-      width: '80vw',
-    });
+  routeToRecommendedApp(i) {
+    let data = this.recommendedAppList[i];
+    this.router.navigate(['/app-details', data]);
   }
 
   downloadApp(i, event) {
@@ -114,6 +104,11 @@ export class HomeComponent implements OnInit {
       console.log('succeeded');
     });
     event.stopPropagation();
+  }
+
+  filterPrice() {
+    console.log('price changed');
+    console.log(this.selectedPriceRange);
   }
 
 

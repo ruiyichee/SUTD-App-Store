@@ -61,8 +61,6 @@ def app_list(request):
                 result.append(dict(zip(keys,row)))
             jsonObj = json.dumps(result, default=json_serial)
             return HttpResponse(jsonObj, content_type="application/json")
-            # serializer = AppSerializer(apps,context={'request': request} ,many=True)
-            # return Response(serializer.data)
         elif request.method == 'POST':
             print(request.body)
             postedApp = request.body
@@ -74,12 +72,42 @@ def app_list(request):
             appDateTime = 20171120
             appPrice = 5.0
             appDownloads = 0
-            # cursor.execute("INSERT INTO application (date_of_upload, price, app_name, description, genre, no_of_downloads) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');", ([appDateTime], [appPrice], [appName], [appDescription], [appGenre], [appDownloads]))
             cursor.execute("INSERT INTO application (date_of_upload, price, app_name, description, genre, no_of_downloads) VALUES (%s, %s, %s, %s, %s, %s);", (appDateTime, appPrice, appName, appDescription, appGenre, appDownloads))
             cursor.execute("SELECT LAST_INSERT_ID() as last_id;")
             aid = cursor.fetchall()
             cursor.execute("INSERT INTO creates (id, aid) VALUES (%s, %s);", (id,appid))
             return HttpResponse('201',status=status.HTTP_201_CREATED)
+
+@api_view(['GET', 'POST'])
+@permission_classes((IsAuthenticated,))
+def recommended_app_list(request, pk):
+    """
+    List all recommended apps
+    """
+    print(request.method)
+    with connection.cursor() as cursor:
+        if request.method == 'GET':
+            userid = pk
+            cursor.execute("""
+            SELECT DISTINCT app_name, A.aid, A.price, A.description, A.genre, A.date_of_upload, A.icon FROM application A, purchases P 
+            WHERE A.aid = P.aid
+            AND id IN (SELECT id FROM application A, purchases P
+            WHERE A.aid = P.aid 
+            AND A.aid IN 
+            (Select A.aid from purchases P, application A
+            WHERE P.aid = A.aid
+            AND P.id = %s))
+            AND A.aid NOT IN
+            (Select A.aid from purchases P, application A
+            WHERE P.aid = A.aid
+            AND P.id = %s);""", (userid, userid))
+            rows = cursor.fetchall()
+            result = []
+            keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon')
+            for row in rows:
+                result.append(dict(zip(keys,row)))
+            jsonObj = json.dumps(result, default=json_serial)
+            return HttpResponse(jsonObj, content_type="application/json")
 
 @api_view(['GET', 'POST', 'DELETE'])
 def app_detail(request, pk):
@@ -120,7 +148,12 @@ def app_feedback(request, pk):
     if request.method == 'GET':
         with connection.cursor() as cursor:
             appid = pk
-            cursor.execute("SELECT f.fid, stars, comments, username, feed_date FROM feedback f, gives g, application a, auth_user WHERE g.aid= a.aid AND g.id=auth_user.id AND f.fid=g.fid and a.aid = %s;", [appid])
+            cursor.execute("""
+            SELECT f.fid, stars, comments, username, feed_date FROM feedback f, gives g, application a, auth_user 
+            WHERE g.aid= a.aid 
+            AND g.id=auth_user.id 
+            AND f.fid=g.fid 
+            AND a.aid = %s;""", [appid])
             selected_feedback = cursor.fetchall()
             print(selected_feedback)
             result = []
@@ -157,7 +190,14 @@ def app_feedback_endorsement(request, pk):
         with connection.cursor() as cursor:
             appid = pk
             # appid = pk
-            cursor.execute("Select f.fid, sum(case when e.thumbs=1 then 1 else 0 end) AS up, sum(case when e.thumbs=-1 then 1 else 0 end) AS down FROM receives r, endorsement e, feedback f, gives g where r.eid=e.eid and r.fid=f.fid and f.fid=g.fid and g.aid=%s group by f.fid;", [appid])
+            cursor.execute("""
+            Select f.fid, sum(case when e.thumbs=1 then 1 else 0 end) AS up, sum(case when e.thumbs=-1 then 1 else 0 end) AS down 
+            FROM receives r, endorsement e, feedback f, gives g 
+            where r.eid=e.eid 
+            and r.fid=f.fid 
+            and f.fid=g.fid 
+            and g.aid=%s 
+            group by f.fid;""", [appid])
             selected_endorsement = cursor.fetchall()
             print(selected_endorsement)
             result = []
@@ -191,7 +231,11 @@ def user_feedback(request, pk):
     if request.method == 'GET':
         with connection.cursor() as cursor:
             userid = pk
-            cursor.execute("SELECT DISTINCT f.fid, stars, comments, username, feed_date FROM feedback f, gives g, application a, auth_user WHERE g.id=%s AND f.fid=g.fid AND auth_user.id = %s;", (userid, userid))
+            cursor.execute("""
+            SELECT DISTINCT f.fid, stars, comments, username, feed_date FROM feedback f, gives g, application a, auth_user 
+            WHERE g.id=%s 
+            AND f.fid=g.fid 
+            AND auth_user.id = %s;""", (userid, userid))
             selected_feedback = cursor.fetchall()
             print(selected_feedback)
             result = []
@@ -209,7 +253,10 @@ def user_purchase(request, pk):
     if request.method == 'GET':
         with connection.cursor() as cursor:
             userid = pk
-            cursor.execute("SELECT A.aid, app_name, price, purchase_date, genre FROM purchases, application A WHERE purchases.aid = A.aid AND Purchases.id = %s;", [userid])
+            cursor.execute("""
+            SELECT A.aid, app_name, price, purchase_date, genre FROM purchases, application A 
+            WHERE purchases.aid = A.aid 
+            AND Purchases.id = %s;""", [userid])
             selected_feedback = cursor.fetchall()
             print(selected_feedback)
             result = []
@@ -227,7 +274,14 @@ def user_endorsement(request, pk):
     if request.method == 'GET':
         with connection.cursor() as cursor:
             userid = pk
-            cursor.execute("select et.eid, f.fid, a.app_name, et.thumbs from feedback f, receives r, application a, endorsement et, writes w, gives g where w.id=%s and w.eid=et.eid and r.eid=et.eid and r.fid=f.fid and f.fid=g.fid and g.aid=a.aid;", [userid])
+            cursor.execute("""
+            select et.eid, f.fid, a.app_name, et.thumbs from feedback f, receives r, application a, endorsement et, writes w, gives g 
+            where w.id=%s 
+            and w.eid=et.eid 
+            and r.eid=et.eid 
+            and r.fid=f.fid 
+            and f.fid=g.fid 
+            and g.aid=a.aid;""", [userid])
             selected_endorsement = cursor.fetchall()
             print(selected_endorsement)
             result = []
@@ -264,7 +318,11 @@ def app_search(request, search_value):
         with connection.cursor() as cursor:
             search_final_value = "%" + search_value + "%"
             print(search_value)
-            cursor.execute("Select a.app_name, a.aid,  a.price, a.description, a.genre, a.date_of_upload, a.icon FROM application a, creates c WHERE c.aid=a.aid AND (a.app_name LIKE %s OR a.genre LIKE %s OR a.description LIKE %s OR c.id LIKE %s) ORDER BY date_of_upload DESC ;", (search_final_value,search_final_value,search_final_value,search_final_value))
+            cursor.execute("""
+            Select a.app_name, a.aid,  a.price, a.description, a.genre, a.date_of_upload, a.icon FROM application a, creates c 
+            WHERE c.aid=a.aid 
+            AND (a.app_name LIKE %s OR a.genre LIKE %s OR a.description LIKE %s OR c.id LIKE %s) 
+            ORDER BY date_of_upload DESC ;""", (search_final_value,search_final_value,search_final_value,search_final_value))
             app_list = cursor.fetchall()
             print(app_list)
             result = []

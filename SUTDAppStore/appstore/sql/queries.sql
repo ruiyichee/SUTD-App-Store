@@ -167,7 +167,7 @@ WHERE temp.fid=r.fid
 AND e.eid=r.eid
 AND temp.aid=a.aid
 GROUP BY r.fid 
-ORDER BY avg1 DESC LIMIT 5;
+ORDER BY avg1 DESC LIMIT 3;
 
 ###Q10
 

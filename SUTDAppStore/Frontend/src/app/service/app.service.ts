@@ -13,6 +13,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AppService {
     private appUrl = 'http://localhost:8000/appstore/';
+    private toRecommendUrl = 'http://localhost:8000/appstore/recommend/';
     private feedbackUrl = 'http://localhost:8000/appstore/feedback/';
     private feedbackEndorsementUrl = 'http://localhost:8000/appstore/feedback/endorsement/';
     private searchUrl = 'http://localhost:8000/appstore/search/';
@@ -23,6 +24,13 @@ export class AppService {
 
     getApps(): Observable<App[]> {
         return this.http.get<App[]>(this.appUrl)
+            .do(data => console.log('get success'))
+            .catch(this.handleError);
+    }
+
+    getRecommendedApps(userID): Observable<App[]> {
+        const recommendedAppUrl = this.toRecommendUrl + userID + '/';
+        return this.http.get<App[]>(recommendedAppUrl)
             .do(data => console.log('get success'))
             .catch(this.handleError);
     }

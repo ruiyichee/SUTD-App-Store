@@ -26,7 +26,6 @@ export class HomeAppDetailsComponent implements OnInit {
   averageFeedbackScore = 0;
   enteredFeedbackEndorsement = new Endorsement();
 
-
   constructor(
     private route: ActivatedRoute,
     private http: Http,

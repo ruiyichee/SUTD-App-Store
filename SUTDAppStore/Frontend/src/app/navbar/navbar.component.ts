@@ -1,3 +1,5 @@
+import { MatDialog } from '@angular/material';
+import { AppUploadComponent } from './../home/app-upload.component';
 import { AuthenticationService } from './../service/authentication.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,7 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private authenticationService: AuthenticationService
+  constructor(
+    private authenticationService: AuthenticationService,
+    private dialog: MatDialog,
+    
   ) { }
 
   ngOnInit() {
@@ -26,5 +31,12 @@ export class NavbarComponent implements OnInit {
         console.log(error);
       }
       );
+  }
+  uploadApp() {
+    const dialogRef = this.dialog.open(AppUploadComponent, {
+      panelClass: 'full-width-dialog',
+      // height: '80vh',
+      width: '80vw',
+    });
   }
 }

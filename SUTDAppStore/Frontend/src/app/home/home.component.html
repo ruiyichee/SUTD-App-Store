@@ -1,43 +1,43 @@
 <app-navbar></app-navbar>
-<h2>Apps List
-  <button mat-raised-button class="close-button" (click)="uploadApp()">
-    <mat-icon>add</mat-icon>
-    Upload App
-  </button>
-</h2>
 <div class="action-con">
+
   <div class="searchbar">
-    <!-- <mat-form-field>
-      <mat-select placeholder="Year">
-        <mat-option *ngFor="let year of years" [value]="year">
-          {{year}}
+    <mat-form-field>
+      <mat-select placeholder="Price Range" (change)="filterPrice()" [(ngModel)]="selectedPriceRange" name="price">
+        <mat-option *ngFor="let price of prices" [value]="price">
+          {{price}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-select placeholder="Developer Name">
-        <mat-option *ngFor="let developer of developers" [value]="developer">
-          {{developer}}
+      <mat-select placeholder="App Genre">
+        <mat-option *ngFor="let genre of genres" [value]="genre">
+          {{genre}}
         </mat-option>
       </mat-select>
-    </mat-form-field> -->
+    </mat-form-field>
     <mat-input-container>
-        <span matPrefix><mat-icon matPrefix>search</mat-icon> &nbsp;</span>        
       <input matInput placeholder="Search by App Name" #searchText (keyup)="onKeyUp(searchText.value)">
-      <!-- <mat-icon matPrefix>search</mat-icon> -->
     </mat-input-container>
+
+
   </div>
 </div>
-
-<!-- <div class="app-con">
-  <mat-card *ngFor="let app of appList; let i = index" (click)="openApp(i)">
+<h2>Recommended For You</h2>
+<div class="app-con">
+  <div *ngIf="recommendedAppList.length === 0">
+    <span>Sorry, we couldn't recommend any apps for you</span>
+  </div>
+  <mat-card *ngFor="let app of recommendedAppList; let i = index" (click)="routeToRecommendedApp(i)">
     <h4>{{app.app_name}}</h4>
     <img md-card-image src="assets/img/appicon1.svg" alt="fake icon">
   </mat-card>
-</div> -->
+</div>
+<br>
+<h2>Browse Apps</h2>
 <div class="app-con">
-    <mat-card *ngFor="let app of appList; let i = index" (click)="routeToApp(i)">
-      <h4>{{app.app_name}}</h4>
-      <img md-card-image src="assets/img/appicon1.svg" alt="fake icon">
-    </mat-card>
-  </div>
+  <mat-card *ngFor="let app of appList; let i = index" (click)="routeToApp(i)">
+    <h4>{{app.app_name}}</h4>
+    <img md-card-image src="assets/img/appicon1.svg" alt="fake icon">
+  </mat-card>
+</div>

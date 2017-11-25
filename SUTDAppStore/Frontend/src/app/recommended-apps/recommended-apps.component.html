@@ -1,0 +1,8 @@
+<h2>Recommended For You</h2>
+<div class="app-con">
+  
+  <mat-card *ngFor="let app of appList; let i = index" (click)="routeToApp(i)">
+    <h4>{{app.app_name}}</h4>
+    <img md-card-image src="assets/img/appicon1.svg" alt="fake icon">
+  </mat-card>
+</div>

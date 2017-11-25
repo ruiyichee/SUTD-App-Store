@@ -7,7 +7,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { MatNativeDateModule, MatDatepickerModule, MatSnackBarModule, MatPaginatorModule, MatTableModule, MatMenuModule, MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatCardModule, MatDialogModule } from '@angular/material';
+import { MatExpansionModule, MatCheckboxModule, MatNativeDateModule, MatDatepickerModule, MatSnackBarModule, MatPaginatorModule, MatTableModule, MatMenuModule, MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatCardModule, MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
@@ -27,18 +27,15 @@ import { AuthenticationService } from './service/authentication.service';
 import { UserService } from './service/user.service';
 import { SignupService } from './service/signup.service';
 import { HomeAppDetailsComponent } from './home-app-details/home-app-details.component';
+import { RecommendedAppsComponent } from './recommended-apps/recommended-apps.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'user-profile', component: UserProfileComponent },
-  { path: 'app-details', component: HomeAppDetailsComponent, data : {some_data : 'some value'} }
-
-  // { path: 'about', component: AboutComponent },
-  // { path: 'contact', component: ContactComponent },
-  // { path: 'blog', component: BlogComponent },
-  // { path: 'travels',     component: TravelsComponent }
+  { path: 'app-details', component: HomeAppDetailsComponent},
+  // { path: 'recommended-apps', component: RecommendedAppsComponent},  
 ];
 
 @NgModule({
@@ -57,7 +54,8 @@ const routes: Routes = [
     AppFeedbackComponent,
     SignupComponent,
     NavbarComponent,
-    HomeAppDetailsComponent
+    HomeAppDetailsComponent,
+    RecommendedAppsComponent
   ],
   imports: [
     BrowserModule,
@@ -74,6 +72,8 @@ const routes: Routes = [
     MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatCheckboxModule,
+    MatExpansionModule,
     NgProgressModule,
     BrowserAnimationsModule,
     HttpModule,
