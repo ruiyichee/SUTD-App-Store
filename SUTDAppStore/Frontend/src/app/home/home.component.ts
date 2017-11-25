@@ -10,6 +10,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Title } from '@angular/platform-browser';
 import { NgProgress } from 'ngx-progressbar';
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +25,9 @@ export class HomeComponent implements OnInit {
   selectedApp: App;
   randomVar: any;
   selectedUser = new User();
+  searchTextValue = '';  
+  private subject: Subject<string> = new Subject();
+  
   constructor(
     private http: HttpClient,
     private dialog: MatDialog,
@@ -50,7 +54,20 @@ export class HomeComponent implements OnInit {
     },
       (err) => { console.log(err) }
     );
+    this.subject.debounceTime(500).subscribe(searchTextValue => {
+      this.handleSearch(searchTextValue);
+    });
   }
+
+  onKeyUp(searchTextValue: string){
+    this.subject.next(searchTextValue);
+  }
+
+  handleSearch(searchValue: string) {
+    this.searchTextValue = searchValue;
+    console.log(this.searchTextValue);
+  }
+
 
   openApp(i) {
     const dialogRef = this.dialog.open(AppDetailComponent, {

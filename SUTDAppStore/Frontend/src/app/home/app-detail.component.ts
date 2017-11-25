@@ -30,7 +30,7 @@ export class AppDetailComponent implements OnInit {
         public ngProgress: NgProgress,
         private appService: AppService,
         public snackBar: MatSnackBar,
-        
+
     ) { }
 
     ngOnInit(): void {
@@ -57,7 +57,7 @@ export class AppDetailComponent implements OnInit {
                 this.averageFeedbackScore = Math.ceil(totalScore / this.feedbackList.length);
                 console.log(this.averageFeedbackScore);
                 console.log(this.feedbackList);
-                
+
             },
             (err) => { console.log(err) }
         );
@@ -111,21 +111,36 @@ export class AppDetailComponent implements OnInit {
         this.ngProgress.start();
         this.enteredFeedbackEndorsement.thumbs = '1';
         this.enteredFeedbackEndorsement.fid = this.feedbackList[i].fid;
-        this.enteredFeedbackEndorsement.uid = localStorage.getItem('userid');        
-        this.appService.setFeedbackEndorsement(this.enteredFeedbackEndorsement,this.selectedApp.aid).subscribe((res) => {
+        this.enteredFeedbackEndorsement.uid = localStorage.getItem('userid');
+        this.appService.setFeedbackEndorsement(this.enteredFeedbackEndorsement, this.selectedApp.aid).subscribe((res) => {
             if (res === '201') {
                 this.dialogRef.close();
+                this.appService.getFeedbackEndorsement(this.selectedApp.aid).subscribe(
+                    (endorsements) => {
+                        console.log(endorsements);
+                        for (let i = 0; i < this.feedbackList.length; i++) {
+                            for (let j = 0; j < endorsements.length; j++) {
+                                if (endorsements[j].fid == this.feedbackList[i].fid) {
+                                    this.feedbackList[i].thumbs_up = endorsements[j].up;
+                                    this.feedbackList[i].thumbs_down = endorsements[j].down;
+                                }
+                            }
+                        }
+                        this.ngProgress.done();
+
+                    },
+                    (err) => { console.log(err) }
+                );
                 this.ngProgress.done();
-                this.ngOnInit();                             
                 this.snackBar.open('Thanks for your feedback', 'OK', {
                     duration: 3000,
                     extraClasses: ['success-snackbar']
-                    
+
                 });
             } else {
                 this.dialogRef.close();
-                this.ngProgress.done();                
-                this.ngOnInit();             
+                this.ngProgress.done();
+                this.ngOnInit();
                 this.snackBar.open('Failed to feedback', 'OK', {
                     duration: 3000,
                     extraClasses: ['failure-snackbar']
@@ -138,15 +153,30 @@ export class AppDetailComponent implements OnInit {
     }
 
     endorseDown(i) {
-        this.ngProgress.start();        
+        this.ngProgress.start();
         this.enteredFeedbackEndorsement.thumbs = '-1';
-        this.enteredFeedbackEndorsement.uid = localStorage.getItem('userid');  
-        this.enteredFeedbackEndorsement.fid = this.feedbackList[i].fid;        
-        this.appService.setFeedbackEndorsement(this.enteredFeedbackEndorsement,this.selectedApp.aid).subscribe((res) => {
+        this.enteredFeedbackEndorsement.uid = localStorage.getItem('userid');
+        this.enteredFeedbackEndorsement.fid = this.feedbackList[i].fid;
+        this.appService.setFeedbackEndorsement(this.enteredFeedbackEndorsement, this.selectedApp.aid).subscribe((res) => {
             if (res === '201') {
                 this.dialogRef.close();
-                this.ngProgress.done();   
-                this.ngOnInit();             
+                this.appService.getFeedbackEndorsement(this.selectedApp.aid).subscribe(
+                    (endorsements) => {
+                        console.log(endorsements);
+                        for (let i = 0; i < this.feedbackList.length; i++) {
+                            for (let j = 0; j < endorsements.length; j++) {
+                                if (endorsements[j].fid == this.feedbackList[i].fid) {
+                                    this.feedbackList[i].thumbs_up = endorsements[j].up;
+                                    this.feedbackList[i].thumbs_down = endorsements[j].down;
+                                }
+                            }
+                        }
+                        this.ngProgress.done();
+
+                    },
+                    (err) => { console.log(err) }
+                );
+                this.ngProgress.done();
                 this.snackBar.open('Thanks for your feedback', 'OK', {
                     duration: 3000,
                     extraClasses: ['success-snackbar']
@@ -154,8 +184,8 @@ export class AppDetailComponent implements OnInit {
                 });
             } else {
                 this.dialogRef.close();
-                this.ngProgress.done();   
-                this.ngOnInit();                             
+                this.ngProgress.done();
+                this.ngOnInit();
                 this.snackBar.open('Failed to feedback', 'OK', {
                     duration: 3000,
                     extraClasses: ['failure-snackbar']

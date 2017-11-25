@@ -23,7 +23,7 @@
     </mat-form-field> -->
     <mat-input-container>
         <span matPrefix><mat-icon matPrefix>search</mat-icon> &nbsp;</span>        
-      <input matInput placeholder="Search by App Name">
+      <input matInput placeholder="Search by App Name" #searchText (keyup)="onKeyUp(searchText.value)">
       <!-- <mat-icon matPrefix>search</mat-icon> -->
     </mat-input-container>
   </div>
