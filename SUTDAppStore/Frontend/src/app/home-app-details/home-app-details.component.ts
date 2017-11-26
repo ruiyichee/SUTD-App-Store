@@ -21,6 +21,7 @@ export class HomeAppDetailsComponent implements OnInit {
   url: string = 'http://localhost:8000/appstore/feedback/';
   endorsementUrl = 'http://localhost:8000/appstore/feedback/endorsement/'
   feedbackList = [];
+  totalFeedbackList = [];
   screenshots = [];
   usefulnessScore = [];
   selectedScore = '';
@@ -63,6 +64,7 @@ export class HomeAppDetailsComponent implements OnInit {
     this.appService.getFeedbacks(appID).subscribe(
       (feedbacks) => {
         this.feedbackList = feedbacks;
+        this.totalFeedbackList = feedbacks;
         let totalScore = 0;
         for (let i = 0; i < this.feedbackList.length; i++) {
           this.usefulnessScore.push(i+1);
@@ -211,13 +213,15 @@ export class HomeAppDetailsComponent implements OnInit {
     let userID = localStorage.getItem('userid');
     this.appService.getNumberOfFeedbacks(this.selectedScore,this.selectedApp.aid, userID).subscribe((feedbacks) => {
       this.filteredFeedbackList = feedbacks;
-      console.log(this.filteredFeedbackList);
-      for (let i = 0; i < this.feedbackList.length; i++) {
+      let tempList = []
+      for (let i = 0; i < this.totalFeedbackList.length; i++) {
         for (let j =0; j < this.filteredFeedbackList.length; j++) {
-          // if (this.feedbackList[i].fid === this.filteredFeedbackList[j].fid) {
-          // }
+          if (this.totalFeedbackList[i].fid === this.filteredFeedbackList[j].fid) {
+            tempList.push(this.totalFeedbackList[i]);
+          } 
         }
       }
+      this.feedbackList = tempList;
       this.ngProgress.done();
       
     });

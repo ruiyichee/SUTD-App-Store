@@ -345,7 +345,8 @@ def feedback_search(request, number, aid, uid):
             AND temp.aid=a.aid
             GROUP BY r.fid 
             ORDER BY avg1 
-            DESC LIMIT %s ; """, (aid, uid, number))
+            DESC LIMIT %s ; """, (aid, uid, int(number)))
+            # cursor.execute("SELECT r.fid from receives r LIMIT %(l)s;", params)
             app_list = cursor.fetchall()
             print(app_list)
             result = []
