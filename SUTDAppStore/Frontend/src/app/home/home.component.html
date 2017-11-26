@@ -31,6 +31,11 @@
   <mat-card *ngFor="let app of recommendedAppList; let i = index" (click)="routeToRecommendedApp(i)">
     <h4>{{app.app_name}}</h4>
     <img md-card-image src="assets/img/appicon1.svg" alt="fake icon">
+    <div class="extra-info">
+      <span>{{app.genre}}</span>
+      <span *ngIf="app.price === 0">Free</span>
+      <span *ngIf="app.price !== 0">${{app.price}}</span>
+    </div>
   </mat-card>
 </div>
 <br>
@@ -39,5 +44,10 @@
   <mat-card *ngFor="let app of appList; let i = index" (click)="routeToApp(i)">
     <h4>{{app.app_name}}</h4>
     <img md-card-image src="assets/img/appicon1.svg" alt="fake icon">
+    <div class="extra-info">
+      <span>{{app.genre}}</span>
+      <span *ngIf="app.price === 0">Free</span>
+      <span *ngIf="app.price !== 0">${{app.price}}</span>
+    </div>
   </mat-card>
 </div>
