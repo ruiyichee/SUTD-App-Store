@@ -1,126 +1,134 @@
-<!-- <button mat-icon-button class="back-button" routerLink="/home" routerLinkActive="active">
-  <mat-icon>arrow_back</mat-icon>
-</button>
-<br>
-<br>
-<br> -->
 <app-navbar></app-navbar>
-<div class="profile-con">
-  <h2>
-    User Profile
-    <button mat-raised-button class="close-button" routerLink="/home" routerLinkActive="active">
-      <mat-icon>mode_edit</mat-icon>
-      <span>Edit Profile</span>
-    </button>
-  </h2>
+<mat-tab-group>
+  <mat-tab label="User Profile">
+    <div class="profile-con">
+      <h2>
+        User Profile
+        <button mat-raised-button class="close-button" routerLink="/home" routerLinkActive="active">
+          <mat-icon>mode_edit</mat-icon>
+          <span>Edit Profile</span>
+        </button>
+      </h2>
 
-  <div class="personal-info-con">
-    <div class="info-con">
-      <div class="subtitle">First Name</div>
-      <span>{{selectedUser.first_name}}</span>
-      <br>
-      <div class="subtitle">Last Name</div>
-      <span>{{selectedUser.last_name}}</span>
-      <br>
-      <div class="subtitle">Username</div>
-      <span>{{selectedUser.username}}</span>
-      <br>
-      <div class="subtitle">Email</div>
-      <span>{{selectedUser.email}}</span>
-      <br>
+      <div class="personal-info-con">
+        <div class="info-con">
+          <div class="subtitle">First Name</div>
+          <span>{{selectedUser.first_name}}</span>
+          <br>
+          <div class="subtitle">Last Name</div>
+          <span>{{selectedUser.last_name}}</span>
+          <br>
+          <div class="subtitle">Username</div>
+          <span>{{selectedUser.username}}</span>
+          <br>
+          <div class="subtitle">Email</div>
+          <span>{{selectedUser.email}}</span>
+          <br>
+        </div>
+
+      </div>
     </div>
+  </mat-tab>
+  <mat-tab label="Purchase History">
 
-  </div>
-  <h2>Purchase History</h2>
-  <div class="purchase-con">
-    <mat-table #table [dataSource]="purchaseDataSource">
+    <h2>Purchase History</h2>
+    <div class="purchase-con">
+      <mat-table #table [dataSource]="purchaseDataSource">
 
-      <!--- Note that these columns can be defined in any order.
+        <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
 
-      <ng-container matColumnDef="aid">
-        <mat-header-cell *matHeaderCellDef> App ID </mat-header-cell>
-        <mat-cell *matCellDef="let purchase"> {{purchase.aid}} </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="aid">
+          <mat-header-cell *matHeaderCellDef> App ID </mat-header-cell>
+          <mat-cell *matCellDef="let purchase"> {{purchase.aid}} </mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="app_name">
-        <mat-header-cell *matHeaderCellDef> App Name </mat-header-cell>
-        <mat-cell *matCellDef="let purchase"> {{purchase.app_name}} </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="app_name">
+          <mat-header-cell *matHeaderCellDef> App Name </mat-header-cell>
+          <mat-cell *matCellDef="let purchase"> {{purchase.app_name}} </mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="price">
-        <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
-        <mat-cell *matCellDef="let purchase"> {{purchase.price}} </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="price">
+          <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+          <mat-cell *matCellDef="let purchase"> {{purchase.price}} </mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="purchase_date">
-        <mat-header-cell *matHeaderCellDef> Purchase Date </mat-header-cell>
-        <mat-cell *matCellDef="let purchase"> {{purchase.purchase_date}} </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="purchase_date">
+          <mat-header-cell *matHeaderCellDef> Purchase Date </mat-header-cell>
+          <mat-cell *matCellDef="let purchase"> {{purchase.purchase_date}} </mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="genre">
-        <mat-header-cell *matHeaderCellDef> Genre </mat-header-cell>
-        <mat-cell *matCellDef="let purchase"> {{purchase.genre}} </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="genre">
+          <mat-header-cell *matHeaderCellDef> Genre </mat-header-cell>
+          <mat-cell *matCellDef="let purchase"> {{purchase.genre}} </mat-cell>
+        </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedPurchaseColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedPurchaseColumns;"></mat-row>
-    </mat-table>
-  </div>
-  <h2>Feedback History</h2>
-  <div class="feedback-con">
-    <mat-table #table [dataSource]="feedbackDataSource">
+        <mat-header-row *matHeaderRowDef="displayedPurchaseColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedPurchaseColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </mat-tab>
+  <mat-tab label="Feedback History">
 
-      <ng-container matColumnDef="fid">
-        <mat-header-cell *matHeaderCellDef> Feedback ID </mat-header-cell>
-        <mat-cell *matCellDef="let feedback"> {{feedback.fid}} </mat-cell>
-      </ng-container>
+    <h2>Feedback History</h2>
+    <div class="feedback-con">
+      <mat-table #table [dataSource]="feedbackDataSource">
 
-      <ng-container matColumnDef="stars">
-        <mat-header-cell *matHeaderCellDef> Stars </mat-header-cell>
-        <mat-cell *matCellDef="let feedback"> {{feedback.stars}} </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="fid">
+          <mat-header-cell *matHeaderCellDef> Feedback ID </mat-header-cell>
+          <mat-cell *matCellDef="let feedback"> {{feedback.fid}} </mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="comments">
-        <mat-header-cell *matHeaderCellDef> Comments </mat-header-cell>
-        <mat-cell *matCellDef="let feedback"> {{feedback.comments}} </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="stars">
+          <mat-header-cell *matHeaderCellDef> Stars </mat-header-cell>
+          <mat-cell *matCellDef="let feedback"> {{feedback.stars}} </mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="feed_date">
-        <mat-header-cell *matHeaderCellDef> Feedback Date </mat-header-cell>
-        <mat-cell *matCellDef="let feedback"> {{feedback.feed_date}} </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="comments">
+          <mat-header-cell *matHeaderCellDef> Comments </mat-header-cell>
+          <mat-cell *matCellDef="let feedback"> {{feedback.comments}} </mat-cell>
+        </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedFeedbackColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedFeedbackColumns;"></mat-row>
-    </mat-table>
-  </div>
-  <h2>Endorsement History</h2>
-  <div class="endorsement-con">
-    <mat-table #table [dataSource]="endorsementDataSource">
+        <ng-container matColumnDef="feed_date">
+          <mat-header-cell *matHeaderCellDef> Feedback Date </mat-header-cell>
+          <mat-cell *matCellDef="let feedback"> {{feedback.feed_date}} </mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="eid">
-        <mat-header-cell *matHeaderCellDef> Endorsement ID </mat-header-cell>
-        <mat-cell *matCellDef="let endorsement"> {{endorsement.eid}} </mat-cell>
-      </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedFeedbackColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedFeedbackColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </mat-tab>
+  <mat-tab label="Feedback History">
 
-      <ng-container matColumnDef="fid">
-        <mat-header-cell *matHeaderCellDef> Feedback ID </mat-header-cell>
-        <mat-cell *matCellDef="let endorsement"> {{endorsement.fid}} </mat-cell>
-      </ng-container>
+    <h2>Endorsement History</h2>
+    <div class="endorsement-con">
+      <mat-table #table [dataSource]="endorsementDataSource">
 
-      <ng-container matColumnDef="app_name">
-        <mat-header-cell *matHeaderCellDef> App Name </mat-header-cell>
-        <mat-cell *matCellDef="let endorsement"> {{endorsement.app_name}} </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="eid">
+          <mat-header-cell *matHeaderCellDef> Endorsement ID </mat-header-cell>
+          <mat-cell *matCellDef="let endorsement"> {{endorsement.eid}} </mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="thumbs">
-        <mat-header-cell *matHeaderCellDef> Thumbs </mat-header-cell>
-        <mat-cell *matCellDef="let endorsement"> {{endorsement.thumbs}} </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="fid">
+          <mat-header-cell *matHeaderCellDef> Feedback ID </mat-header-cell>
+          <mat-cell *matCellDef="let endorsement"> {{endorsement.fid}} </mat-cell>
+        </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedFeedbackEndorsementColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedFeedbackEndorsementColumns;"></mat-row>
-    </mat-table>
-  </div>
-</div>
+        <ng-container matColumnDef="app_name">
+          <mat-header-cell *matHeaderCellDef> App Name </mat-header-cell>
+          <mat-cell *matCellDef="let endorsement"> {{endorsement.app_name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="thumbs">
+          <mat-header-cell *matHeaderCellDef> Thumbs </mat-header-cell>
+          <mat-cell *matCellDef="let endorsement"> {{endorsement.thumbs}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedFeedbackEndorsementColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedFeedbackEndorsementColumns;"></mat-row>
+      </mat-table>
+    </div>
+
+  </mat-tab>
+</mat-tab-group>

@@ -26,6 +26,7 @@ export class HomeAppDetailsComponent implements OnInit {
   usefulnessScore = [];
   selectedScore = '';
   filteredFeedbackList = [];
+  feedbackLength;
   appIcon: string;
   averageFeedbackScore = 0;
   enteredFeedbackEndorsement = new Endorsement();
@@ -65,9 +66,10 @@ export class HomeAppDetailsComponent implements OnInit {
       (feedbacks) => {
         this.feedbackList = feedbacks;
         this.totalFeedbackList = feedbacks;
+        this.feedbackLength = this.totalFeedbackList.length;
         let totalScore = 0;
         for (let i = 0; i < this.feedbackList.length; i++) {
-          this.usefulnessScore.push(i+1);
+          this.usefulnessScore.push(i + 1);
           let currentScore = +this.feedbackList[i].stars;
           totalScore += currentScore;
         }
@@ -208,23 +210,29 @@ export class HomeAppDetailsComponent implements OnInit {
   }
 
   filterFeedback() {
-    console.log(this.selectedScore);
-    this.ngProgress.start();
-    let userID = localStorage.getItem('userid');
-    this.appService.getNumberOfFeedbacks(this.selectedScore,this.selectedApp.aid, userID).subscribe((feedbacks) => {
-      this.filteredFeedbackList = feedbacks;
-      let tempList = []
-      for (let i = 0; i < this.totalFeedbackList.length; i++) {
-        for (let j =0; j < this.filteredFeedbackList.length; j++) {
-          if (this.totalFeedbackList[i].fid === this.filteredFeedbackList[j].fid) {
-            tempList.push(this.totalFeedbackList[i]);
-          } 
+    if (this.selectedScore) {
+      this.ngProgress.start();
+      let userID = localStorage.getItem('userid');
+      this.appService.getNumberOfFeedbacks(this.selectedScore, this.selectedApp.aid, userID).subscribe((feedbacks) => {
+        this.filteredFeedbackList = feedbacks;
+        let tempList = []
+        for (let i = 0; i < this.totalFeedbackList.length; i++) {
+          for (let j = 0; j < this.filteredFeedbackList.length; j++) {
+            if (this.totalFeedbackList[i].fid === this.filteredFeedbackList[j].fid) {
+              tempList.push(this.totalFeedbackList[i]);
+            }
+          }
         }
-      }
-      this.feedbackList = tempList;
-      this.ngProgress.done();
-      
-    });
+        this.feedbackList = tempList;
+        this.ngProgress.done();
+      });
+    } else {
+      this.feedbackList = this.totalFeedbackList;
+    }
+
+
+
+
   }
 
 }

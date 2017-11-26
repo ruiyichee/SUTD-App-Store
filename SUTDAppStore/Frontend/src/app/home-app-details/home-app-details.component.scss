@@ -1,135 +1,142 @@
 span.title {
-    text-transform: uppercase;
+  text-transform: uppercase;
+  font-weight: bold;
+  display: block; // font-size: 1.5rem;
+}
+
+div.subtitle {
+  text-transform: uppercase;
+  color: grey;
+}
+
+span.data {
+  display: block;
+}
+
+div.top-con {
+  display: flex;
+  flex-direction: column;
+  h2,
+  span {
+    text-align: center;
+  }
+  span {
+    margin-bottom: 1rem;
     font-weight: bold;
-    display: block; // font-size: 1.5rem;
   }
-  
-  div.subtitle {
-    text-transform: uppercase;
-    color: grey;
-  }
-  
-  span.data {
-    display: block;
-  }
-  
-  div.top-con {
+  div.button-con {
     display: flex;
-    flex-direction: column;
-    h2, span {
-      text-align: center;
-    }
-    span {
-      margin-bottom: 1rem;
-      font-weight: bold;
-    }
-    div.button-con {
-      display: flex;
-      justify-content: center;
-    }
+    justify-content: center;
   }
-  
-  // div.top-section {
-  //   display: flex;
-  //   div.text-button-con {
-  //     width: 100%;
-  //     display: flex; // flex-direction: column;
-  //     justify-content: space-between;
-  //   }
-  //   div.text-section {
-  //     margin-left: 1rem;
-  //   }
-  //   div.button-section {
-  //     a {
-  //       float: right;
-  //     }
-  //   }
-  // }
-  div.information-section {
-    div.column-con {
+} // div.top-section {
+//   display: flex;
+//   div.text-button-con {
+//     width: 100%;
+//     display: flex; // flex-direction: column;
+//     justify-content: space-between;
+//   }
+//   div.text-section {
+//     margin-left: 1rem;
+//   }
+//   div.button-section {
+//     a {
+//       float: right;
+//     }
+//   }
+// }
+div.information-section {
+  div.column-con {
+    display: flex;
+    justify-content: space-between;
+    div.column {
       display: flex;
       justify-content: space-between;
-      div.column {
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
-      }
+      flex-direction: column;
     }
-    /* div.row-con {
+  }
+  /* div.row-con {
         display: flex;
         justify-content: space-between;
     } */
+}
+
+div.screenshot-section {
+  overflow-x: auto;
+  white-space: nowrap;
+  margin-top: 1rem;
+  img {
+    max-width: 30rem;
+    margin-right: 1rem;
   }
-  
-  div.screenshot-section {
-    overflow-x: auto;
-    white-space: nowrap;
-    margin-top: 1rem;
-    img {
-      max-width: 30rem;
-      margin-right: 1rem;
-    }
-  }
-  
-  div.general-con {
+}
+
+div.slider-con {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    div.star-group {
-      display: flex;
-      align-items: center;
-      span {
-        margin-right: 0.5rem;
-      }
-    }
+  mat-form-field {
+    width: 30%;
   }
-  
-  div.feedback-con {
+}
+
+div.general-con {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  div.star-group {
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
+    span {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+div.feedback-con {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  h2 {
+    display: flex;
     justify-content: space-between;
-    h2 {
+    align-items: center;
+    div.icon-buttons {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      div.icon-buttons {
+      mat-icon {
+        margin-right: 1rem;
+        cursor: pointer;
+      }
+      mat-icon.thumb-up {
+        color: green;
+        opacity: 0.3;
+      }
+      mat-icon.thumb-down {
+        color: red;
+        opacity: 0.3;
+      }
+      mat-icon.thumb-up:hover {
+        color: green;
+        opacity: 0.8;
+      }
+      mat-icon.thumb-down:hover {
+        color: red;
+        opacity: 0.8;
+      }
+      div.count-con {
         display: flex;
-        mat-icon {
+        flex-direction: column;
+        span {
           margin-right: 1rem;
-          cursor: pointer;
-        }
-        mat-icon.thumb-up {
-          color: green;
-          opacity: 0.3;
-        }
-        mat-icon.thumb-down {
-          color: red;
-          opacity: 0.3;
-        }
-        mat-icon.thumb-up:hover {
-          color: green;
-          opacity: 0.8;
-        }
-        mat-icon.thumb-down:hover {
-          color: red;
-          opacity: 0.8;
-        }
-        div.count-con {
-          display: flex;
-          flex-direction: column;
-          span {
-            margin-right: 1rem;
-            margin-bottom: 0.5rem;
-            font-weight: 400;
-            font-size: 1rem;
-            text-align: center;
-          }
+          margin-bottom: 0.5rem;
+          font-weight: 400;
+          font-size: 1rem;
+          text-align: center;
         }
       }
     }
-    mat-card {
-      width: calc(85%/2);
-      margin-bottom: 2rem;
-    }
   }
-  
+  mat-card {
+    width: calc(85%/2);
+    margin-bottom: 2rem;
+  }
+}
