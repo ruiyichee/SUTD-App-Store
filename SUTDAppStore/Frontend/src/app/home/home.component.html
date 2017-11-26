@@ -10,7 +10,7 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-select placeholder="App Genre">
+      <mat-select placeholder="App Genre" (change)="filterGenre()" [(ngModel)]="selectedGenre" name="genre">
         <mat-option *ngFor="let genre of genres" [value]="genre">
           {{genre}}
         </mat-option>

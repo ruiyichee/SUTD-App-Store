@@ -1,13 +1,13 @@
+import { fadeInAnimation } from './../fade-in.animation';
 import { NgProgress } from 'ngx-progressbar';
 import { AdminService } from './../service/admin.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostBinding } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-sales',
   templateUrl: './sales.component.html',
   styleUrls: ['./sales.component.scss'],
-  // encapsulation: ViewEncapsulation.None
 })
 export class SalesComponent implements OnInit {
   @ViewChild("appsChart")

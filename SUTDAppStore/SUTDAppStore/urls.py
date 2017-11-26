@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^appstore/(?P<pk>\d+)/$', views.app_detail),
     url(r'^appstore/feedback/(?P<pk>\d+)/$', views.app_feedback),
     url(r'^appstore/recommend/(?P<pk>\d+)/$', views.recommended_app_list),
-    url(r'^appstore/search/(?P<search_value>[\w.@+-]+)/$', views.app_search),
+    url(r'^appstore/search/(?P<search_value>[\w.@+-]+)/(?P<price_range>\d+)/(?P<genre>[\w]+)/$', views.app_search),
     url(r'^appstore/feedback/search/(?P<number>\d+)/(?P<aid>\d+)/(?P<uid>\d+)/$', views.feedback_search),
     url(r'^admin/sales/app/$', views.admin_app_list),
     url(r'^admin/sales/developer/$', views.admin_developer_list),

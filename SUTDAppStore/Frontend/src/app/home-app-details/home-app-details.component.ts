@@ -6,16 +6,14 @@ import { NgProgress } from 'ngx-progressbar';
 import { Http } from '@angular/http';
 import { App } from './../models/app.model';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-home-app-details',
   templateUrl: './home-app-details.component.html',
   styleUrls: ['./home-app-details.component.scss'],
-  // encapsulation: ViewEncapsulation.None
 })
 export class HomeAppDetailsComponent implements OnInit {
-
   selectedApp = new App();
   private sub: any;
   url: string = 'http://localhost:8000/appstore/feedback/';

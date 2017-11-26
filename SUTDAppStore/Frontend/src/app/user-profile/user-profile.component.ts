@@ -1,3 +1,4 @@
+import { HostBinding } from '@angular/core';
 // import { Endorsement } from './../models/endorsement.model';
 import { UserService } from './../service/user.service';
 import { User } from './../models/user.model';
@@ -18,7 +19,6 @@ import 'rxjs/add/observable/of';
   styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit {
-
   feedbackUrl = 'http://localhost:8000/user/feedback/1/';
   userUrl = 'http://localhost:8000/user/2/';
   purchaseUrl = 'http://localhost:8000/user/purchase/2/';

@@ -303,7 +303,7 @@ def user(request, username):
             return HttpResponse(jsonObj, content_type="application/json")
 
 @api_view(['GET'])
-def app_search(request, search_value):
+def app_search(request, search_value, price_range, genre):
     """
     Performing app search 
     """
@@ -311,19 +311,85 @@ def app_search(request, search_value):
         with connection.cursor() as cursor:
             search_final_value = "%" + search_value + "%"
             print(search_value)
-            cursor.execute("""
-            Select a.app_name, a.aid,  a.price, a.description, a.genre, a.date_of_upload, a.icon FROM application a, creates c 
-            WHERE c.aid=a.aid 
-            AND (a.app_name LIKE %s OR a.genre LIKE %s OR a.description LIKE %s OR c.id LIKE %s) 
-            ORDER BY date_of_upload DESC ;""", (search_final_value,search_final_value,search_final_value,search_final_value))
-            app_list = cursor.fetchall()
-            print(app_list)
-            result = []
-            keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon')
-            for row in app_list:
-                result.append(dict(zip(keys,row)))
-            jsonObj = json.dumps(result, default = json_serial)
-            return HttpResponse(jsonObj, content_type="application/json")
+            print(price_range)
+            print(genre)
+            if (genre == 'All'):
+                genre = '%'
+            if (search_value == 'All'):
+                search_final_value = '%'
+                
+            if (price_range == '0'):
+                cursor.execute("""
+                SELECT a.app_name, a.aid, a.price, a.description, a.genre, a.date_of_upload, a.icon
+                FROM application a
+                INNER JOIN creates c ON c.aid = a.aid
+                WHERE a.genre LIKE %s
+                AND (a.app_name LIKE %s OR a.description LIKE %s OR c.id LIKE %s);""", (genre,search_final_value,search_final_value,search_final_value))
+                app_list = cursor.fetchall()
+                print(app_list)
+                result = []
+                keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon')
+                for row in app_list:
+                    result.append(dict(zip(keys,row)))
+                jsonObj = json.dumps(result, default = json_serial)
+                return HttpResponse(jsonObj, content_type="application/json")
+
+            elif (price_range == '1'):
+                print('< 5 HERE!')
+                cursor.execute("""
+                SELECT a.app_name, a.aid, a.price, a.description, a.genre, a.date_of_upload, a.icon
+                FROM application a
+                INNER JOIN creates c ON c.aid = a.aid
+                WHERE a.genre LIKE %s
+                AND a.price < 5
+                AND (a.app_name LIKE %s OR a.description LIKE %s OR c.id LIKE %s);""", (genre, search_final_value, search_final_value, search_final_value))
+                app_list = cursor.fetchall()
+                print(app_list)
+                result = []
+                keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon')
+                for row in app_list:
+                    result.append(dict(zip(keys,row)))
+                jsonObj = json.dumps(result, default = json_serial)
+                return HttpResponse(jsonObj, content_type="application/json")
+            
+            elif (price_range == '2'):
+                print('between 5 and 10 HERE!')
+                cursor.execute("""
+                SELECT a.app_name, a.aid, a.price, a.description, a.genre, a.date_of_upload, a.icon
+                FROM application a
+                INNER JOIN creates c ON c.aid = a.aid
+                WHERE a.genre LIKE %s
+                AND a.price >=5 and a.price <10
+                AND (a.app_name LIKE %s OR a.description LIKE %s OR c.id LIKE %s);""", (genre, search_final_value, search_final_value, search_final_value))
+                app_list = cursor.fetchall()
+                print(app_list)
+                result = []
+                keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon')
+                for row in app_list:
+                    result.append(dict(zip(keys,row)))
+                jsonObj = json.dumps(result, default = json_serial)
+                return HttpResponse(jsonObj, content_type="application/json")
+
+            elif (price_range == '3'):
+                print('> 10 HERE!')
+                cursor.execute("""
+                SELECT a.app_name, a.aid, a.price, a.description, a.genre, a.date_of_upload, a.icon
+                FROM application a
+                INNER JOIN creates c ON c.aid = a.aid
+                WHERE a.genre LIKE %s
+                AND a.price >10
+                AND (a.app_name LIKE %s OR a.description LIKE %s OR c.id LIKE %s);""", (genre, search_final_value, search_final_value, search_final_value))
+                app_list = cursor.fetchall()
+                print(app_list)
+                result = []
+                keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon')
+                for row in app_list:
+                    result.append(dict(zip(keys,row)))
+                jsonObj = json.dumps(result, default = json_serial)
+                return HttpResponse(jsonObj, content_type="application/json")
+            else:
+                print("WRONG PLACE")
+            
 
 @api_view(['GET'])
 def feedback_search(request, number, aid, uid):

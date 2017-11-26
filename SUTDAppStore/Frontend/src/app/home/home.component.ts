@@ -4,7 +4,7 @@ import { UserService } from './../service/user.service';
 import { AppService } from './../service/app.service';
 import { AppUploadComponent } from './app-upload.component';
 import { App } from './../models/app.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Title } from '@angular/platform-browser';
@@ -16,18 +16,22 @@ import { Subject } from 'rxjs';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+
 })
 export class HomeComponent implements OnInit {
+
+
   url: string = 'http://localhost:8000/appstore/';
   appList: App[];
   recommendedAppList: App[] = [];
-  prices = ['<5', '5 - 10', '> 10'];
-  genres = ['3D', '2D'];
-  selectedPriceRange = '';
+  prices = ['All', '<5', '5 - 10', '>10'];
+  genres = ['All', '3D', '2D'];
+  selectedPriceRange = 'All';
+  selectedGenre = 'All';
   selectedApp: App;
   randomVar: any;
   selectedUser = new User();
-  searchTextValue = '';
+  searchTextValue = 'All';
   private subject: Subject<string> = new Subject();
 
   constructor(
@@ -69,11 +73,35 @@ export class HomeComponent implements OnInit {
     this.subject.next(searchTextValue);
   }
 
+  filterPrice() {
+    console.log('price changed');
+    console.log(this.selectedPriceRange);
+    this.ngProgress.start();
+    this.appService.searchApp(this.searchTextValue, this.selectedPriceRange, this.selectedGenre).subscribe((apps) => {
+      this.appList = apps;
+      this.ngProgress.done();
+    },
+      (err) => { console.log(err) }
+    );
+  }
+
+  filterGenre() {
+    console.log('genre changed');
+    console.log(this.selectedGenre);
+    this.ngProgress.start();
+    this.appService.searchApp(this.searchTextValue, this.selectedPriceRange, this.selectedGenre).subscribe((apps) => {
+      this.appList = apps;
+      this.ngProgress.done();
+    },
+      (err) => { console.log(err) }
+    );
+  }
+
   handleSearch(searchValue: string) {
     this.searchTextValue = searchValue;
     console.log(this.searchTextValue);
     this.ngProgress.start();
-    this.appService.searchApp(this.searchTextValue).subscribe((apps) => {
+    this.appService.searchApp(this.searchTextValue, this.selectedPriceRange, this.selectedGenre).subscribe((apps) => {
       this.appList = apps;
       this.ngProgress.done();
     },
@@ -106,10 +134,7 @@ export class HomeComponent implements OnInit {
     event.stopPropagation();
   }
 
-  filterPrice() {
-    console.log('price changed');
-    console.log(this.selectedPriceRange);
-  }
+
 
 
 }

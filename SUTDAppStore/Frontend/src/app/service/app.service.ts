@@ -75,13 +75,27 @@ export class AppService {
             .catch(this.handleError); //...errors if any
     }
 
-    searchApp(searchValue): Observable<App[]> {
-        if (searchValue === '') {
+    searchApp(searchValue, price_range, genre): Observable<App[]> {
+        if (searchValue === 'All' && price_range === 'All' && genre === 'All') {
             return this.http.get<App[]>(this.appUrl)
                 .do(data => console.log('get success'))
                 .catch(this.handleError);
         } else {
-            const appSearchUrl = this.searchUrl + searchValue + '/';
+            if (searchValue === '') {
+                searchValue = 'All';
+            }
+            let price_tag = '0';
+            if (price_range === '<5') {
+                price_tag = '1';
+            } 
+            else if (price_range === '5 - 10') {
+                price_tag = '2';
+            }
+            else if (price_range === '>10') {
+                price_tag = '3';
+            }
+            const appSearchUrl = this.searchUrl + searchValue + '/' + price_tag + '/' + genre + '/';
+            console.log(appSearchUrl);
             return this.http.get<App[]>(appSearchUrl)
                 .do(data => console.log('get success'))
                 .catch(this.handleError);
