@@ -2,30 +2,39 @@
   <mat-icon>close</mat-icon>
 </button>
 <h2 class="main-title" style="text-align:left;">App Upload</h2>
+<h4>Fill in the form to upload an app</h4>
 <div class="container">
   <form (ngSubmit)="upload()">
     <div class="top-row">
       <mat-input-container>
-        <input matInput placeholder="Enter App Name" [(ngModel)]="enteredApp.app_name" [ngModelOptions]="{standalone: true}">
+        <input matInput placeholder="Enter App Name" [(ngModel)]="enteredApp.app_name" name="name">
         <mat-error>App Name is
           <strong>required</strong>
         </mat-error>
       </mat-input-container>
       <mat-form-field>
-        <mat-select placeholder="Select Genre" [(ngModel)]="enteredApp.genre" [ngModelOptions]="{standalone: true}">
+        <mat-select placeholder="Select Genre" [(ngModel)]="enteredApp.genre" name="genre">
           <mat-option *ngFor="let genre of genres" [value]="genre">
             {{genre}}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
+    <div class="last-row">
+      <mat-input-container>
+        <input matInput placeholder="Enter App Price" [(ngModel)]="enteredApp.price" name="price">
+        <mat-error>App Price is
+          <strong>required</strong>
+        </mat-error>
+      </mat-input-container>
     <div>
-      <input type="file" #fileInput placeholder="Upload file..." />
-      <!-- <button mat-raised-button type="button" (click)="uploadFile()">Upload</button> -->
+        <input type="file" #fileInput placeholder="Upload file..." />
+    </div>
     </div>
     <div class="last-row">
       <mat-input-container>
-        <textarea matInput matTextareaAutosize matAutosizeMinRows="2" placeholder="Enter Description" [(ngModel)]="enteredApp.description" [ngModelOptions]="{standalone: true}"></textarea>
+        <textarea matInput matTextareaAutosize matAutosizeMinRows="1" placeholder="Enter Description" [(ngModel)]="enteredApp.description"
+          name="description"></textarea>
         <mat-error>
           Description is
           <strong>required</strong>

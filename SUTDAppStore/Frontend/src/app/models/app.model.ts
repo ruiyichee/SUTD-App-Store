@@ -7,7 +7,7 @@ export class App {
     icon: string;
     price: string;
     date_of_upload: string;
-
+    no_of_downloads: string;
     // screenshot1: string;
     // screenshot2: string;
     // screenshot3: string;

@@ -3,9 +3,10 @@
 <div class="top-con">
   <img [src]="appIcon">
   <h2 class="title">{{selectedApp.app_name}}</h2>
-  <span>{{selectedApp.genre}}</span>
+  <span>App Genre: {{selectedApp.genre}}</span>
+  <span>Download Count: {{selectedApp.no_of_downloads}}</span>  
   <div class="button-con">
-    <button mat-button>
+    <button mat-button (click)="openConfirmDialog()">
       <mat-icon>file_download</mat-icon>
       Download App
     </button>

@@ -46,10 +46,10 @@ def app_list(request):
     print(request.method)
     with connection.cursor() as cursor:
         if request.method == 'GET':
-            cursor.execute("SELECT app_name, aid, price, description, genre, date_of_upload, icon FROM application")
+            cursor.execute("SELECT app_name, aid, price, description, genre, date_of_upload, icon, no_of_downloads FROM application")
             rows = cursor.fetchall()
             result = []
-            keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon')
+            keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon', 'no_of_downloads')
             for row in rows:
                 result.append(dict(zip(keys,row)))
             jsonObj = json.dumps(result, default=json_serial)
@@ -63,12 +63,12 @@ def app_list(request):
             appDescription = jsonApp['description']
             appGenre = jsonApp['genre']
             appDateTime = 20171120
-            appPrice = 5.0
+            appPrice = jsonApp['price']
             appDownloads = 0
             cursor.execute("INSERT INTO application (date_of_upload, price, app_name, description, genre, no_of_downloads) VALUES (%s, %s, %s, %s, %s, %s);", (appDateTime, appPrice, appName, appDescription, appGenre, appDownloads))
             cursor.execute("SELECT LAST_INSERT_ID() as last_id;")
             aid = cursor.fetchall()
-            cursor.execute("INSERT INTO creates (id, aid) VALUES (%s, %s);", (id,appid))
+            cursor.execute("INSERT INTO creates (id, aid) VALUES (%s, %s);", (id,aid))
             return HttpResponse('201',status=status.HTTP_201_CREATED)
 
 @api_view(['GET', 'POST'])
@@ -317,10 +317,10 @@ def app_search(request, search_value, price_range, genre):
                 genre = '%'
             if (search_value == 'All'):
                 search_final_value = '%'
-                
+
             if (price_range == '0'):
                 cursor.execute("""
-                SELECT a.app_name, a.aid, a.price, a.description, a.genre, a.date_of_upload, a.icon
+                SELECT a.app_name, a.aid, a.price, a.description, a.genre, a.date_of_upload, a.icon, a.no_of_downloads
                 FROM application a
                 INNER JOIN creates c ON c.aid = a.aid
                 WHERE a.genre LIKE %s
@@ -328,7 +328,7 @@ def app_search(request, search_value, price_range, genre):
                 app_list = cursor.fetchall()
                 print(app_list)
                 result = []
-                keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon')
+                keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon', 'no_of_downloads')
                 for row in app_list:
                     result.append(dict(zip(keys,row)))
                 jsonObj = json.dumps(result, default = json_serial)
@@ -337,7 +337,7 @@ def app_search(request, search_value, price_range, genre):
             elif (price_range == '1'):
                 print('< 5 HERE!')
                 cursor.execute("""
-                SELECT a.app_name, a.aid, a.price, a.description, a.genre, a.date_of_upload, a.icon
+                SELECT a.app_name, a.aid, a.price, a.description, a.genre, a.date_of_upload, a.icon, a.no_of_downloads
                 FROM application a
                 INNER JOIN creates c ON c.aid = a.aid
                 WHERE a.genre LIKE %s
@@ -346,7 +346,7 @@ def app_search(request, search_value, price_range, genre):
                 app_list = cursor.fetchall()
                 print(app_list)
                 result = []
-                keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon')
+                keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon', 'no_of_downloads')
                 for row in app_list:
                     result.append(dict(zip(keys,row)))
                 jsonObj = json.dumps(result, default = json_serial)
@@ -355,7 +355,7 @@ def app_search(request, search_value, price_range, genre):
             elif (price_range == '2'):
                 print('between 5 and 10 HERE!')
                 cursor.execute("""
-                SELECT a.app_name, a.aid, a.price, a.description, a.genre, a.date_of_upload, a.icon
+                SELECT a.app_name, a.aid, a.price, a.description, a.genre, a.date_of_upload, a.icon, a.no_of_downloads
                 FROM application a
                 INNER JOIN creates c ON c.aid = a.aid
                 WHERE a.genre LIKE %s
@@ -364,7 +364,7 @@ def app_search(request, search_value, price_range, genre):
                 app_list = cursor.fetchall()
                 print(app_list)
                 result = []
-                keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon')
+                keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon', 'no_of_downloads')
                 for row in app_list:
                     result.append(dict(zip(keys,row)))
                 jsonObj = json.dumps(result, default = json_serial)
@@ -373,7 +373,7 @@ def app_search(request, search_value, price_range, genre):
             elif (price_range == '3'):
                 print('> 10 HERE!')
                 cursor.execute("""
-                SELECT a.app_name, a.aid, a.price, a.description, a.genre, a.date_of_upload, a.icon
+                SELECT a.app_name, a.aid, a.price, a.description, a.genre, a.date_of_upload, a.icon, a.no_of_downloads
                 FROM application a
                 INNER JOIN creates c ON c.aid = a.aid
                 WHERE a.genre LIKE %s
@@ -382,7 +382,7 @@ def app_search(request, search_value, price_range, genre):
                 app_list = cursor.fetchall()
                 print(app_list)
                 result = []
-                keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon')
+                keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon', 'no_of_downloads')
                 for row in app_list:
                     result.append(dict(zip(keys,row)))
                 jsonObj = json.dumps(result, default = json_serial)

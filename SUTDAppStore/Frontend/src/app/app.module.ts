@@ -29,6 +29,7 @@ import { HomeAppDetailsComponent } from './home-app-details/home-app-details.com
 import { RecommendedAppsComponent } from './recommended-apps/recommended-apps.component';
 import { SalesComponent } from './sales/sales.component';
 import { ChartsModule } from 'ng2-charts';
+import { DownloadConfirmationComponent } from './home-app-details/download-confirmation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -43,6 +44,7 @@ const routes: Routes = [
   entryComponents: [
     AppUploadComponent,
     AppFeedbackComponent,
+    DownloadConfirmationComponent,
     SignupComponent
   ],
   declarations: [
@@ -57,6 +59,7 @@ const routes: Routes = [
     NavbarComponent,
     HomeAppDetailsComponent,
     RecommendedAppsComponent,
+    DownloadConfirmationComponent,
     SalesComponent
   ],
   imports: [

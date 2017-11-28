@@ -7,6 +7,7 @@ import { Http } from '@angular/http';
 import { App } from './../models/app.model';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, HostBinding } from '@angular/core';
+import { DownloadConfirmationComponent } from './download-confirmation.component';
 
 @Component({
   selector: 'app-home-app-details',
@@ -48,6 +49,7 @@ export class HomeAppDetailsComponent implements OnInit {
       this.selectedApp.icon = params['icon'];
       this.selectedApp.price = params['price'];
       this.selectedApp.date_of_upload = params['date_of_upload'];
+      this.selectedApp.no_of_downloads = params['no_of_downloads'];
     });
     this.ngProgress.start();
     this.selectedApp.description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. ';
@@ -95,6 +97,15 @@ export class HomeAppDetailsComponent implements OnInit {
       (err) => { console.log(err) }
     );
   }
+  openConfirmDialog() {
+    const dialogRef = this.dialog.open(DownloadConfirmationComponent, {
+      panelClass: 'full-width-dialog'
+      // width: '80vw',
+    });
+    dialogRef.componentInstance.appName = this.selectedApp.app_name;    
+    dialogRef.afterClosed().subscribe();
+  }
+
   openFeedback() {
     const dialogRef = this.dialog.open(AppFeedbackComponent, {
       panelClass: 'full-width-dialog',
