@@ -20,7 +20,8 @@ export class RecommendedAppsComponent implements OnInit {
 
   ngOnInit() {
     this.ngProgress.start();
-    this.appService.getRecommendedApps().subscribe((apps) => {
+    let userID = localStorage.getItem("userid");
+    this.appService.getRecommendedApps(userID).subscribe((apps) => {
       this.recommendedAppList = apps;
       console.log(this.recommendedAppList);
       this.ngProgress.done();

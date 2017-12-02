@@ -1,4 +1,3 @@
-import { fadeInAnimation } from './../fade-in.animation';
 import { NgProgress } from 'ngx-progressbar';
 import { AdminService } from './../service/admin.service';
 import { Component, OnInit, ViewChild, HostBinding } from '@angular/core';
