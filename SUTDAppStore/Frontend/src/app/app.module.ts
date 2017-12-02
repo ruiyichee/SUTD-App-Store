@@ -26,7 +26,6 @@ import { AuthenticationService } from './service/authentication.service';
 import { UserService } from './service/user.service';
 import { SignupService } from './service/signup.service';
 import { HomeAppDetailsComponent } from './home-app-details/home-app-details.component';
-import { RecommendedAppsComponent } from './recommended-apps/recommended-apps.component';
 import { SalesComponent } from './sales/sales.component';
 import { ChartsModule } from 'ng2-charts';
 import { DownloadConfirmationComponent } from './home-app-details/download-confirmation.component';
@@ -58,7 +57,6 @@ const routes: Routes = [
     SignupComponent,
     NavbarComponent,
     HomeAppDetailsComponent,
-    RecommendedAppsComponent,
     DownloadConfirmationComponent,
     SalesComponent
   ],
