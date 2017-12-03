@@ -51,6 +51,7 @@ export class HomeAppDetailsComponent implements OnInit {
       this.selectedApp.price = params['price'];
       this.selectedApp.date_of_upload = params['date_of_upload'];
       this.selectedApp.no_of_downloads = params['no_of_downloads'];
+      this.selectedApp.isPurchased = params['isPurchased'];
     });
     this.ngProgress.start();
     this.selectedApp.description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus aliquam cursus. Proin non sem rhoncus, pellentesque nisl vel, ornare felis. ';
