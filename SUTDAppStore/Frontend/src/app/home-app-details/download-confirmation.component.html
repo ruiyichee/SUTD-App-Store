@@ -3,6 +3,6 @@
 </button>
 <h2 class="main-title" style="text-align:left;">Are you sure you want to purchase {{appName}}?</h2>
 <div class="button-con">
-  <button mat-raised-button color="primary" (click)="confirmPurchase()">Confirm</button>
-  <button mat-raised-button (click)="closeDialog()">Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true">Confirm</button>
+  <button mat-raised-button [mat-dialog-close]="false">Cancel</button>
 </div>

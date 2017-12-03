@@ -4,7 +4,8 @@
   <img [src]="appIcon">
   <h2 class="title">{{selectedApp.app_name}}</h2>
   <span>App Genre: {{selectedApp.genre}}</span>
-  <span>No. of Purchase: {{selectedApp.no_of_downloads}}</span>  
+  <span>Downloads: {{selectedApp.no_of_downloads}}</span>  
+  {{confirm}}
   <div class="button-con">
     <button mat-button color="primary" (click)="openConfirmDialog()">
       <mat-icon>shopping_cart</mat-icon>

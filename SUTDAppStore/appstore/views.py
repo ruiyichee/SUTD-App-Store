@@ -82,7 +82,7 @@ def recommended_app_list(request, pk):
         if request.method == 'GET':
             userid = pk
             cursor.execute("""
-            SELECT DISTINCT app_name, A.aid, A.price, A.description, A.genre, A.date_of_upload, A.icon FROM application A, purchases P 
+            SELECT DISTINCT app_name, A.aid, A.price, A.description, A.genre, A.date_of_upload, A.icon, A.no_of_downloads FROM application A, purchases P 
             WHERE A.aid = P.aid
             AND id IN (SELECT id FROM application A, purchases P
             WHERE A.aid = P.aid 
@@ -96,7 +96,7 @@ def recommended_app_list(request, pk):
             AND P.id = %s);""", (userid, userid))
             rows = cursor.fetchall()
             result = []
-            keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon')
+            keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon', 'no_of_downloads')
             for row in rows:
                 result.append(dict(zip(keys,row)))
             jsonObj = json.dumps(result, default=json_serial)
@@ -132,6 +132,23 @@ def app_detail(request, pk):
             result = cursor.fetchall()
             jsonObj = json.dumps(result)
             return HttpResponse(jsonObj, content_type="application/json")
+
+@api_view(['POST'])
+def app_download(request, pk, userid):
+    """
+    Retrieve, update or delete a app instance.
+    """
+    print(request.body)
+    print(request)
+    print(pk)
+    if request.method == 'POST':
+        with connection.cursor() as cursor:
+            appid = pk
+            purchaseDate = 20171201
+            cursor.execute("INSERT INTO purchases (id, aid, purchase_date) VALUES (%s, %s, %s);", (userid,appid,purchaseDate))            
+            return HttpResponse('201',status=status.HTTP_201_CREATED)
+
+
 
 @api_view(['GET', 'POST', 'DELETE'])
 def app_feedback(request, pk):

@@ -51,6 +51,13 @@ export class AppService {
             .catch(this.handleError);
     }
 
+    downloadApp(appID, userID): Observable<any> {
+        const appDownloadUrl = this.appUrl + appID + '/' + userID + '/';
+        console.log(appDownloadUrl);
+        return this.http.post(appDownloadUrl, JSON.stringify("Download this app"), { headers: this.headers, responseType: 'text' }) // ...using post request
+        .catch(this.handleError); //...errors if any
+    }
+
     getFeedbackEndorsement(appID): Observable<Endorsement[]> {
         const appFeedbackEndorsementUrl = this.feedbackEndorsementUrl + appID + '/';
         return this.http.get<Endorsement[]>(appFeedbackEndorsementUrl)

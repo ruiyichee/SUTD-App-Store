@@ -27,6 +27,7 @@ export class HomeAppDetailsComponent implements OnInit {
   filteredFeedbackList = [];
   feedbackLength;
   appIcon: string;
+  confirm = "";
   averageFeedbackScore = 0;
   enteredFeedbackEndorsement = new Endorsement();
 
@@ -99,11 +100,37 @@ export class HomeAppDetailsComponent implements OnInit {
   }
   openConfirmDialog() {
     const dialogRef = this.dialog.open(DownloadConfirmationComponent, {
-      panelClass: 'full-width-dialog'
+      panelClass: 'full-width-dialog',
+      data: ""
       // width: '80vw',
     });
-    dialogRef.componentInstance.appName = this.selectedApp.app_name;    
-    dialogRef.afterClosed().subscribe();
+    dialogRef.componentInstance.appName = this.selectedApp.app_name;
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.ngProgress.start()
+        this.appService.downloadApp(this.selectedApp.aid, localStorage.getItem('userid')).subscribe((res) => {
+          if (res === '201') {
+            this.snackBar.open('Successfully purchased App', 'OK', {
+              duration: 3000,
+              extraClasses: ['success-snackbar']    
+            });
+            this.selectedApp.no_of_downloads = (+this.selectedApp.no_of_downloads + 1).toString(); 
+          } else {
+            this.snackBar.open('Failed to purchase App', 'OK', {
+              duration: 3000,
+              extraClasses: ['failure-snackbar']
+
+            });
+          }
+          this.ngProgress.done();
+        }, (err) => { console.log(err) }
+        );
+
+      }
+      else {
+        console.log("Don't proceed to purchase");
+      }
+    });
   }
 
   openFeedback() {
@@ -238,10 +265,6 @@ export class HomeAppDetailsComponent implements OnInit {
     } else {
       this.feedbackList = this.totalFeedbackList;
     }
-
-
-
-
   }
 
 }
