@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^appstore/$', views.app_list),
     url(r'^appstore/(?P<pk>\d+)/$', views.app_detail),
+    url(r'^appstore/purchased/(?P<userid>\d+)/$', views.app_purchased_list),
     url(r'^appstore/(?P<pk>\d+)/(?P<userid>\d+)/$', views.app_download),
     url(r'^appstore/feedback/(?P<pk>\d+)/$', views.app_feedback),
     url(r'^appstore/recommend/(?P<pk>\d+)/$', views.recommended_app_list),

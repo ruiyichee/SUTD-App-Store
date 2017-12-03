@@ -29,7 +29,7 @@
     <span>Sorry, we couldn't recommend any apps for you</span>
   </div>
   <mat-card *ngFor="let app of recommendedAppList; let i = index" (click)="routeToRecommendedApp(i)">
-    <mat-card-subtitle>Downloads: {{app.no_of_downloads}}</mat-card-subtitle>    
+    <span>Downloads: {{app.no_of_downloads}}</span>    
     <h4>{{app.app_name}}</h4>
     <img md-card-image src="assets/img/appicon1.svg" alt="fake icon">
     <div class="extra-info">
@@ -43,7 +43,8 @@
 <h2>Browse Apps</h2>
 <div class="app-con">
   <mat-card *ngFor="let app of appList; let i = index" (click)="routeToApp(i)">
-    <mat-card-subtitle>Downloads: {{app.no_of_downloads}}</mat-card-subtitle>    
+    <mat-icon *ngIf="app.isPurchased">done</mat-icon>
+    <span>Downloads: {{app.no_of_downloads}}</span>    
     <h4>{{app.app_name}}</h4>
     <img md-card-image src="assets/img/appicon1.svg" alt="fake icon">
     <div class="extra-info">
@@ -53,3 +54,4 @@
     </div>
   </mat-card>
 </div>
+<!-- [class.purchased]="isPurchased" -->

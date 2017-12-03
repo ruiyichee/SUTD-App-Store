@@ -71,6 +71,24 @@ def app_list(request):
             cursor.execute("INSERT INTO creates (id, aid) VALUES (%s, %s);", (id,aid))
             return HttpResponse('201',status=status.HTTP_201_CREATED)
 
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def app_purchased_list(request, userid):
+    """
+    List all purchased app
+    """
+    print(request.method)
+    with connection.cursor() as cursor:
+        if request.method == 'GET':
+            cursor.execute("SELECT aid from purchases where id = %s", [userid])
+            rows = cursor.fetchall()
+            result = []
+            keys = ('aid')
+            for row in rows:
+                result.append(dict(zip(keys,row)))
+            jsonObj = json.dumps(result, default=json_serial)
+            return HttpResponse(jsonObj, content_type="application/json")
+
 @api_view(['GET', 'POST'])
 @permission_classes((IsAuthenticated,))
 def recommended_app_list(request, pk):

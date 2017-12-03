@@ -29,9 +29,9 @@ export class AppService {
             .catch(this.handleError);
     }
 
-    getRecommendedApps(userID): Observable<App[]> {
+    getRecommendedApps(userID): Observable<any[]> {
         const recommendedAppUrl = this.toRecommendUrl + userID + '/';
-        return this.http.get<App[]>(recommendedAppUrl)
+        return this.http.get<any[]>(recommendedAppUrl)
             .do(data => console.log('get success'))
             .catch(this.handleError);
     }
@@ -51,11 +51,17 @@ export class AppService {
             .catch(this.handleError);
     }
 
+    getPurchasedApps(userID): Observable<App[]> {
+        return this.http.get<App[]>(this.appUrl + 'purchased/'+  userID + '/')
+            .do(data => console.log('get success'))
+            .catch(this.handleError);
+    }
+
     downloadApp(appID, userID): Observable<any> {
         const appDownloadUrl = this.appUrl + appID + '/' + userID + '/';
         console.log(appDownloadUrl);
         return this.http.post(appDownloadUrl, JSON.stringify("Download this app"), { headers: this.headers, responseType: 'text' }) // ...using post request
-        .catch(this.handleError); //...errors if any
+            .catch(this.handleError); //...errors if any
     }
 
     getFeedbackEndorsement(appID): Observable<Endorsement[]> {
@@ -94,7 +100,7 @@ export class AppService {
             let price_tag = '0';
             if (price_range === '<5') {
                 price_tag = '1';
-            } 
+            }
             else if (price_range === '5 - 10') {
                 price_tag = '2';
             }

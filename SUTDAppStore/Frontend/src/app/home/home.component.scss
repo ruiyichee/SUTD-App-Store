@@ -5,6 +5,10 @@ div.top-con {
     max-height: 4rem;
   }
 }
+// .purchased {
+//   background-color: #77d777;
+//   color: white;
+// }
 
 div.action-con {
   display: flex;
@@ -44,6 +48,11 @@ div.app-con {
     margin-bottom: 2rem;
     img {
         margin-bottom: 1rem;
+    }
+    mat-icon {
+      position: absolute;
+      right: 1rem;
+      color: green;
     }
 
   }

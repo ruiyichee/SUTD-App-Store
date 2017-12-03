@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   url: string = 'http://localhost:8000/appstore/';
   appList: App[];
   recommendedAppList: App[] = [];
+  purchasedAppList = [];
   prices = ['All', '<5', '5 - 10', '>10'];
   genres = ['All', '3D', '2D'];
   selectedPriceRange = 'All';
@@ -32,6 +33,7 @@ export class HomeComponent implements OnInit {
   randomVar: any;
   selectedUser = new User();
   searchTextValue = 'All';
+  // isPurchased = true;
   private subject: Subject<string> = new Subject();
 
   constructor(
@@ -48,18 +50,31 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Home');
     this.ngProgress.start();
-    this.appService.getApps().subscribe((apps) => {
-      this.appList = apps;
-      console.log(this.appList);
-      this.ngProgress.done();
-    },
-      (err) => { console.log(err) }
-    );
+
     this.userService.getUserDetails().subscribe((user) => {
       this.selectedUser = user[0];
       localStorage.setItem('userid', this.selectedUser.id);
       this.appService.getRecommendedApps(this.selectedUser.id).subscribe((apps) => {
         this.recommendedAppList = apps;
+      })
+      this.appService.getPurchasedApps(this.selectedUser.id).subscribe((apps) => {
+        this.purchasedAppList = apps;
+        this.appService.getApps().subscribe((apps) => {
+          this.appList = apps;
+          console.log(this.appList);
+          for (let i = 0; i < this.appList.length; i++) {
+            for (let j = 0; j < this.purchasedAppList.length; j++) {
+              if (this.appList[i].aid === this.purchasedAppList[j].a) {
+                this.appList[i].isPurchased = true;
+              }
+            }
+          }
+          this.ngProgress.done();
+        },
+          (err) => { console.log(err) }
+        );
+        console.log(this.purchasedAppList);
+
       })
     },
       (err) => { console.log(err) }
