@@ -1,25 +1,27 @@
 <div class="top-con">
-  <img src="assets/img/SUTDAppstoreLogo.png" routerLink="/home" routerLinkActive="active">
-  <div class="button-con">
-    <button mat-raised-button routerLink="/home" routerLinkActive="active">
+  <div class="tabs-con">
+    <img src="assets/img/SUTDAppstoreLogo.png" routerLink="/home" routerLinkActive="active">
+    <button mat-button routerLink="/home" routerLinkActive="active">
       <mat-icon>home</mat-icon>
       <span>Home</span>
     </button>
-    <button mat-raised-button (click)="uploadApp()">
+    <button mat-button (click)="uploadApp()">
       <mat-icon>add</mat-icon>
       Upload App
     </button>
-    <button mat-raised-button routerLink="/user-profile" routerLinkActive="active">
+    <button mat-button routerLink="/user-profile" routerLinkActive="active">
       <mat-icon>settings</mat-icon>
       <span>View Profile</span>
-    </button>
-    <button mat-raised-button (click)="logout()" routerLink="/login" routerLinkActive="active">
-      <mat-icon>directions_run</mat-icon>
-      <span>Sign Out</span>
     </button>
     <button mat-raised-button routerLink="/sales" routerLinkActive="active" *ngIf="selectedUser.is_superuser === 1">
       <mat-icon>show_chart</mat-icon>
       <span>Sales</span>
+    </button>
+  </div>
+  <div class="button-con">
+    <button mat-raised-button (click)="logout()" routerLink="/login" routerLinkActive="active">
+      <mat-icon>directions_run</mat-icon>
+      <span>Sign Out</span>
     </button>
   </div>
 </div>
