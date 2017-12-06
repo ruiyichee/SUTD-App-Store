@@ -4,14 +4,17 @@
   </div>
   <div class="login-con">
     <mat-form-field>
-      <input matInput placeholder="Enter Username" name = "username" [(ngModel)]="model.username">
+      <input matInput placeholder="Enter Username" name="username" [(ngModel)]="model.username">
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Enter Password" [type]="hide ? 'password' : 'text'" name = "password" [(ngModel)]="model.password">
+      <input matInput placeholder="Enter Password" [type]="hide ? 'password' : 'text'" name="password" [(ngModel)]="model.password">
       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
     </mat-form-field>
-    <button mat-raised-button (click)="login()">Log In</button>
+    <!-- <div class="login-button-con"> -->
+      <button mat-raised-button color="primary" (click)="login()">Log In</button>
+    <!-- </div> -->
   </div>
+
   <div class="bottom-con">
     <p style="text-align:center;">Don't have an account? Sign up
       <a (click)="signup()" style="cursor: pointer; color:grey">here</a>

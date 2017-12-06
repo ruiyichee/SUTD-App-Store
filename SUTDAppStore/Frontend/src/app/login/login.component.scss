@@ -1,9 +1,22 @@
 div.login-con {
   display: flex;
+  justify-content: center;
   flex-direction: column;
-  margin-left: 12rem;
-  margin-right: 12rem;
+  align-items: center;
+  mat-form-field {
+    width: 30%;
+  }
+  button {
+    width: 30%;
+  }
+  
 }
+div.login-button-con {
+  display: flex;
+  justify-content: center;  
+  
+}
+
 
 div.logo-con {
   display: flex;
