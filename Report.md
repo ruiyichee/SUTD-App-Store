@@ -1,6 +1,5 @@
 
 # SUTD AppStore Report
-![alt text](https://github.com/yinjisheng311/SUTDAppStore/blob/master/SUTDAppStore/Frontend/src/assets/img/SUTDAppstoreLogo.png)
 ## Team Members
 1. Neo Ze Yuan Matthew 1001483
 2. Maylizabeth 1001818 
