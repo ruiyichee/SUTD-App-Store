@@ -1,6 +1,6 @@
 
 # SUTD AppStore Report
-
+![alt text](https://github.com/yinjisheng311/SUTDAppStore/blob/master/SUTDAppStore/Frontend/src/assets/img/SUTDAppstoreLogo.png)
 ## Team Members
 1. Neo Ze Yuan Matthew 1001483
 2. Maylizabeth 1001818 
@@ -19,7 +19,6 @@ Entities and relationships involved in SUTD AppStore.
 ![alt text](https://github.com/yinjisheng311/SUTDAppStore/blob/master/erdiagram.png)
 
 ## Requirements:
-
 ### 1. Registration/New subscription: 
 + A new user has to provide necessary information such as:
     + Username (Must be unique)
@@ -29,7 +28,7 @@ Entities and relationships involved in SUTD AppStore.
     + Date of Birth 
     + Password 
 
-The SQL query shows the first name, last name and username only as other information is being handled by the backend, Django, using rest auth and django rest framework.
+The SQL command only updates the first name, last name and username  as other information is being handled by the backend, Django, using rest auth and django rest framework.
 ```
 UPDATE auth_user SET first_name = %s, last_name = %s 
 WHERE auth_user.username = %s;", (first_name, last_name, username)
@@ -119,9 +118,9 @@ SELECT LAST_INSERT_ID() as last_id;
 
 
 ### 5. Arrival of more copies: 
-+ As an app store doesn’t require physical products unlike books, we will store the total number of purchases/downloads. Every time a purchase/download has been made, the number of purchase/download increases by 1.
++ As an app store doesn’t require physical products unlike books, we will store the total number of purchases/downloads. Every time a purchase/download has been made, the number of purchase/download increases by 1. This is done using a trigger after a purchase has been made.
 
-+ SQL query for adding application to “purchases” database:
++ SQL query for adding application to “purchases” table:
 ```
 "INSERT INTO purchases (id, aid, purchase_date) VALUES (%s, %s, %s);", (userid,appid,purchaseDate)
 ```
@@ -150,7 +149,7 @@ WHERE application.aid = NEW.aid;
 + Users can give a feedback for a game. For each feedback, users should fill up the following fields:
     + Date of feedback given
     + Scale of feedback (0-10; 0=absolute rubbish, 10=crazily addictive game)
-    + Optional commentary (limit like 1000 characters or so)
+    + Optional commentary (Limit of 5000 characters)
     
 
 + SQL query for adding feedback to an application:
@@ -158,7 +157,7 @@ WHERE application.aid = NEW.aid;
 "INSERT INTO feedback (stars, comments, feed_date) VALUES (%s, %s, %s);", (feedbackStars, feedbackComments, feedbackDate)
 ```
 
-+ SQL query for adding feedback to “gives” database:
++ SQL query for adding feedback to “gives” table:
 ```
 “INSERT INTO gives (id, aid, fid) VALUES (%s, %s, %s);", (id,appid,fid)
 ```
@@ -179,12 +178,12 @@ AND a.aid = %s;""", [appid]
 ```
 "INSERT INTO endorsement (thumbs) VALUES (%s);", [endorsementThumbs]
 ```
-+ SQL query for storing endorsements into “receives” database:
++ SQL query for storing endorsements into “receives” table:
 ```
 "INSERT INTO receives (fid,eid) VALUES (%s, %s);", (fid,eid)
 ```
 
-+ SQL query for storing endorsements into “writes” database:
++ SQL query for storing endorsements into “writes” table:
 ```
 "INSERT INTO receives (fid,eid) VALUES (%s, %s);", (fid,eid)
 ```
@@ -218,7 +217,7 @@ If (search_value == 'All'):
 #When user specify at least one search criteria
 #Below is the sample code for one the criteria input: price <5. Similar codes are reiterated for different different price range. 
 
-SELECT a.app_name, a.aid, a.price, a.description, a.genre, a.date_of_upload, a.icon, a.no_of_downloads
+"""SELECT a.app_name, a.aid, a.price, a.description, a.genre, a.date_of_upload, a.icon, a.no_of_downloads
 FROM application a
 INNER JOIN creates c 
 ON c.aid = a.aid
@@ -262,14 +261,13 @@ AND P.id = %s);""", (userid, userid);
 
 ### 11. Sales performance: every month, the website owner could view top 5 or 10:
 + The best selling games of the month (Number of downloads)
-+ Game creators with best selling games (Aggregate number of downloads)
-+ Best selling genre (Aggregate number of downloads)
 ```
 """SELECT DISTINCT app_name, no_of_downloads from application, purchases
 WHERE purchases.aid=application.aid 
 AND purchase_date 
 ORDER BY  no_of_downloads Desc;"""
 ```
++ Game creators with best selling games (Aggregate number of downloads)
 ```
 """SELECT DISTINCT first_name , sum(no_of_downloads) from application, purchases, creates, auth_user
 where purchases.aid=application.aid 
@@ -278,6 +276,7 @@ AND auth_user.id=creates.id
 GROUP BY (creates.id)
 ORDER BY SUM(no_of_downloads) desc limit 6;"""
 ```
++ Best selling genre (Aggregate number of downloads)
 ```
 """SELECT genre, count(genre) 
 FROM application, purchases
