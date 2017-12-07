@@ -4,6 +4,15 @@ span.title {
   display: block; // font-size: 1.5rem;
 }
 
+.disabled {
+  background-color: #f1f1f1;
+  cursor: not-allowed;
+}
+
+.disabled-button {
+  cursor: not-allowed;  
+}
+
 div.subtitle {
   text-transform: uppercase;
   color: grey;

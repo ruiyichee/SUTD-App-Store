@@ -1,3 +1,4 @@
+import { UserService } from './../service/user.service';
 import { AppFeedbackComponent } from './../home/app-feedback/app-feedback.component';
 import { Endorsement } from '../models/endorsement.model';
 import { MatSnackBar, MatDialog } from '@angular/material';
@@ -38,6 +39,7 @@ export class HomeAppDetailsComponent implements OnInit {
     private appService: AppService,
     public snackBar: MatSnackBar,
     private dialog: MatDialog,
+    private userService: UserService,
   ) { }
 
   ngOnInit() {
@@ -79,6 +81,18 @@ export class HomeAppDetailsComponent implements OnInit {
         this.averageFeedbackScore = Math.ceil(totalScore / this.feedbackList.length);
         console.log(this.averageFeedbackScore);
         console.log(this.feedbackList);
+        this.userService.getFeedbackHistory(userID).subscribe((feedback) => {
+          for (let i = 0; i < this.feedbackList.length; i++) {
+            for (let j = 0; j < feedback.length; j++){
+              if (this.feedbackList[i].username === feedback[j].username) {
+                this.feedbackList[i].own_feedback = true;
+              }
+              else {
+                this.feedbackList[i].own_feedback = false;
+              }
+            }
+          }
+        });
 
       },
       (err) => { console.log(err) }
@@ -99,6 +113,8 @@ export class HomeAppDetailsComponent implements OnInit {
       },
       (err) => { console.log(err) }
     );
+    let userID = localStorage.getItem('userid');
+    
   }
   openConfirmDialog() {
     const dialogRef = this.dialog.open(DownloadConfirmationComponent, {

@@ -7,4 +7,5 @@ export class Feedback {
     feed_date: string;
     thumbs_up: string;
     thumbs_down: string;
+    own_feedback: boolean;
 }
