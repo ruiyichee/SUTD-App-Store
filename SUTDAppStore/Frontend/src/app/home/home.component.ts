@@ -63,6 +63,9 @@ export class HomeComponent implements OnInit {
           this.appList = apps;
           console.log(this.appList);
           for (let i = 0; i < this.appList.length; i++) {
+            if (this.appList[i].icon === null) {
+              this.appList[i].icon = "assets/img/app_icon_placeholder.png";
+            }
             for (let j = 0; j < this.purchasedAppList.length; j++) {
               if (this.appList[i].aid === this.purchasedAppList[j].a) {
                 this.appList[i].isPurchased = true;
