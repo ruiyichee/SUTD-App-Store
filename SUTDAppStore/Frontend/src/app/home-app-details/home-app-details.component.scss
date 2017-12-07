@@ -16,6 +16,10 @@ span.data {
 div.top-con {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  img {
+    max-width: 15rem;
+  }
   h2,
   span {
     text-align: center;

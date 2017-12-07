@@ -13,7 +13,7 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field> 
       <mat-select placeholder="App Genre" (change)="filterGenre()" [(ngModel)]="selectedGenre" name="genre">
         <mat-option *ngFor="let genre of genres" [value]="genre">
           {{genre}}
@@ -31,11 +31,11 @@
   <mat-card *ngFor="let app of recommendedAppList; let i = index" (click)="routeToRecommendedApp(i)">
     <span>Downloads: {{app.no_of_downloads}}</span>
     <h4>{{app.app_name}}</h4>
-    <img md-card-image src="assets/img/appicon1.svg" alt="fake icon">
+    <img md-card-image [src]="app.icon" alt="app icon not available">
     <div class="extra-info">
       <span>{{app.genre}}</span>
       <span *ngIf="app.price === 0">Free</span>
-      <span *ngIf="app.price !== 0">${{app.price}}</span>
+      <span *ngIf="app.price !== 0">{{app.price | currency:'SGD'}}</span>
     </div>
   </mat-card>
 </div>
@@ -46,11 +46,11 @@
     <mat-icon *ngIf="app.isPurchased">done</mat-icon>
     <span>Downloads: {{app.no_of_downloads}}</span>
     <h4>{{app.app_name}}</h4>
-    <img md-card-image src="assets/img/appicon1.svg" alt="fake icon">
+    <img md-card-image [src]="app.icon" alt="app icon not available">
     <div class="extra-info">
       <span>{{app.genre}}</span>
       <span *ngIf="app.price === 0">Free</span>
-      <span *ngIf="app.price !== 0">${{app.price}}</span>
+      <span *ngIf="app.price !== 0">{{app.price | currency:'SGD'}}</span>
     </div>
   </mat-card>
 </div>
