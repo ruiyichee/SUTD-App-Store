@@ -278,7 +278,3 @@ GROUP BY genre
 ORDER BY count(genre) DESC;"""
 ```
 
-
-```python
-
-```
