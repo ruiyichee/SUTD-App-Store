@@ -11,10 +11,14 @@
 ## Abstract
 As part of the Elements of Software Construction module in Term 5, ISTD, students are expected to create a game application. However, these games were usually chunked aside after the final demonstration. Hence, the idea of having a web application that provides a platform for the students to store the games they created and make them available to the larger SUTD population and beyond, SUTD AppStore, was born. 
 
-## ER Diagram
+## Description
+SUTD AppStore is a CRUD (Create, Read, Update, Delete) website that was built using Angular 2's frontend framework and with Django as the backend. It utilises MySQL as its database. 
+
+## ER Diagram 
+Entities and relationships involved in SUTD AppStore.
 ![alt text](https://github.com/yinjisheng311/SUTDAppStore/blob/master/erdiagram.png)
 
-## Questions
+## Requirements:
 
 ### 1. Registration/New subscription: 
 + A new user has to provide necessary information such as:
