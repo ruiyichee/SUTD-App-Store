@@ -1,15 +1,20 @@
 
-# SUTD AppStore
+# SUTD AppStore Report
 
-## Description
-This project is part of the final deliverables for 50.012 Databases course for Fall 2017 in Singapore University of Technology and Design. The requirements for this project include creating a web app using the Django framework and utilising MySQL as the database. The SUTD App Store is created mainly for SUTD students to deposit apps of past projects that they worked on.
-
-## Collaborators
+## Team Members
 1. Neo Ze Yuan Matthew 1001483
 2. Maylizabeth 1001818 
 3. Aastha Chouhan 1001782
 4. Yin Ji Sheng 1001670
 5. Chee Rui Yi 1001738
+
+## Abstract
+As part of the Elements of Software Construction module in Term 5, ISTD, students are expected to create a game application. However, these games were usually chunked aside after the final demonstration. Hence, the idea of having a web application that provides a platform for the students to store the games they created and make them available to the larger SUTD population and beyond, SUTD AppStore, was born. 
+
+## ER Diagram
+![alt text](https://github.com/yinjisheng311/SUTDAppStore/blob/master/erdiagram.png)
+
+## Questions
 
 ### 1. Registration/New subscription: 
 + A new user has to provide necessary information such as:
@@ -277,4 +282,3 @@ AND purchase_date BETWEEN curdate() - interval 200000 day and curdate()
 GROUP BY genre
 ORDER BY count(genre) DESC;"""
 ```
-
