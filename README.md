@@ -4,38 +4,47 @@
 This project is part of the final deliverables for 50.012 Databases course for Fall 2017 in Singapore University of Technology and Design. The requirements for this project include creating a web app using the Django framework and utilising MySQL as the database. The SUTD App Store is created mainly for SUTD students to deposit apps of past projects that they worked on.
 
 ## Before Running
-Launch virtual environment. Install Angular 2 CLI and the following libraries to setup Django backend without errors. 
-+ Download Angular 2 CLI
+1. Download Angular 2 CLI
 ```
 npm install -g @angular/cli 
 ```
-+ Download Django
+2. Launch your virtual environment and download the necessary Django libraries and packages. Make sure you are using Python 3.
 ```
 pip install django
-```
-+ Download Django Restframework
-```
+
 pip install djangorestframework
-```
-+ Download Django Corsheaders
-```
+
 pip install django-cors-headers
-```
-+ Download Django Rest authentication package
-```
+
 pip install django-rest-auth
-```
-+ Download Django All authentication package
-```
+
 pip install django-allauth
-```
-+ Download Django MySQL
-```
+
 pip install django mysqlclient
+```
+3. Remember to get your MySQL server up and running using `mysql.server start`. Create a database user to interact and connect with the database. Use the following command to prevent any errors. If you so desire to change the username or password, you will have to change it in the following section in `settings.py`. 
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'SUTDAppstore',
+        'USER': 'SUTDAppstoreUser',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+```
++ Run the following commands on MySQL to create the user
+```
+CREATE DATABASE SUTDAppstore CHARACTER SET UTF8;
+CREATE USER SUTDAppstoreUser@localhost IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON SUTDAppstore.* TO SUTDAppstoreUser@localhost;
+FLUSH PRIVILEGES;
 ```
 
 ## Instructions to Run:
-1. Remember to get your MySQL server up and running using `mysql.server start`
+1. Make sure your MySQL is up. 
 2. cd into SUTDAppStore and run django server using `python manage.py runserver`
 3. Open a new command line tab and cd into Frontend and serve Angular 2 using `npm start`
 4. Go to your favourite web browser and enter the url `localhost:4200` to launch the SUTD AppStore
