@@ -6,12 +6,13 @@ This project is part of the final deliverables for 50.012 Databases course for F
 This is a simple CRUD (Create, Read, Update, Delete) web app that is built on Angular 2 as frontend and with Django as backend to provide REST API end points. 
 
 ## Before Running
-0. This web app requires Angular 2. To download Angular 2, make sure you have node.js and npm. Visit `https://nodejs.org/en/download/` to download Node.js for your device. Check that you have at least node 6.9.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window.
-1. cd into `SUTDAppStore/SUTDAppStore/Frontend`. Download Angular 2 CLI.
+1. Git clone the project by running `git clone https://github.com/yinjisheng311/SUTDAppStore.git` 
+2. This web app requires Angular 2. To download Angular 2, make sure you have node.js and npm. Visit `https://nodejs.org/en/download/` to download Node.js for your device. Check that you have at least node 6.9.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window.
+3. cd into `SUTDAppStore/SUTDAppStore/Frontend`. Download Angular 2 CLI.
 ```
 npm install @angular/cli 
 ```
-2. Launch your virtual environment and download the necessary Django libraries and packages. Make sure you are using Python 3.
+4. Launch your virtual environment and download the necessary Django libraries and packages. Make sure you are using Python 3.
 ```
 pip install django
 
@@ -25,7 +26,7 @@ pip install django-allauth
 
 pip install django mysqlclient
 ```
-3. Remember to get your MySQL server up and running by using `mysql.server start`. Create a database user to interact and connect with the database. Use the following command to prevent any errors. If you so desire to change the username or password, you will have to change it in the following section in `settings.py` in `SUTDAppStore` folder. Currently, this is what it looks like:
+5. Remember to get your MySQL server up and running by using `mysql.server start`. Create a database user to interact and connect with the database. Use the following command to prevent any errors. If you so desire to change the username or password, you will have to change it in the following section in `settings.py` in `SUTDAppStore` folder. Currently, this is what it looks like:
 ```
 DATABASES = {
     'default': {
@@ -45,7 +46,7 @@ CREATE USER SUTDAppstoreUser2@localhost IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON SUTDAppstore.* TO SUTDAppstoreUser2@localhost;
 FLUSH PRIVILEGES;
 ```
-4. Pre-load all the pseudo data into database. Copy and paste the SQL commands first from `final_schema.sql` and then from `data_set.sql`.
+6. Pre-load all the pseudo data into database. Copy and paste the SQL commands first from `final_schema.sql` and then from `data_set.sql`.
 All commands should run without error. 
 
 ## Instructions to serve the Web App locally:
