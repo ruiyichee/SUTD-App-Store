@@ -4,9 +4,10 @@
 This project is part of the final deliverables for 50.012 Databases course for Fall 2017 in Singapore University of Technology and Design. The requirements for this project include creating a web app using the Django framework and utilising MySQL as the database. The SUTD App Store is created mainly for SUTD students to deposit apps of past projects that they worked on.
 
 ## Before Running
-1. Download Angular 2 CLI
+0.This web app requires Angular 2. To download Angular 2, make sure you have node.js and npm. Visit `https://nodejs.org/en/download/` to download Node.js for your device. Check that you have at least node 6.9.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window.
+1. Download Angular 2 CLI.
 ```
-npm install -g @angular/cli 
+npm install @angular/cli 
 ```
 2. Launch your virtual environment and download the necessary Django libraries and packages. Make sure you are using Python 3.
 ```
