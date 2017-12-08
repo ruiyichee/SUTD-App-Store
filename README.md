@@ -6,7 +6,10 @@ This project is part of the final deliverables for 50.012 Databases course for F
 This is a simple CRUD (Create, Read, Update, Delete) web app that is built on Angular 2 as frontend and with Django as backend to provide REST API end points. 
 
 ## Before Running
-1. Git clone the project by running `git clone https://github.com/yinjisheng311/SUTDAppStore.git` 
+1. Git clone the project by running:
+```
+git clone https://github.com/yinjisheng311/SUTDAppStore.git
+```
 2. This web app requires Angular 2. To download Angular 2, make sure you have node.js and npm. Visit `https://nodejs.org/en/download/` to download Node.js for your device. Check that you have at least node 6.9.x and npm 3.x.x by running `node -v` and `npm -v` in a terminal/console window.
 3. cd into `SUTDAppStore/SUTDAppStore/Frontend`. Download Angular 2 CLI.
 ```
