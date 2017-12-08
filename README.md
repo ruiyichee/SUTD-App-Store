@@ -22,13 +22,13 @@ pip install django-allauth
 
 pip install django mysqlclient
 ```
-3. Remember to get your MySQL server up and running using `mysql.server start`. Create a database user to interact and connect with the database. Use the following command to prevent any errors. If you so desire to change the username or password, you will have to change it in the following section in `settings.py`. 
+3. Remember to get your MySQL server up and running using `mysql.server start`. Create a database user to interact and connect with the database. Use the following command to prevent any errors. If you so desire to change the username or password, you will have to change it in the following section in `settings.py`. Currently, this is what it looks like
 ```
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'SUTDAppstore',
-        'USER': 'SUTDAppstoreUser',
+        'USER': 'SUTDAppstoreUser2',
         'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '',
@@ -38,8 +38,8 @@ DATABASES = {
 + Run the following commands on MySQL to create the user
 ```
 CREATE DATABASE SUTDAppstore CHARACTER SET UTF8;
-CREATE USER SUTDAppstoreUser@localhost IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON SUTDAppstore.* TO SUTDAppstoreUser@localhost;
+CREATE USER SUTDAppstoreUser2@localhost IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON SUTDAppstore.* TO SUTDAppstoreUser2@localhost;
 FLUSH PRIVILEGES;
 ```
 
