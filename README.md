@@ -1,7 +1,7 @@
 # SUTD AppStore
 
 ## Description
-This project is part of the final deliverables for 50.012 Databases course for Fall 2017 in Singapore University of Technology and Design. The requirements for this project include creating a web app using the Django framework and utilising MySQL as the database. The SUTD App Store is created mainly for SUTD students to deposit apps of past projects that they have previously worked on. More of the web app's detailed requirements can be found on REPORT.md
+This project is part of the final deliverables for 50.012 Databases course for Fall 2017 in Singapore University of Technology and Design. The requirements for this project include creating a web app using the Django framework and utilising MySQL as the database. The SUTD AppStore is created mainly for SUTD students to deposit apps of past projects that they have previously worked on. More of the web app's detailed requirements can be found on REPORT.md
 
 This is a simple CRUD (Create, Read, Update, Delete) web app that is built on Angular 2 as frontend and with Django as backend to provide REST API end points. 
 
