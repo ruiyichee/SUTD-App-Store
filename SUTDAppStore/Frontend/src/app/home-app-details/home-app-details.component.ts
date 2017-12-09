@@ -133,6 +133,7 @@ export class HomeAppDetailsComponent implements OnInit {
               extraClasses: ['success-snackbar']    
             });
             this.selectedApp.no_of_downloads = (+this.selectedApp.no_of_downloads + 1).toString(); 
+            this.selectedApp.isPurchased = true;
           } else {
             this.snackBar.open('Failed to purchase App', 'OK', {
               duration: 3000,

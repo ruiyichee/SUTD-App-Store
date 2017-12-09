@@ -111,7 +111,7 @@ def recommended_app_list(request, pk):
             AND A.aid NOT IN
             (Select A.aid from purchases P, application A
             WHERE P.aid = A.aid
-            AND P.id = %s);""", (userid, userid))
+            AND P.id = %s) LIMIT 3;""", (userid, userid))
             rows = cursor.fetchall()
             result = []
             keys = ('app_name', 'aid', 'price', 'description', 'genre', 'date_of_upload', 'icon', 'no_of_downloads')
