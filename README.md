@@ -42,7 +42,7 @@ DATABASES = {
     }
 }
 ```
-Run the following commands on MySQL to create the user
+Run the following commands on MySQL to create the database and user for that database
 ```
 CREATE DATABASE SUTDAppstore CHARACTER SET UTF8;
 CREATE USER SUTDAppstoreUser2@localhost IDENTIFIED BY 'password';
