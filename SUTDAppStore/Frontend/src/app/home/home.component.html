@@ -13,7 +13,7 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field> 
+    <mat-form-field>
       <mat-select placeholder="App Genre" (change)="filterGenre()" [(ngModel)]="selectedGenre" name="genre">
         <mat-option *ngFor="let genre of genres" [value]="genre">
           {{genre}}
@@ -21,9 +21,15 @@
       </mat-select>
     </mat-form-field>
 
+
   </div>
 </div>
-<h2>Recommended For You</h2>
+<h2>Recommended For You
+  <button mat-raised-button style="float:right;" (click)="openUploadDialog()">
+    <mat-icon>add</mat-icon>
+    Upload App
+  </button>
+</h2>
 <div class="app-con">
   <div *ngIf="recommendedAppList.length === 0">
     <span>Sorry, we couldn't recommend any apps for you</span>

@@ -6,7 +6,7 @@ import { AppUploadComponent } from './app-upload.component';
 import { App } from './../models/app.model';
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { Title } from '@angular/platform-browser';
 import { NgProgress } from 'ngx-progressbar';
 import { HttpClient } from '@angular/common/http';
@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit {
     private titleService: Title,
     public ngProgress: NgProgress,
     private appService: AppService,
+    public snackBar: MatSnackBar,
     private userService: UserService,
     private router: Router,
   ) {
@@ -137,22 +138,46 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/app-details', data]);
   }
 
-  downloadApp(i, event) {
-    const newURL = this.url + (i + 1) + '/';
-    const appToBeDownloaded = this.appList[i];
-    // TODO: GET the appfile from DB
-    console.log('trying to download app');
-    console.log('not done downloading file yet');
-    console.log('Increment to DB');
-    let incrementor = 1;
-    this.http.post(newURL, incrementor).toPromise().then((res) => {
-      // console.log(res.json());
-      console.log('succeeded');
+  openUploadDialog() {
+    const dialogRef = this.dialog.open(AppUploadComponent, {
+      panelClass: 'full-width-dialog',
+      data: ""
+      // width: '80vw',
     });
-    event.stopPropagation();
+    dialogRef.afterClosed().subscribe(() => {
+      this.userService.getUserDetails().subscribe((user) => {
+        this.selectedUser = user[0];
+        localStorage.setItem('userid', this.selectedUser.id);
+        this.appService.getRecommendedApps(this.selectedUser.id).subscribe((apps) => {
+          this.recommendedAppList = apps;
+        })
+        this.appService.getPurchasedApps(this.selectedUser.id).subscribe((apps) => {
+          this.purchasedAppList = apps;
+          this.appService.getApps().subscribe((apps) => {
+            this.appList = apps;
+            console.log(this.appList);
+            for (let i = 0; i < this.appList.length; i++) {
+              if (this.appList[i].icon === null) {
+                this.appList[i].icon = "assets/img/app_icon_placeholder.png";
+              }
+              for (let j = 0; j < this.purchasedAppList.length; j++) {
+                if (this.appList[i].aid === this.purchasedAppList[j].a) {
+                  this.appList[i].isPurchased = true;
+                }
+              }
+            }
+            this.ngProgress.done();
+          },
+            (err) => { console.log(err) }
+          );
+          console.log(this.purchasedAppList);
+
+        })
+      },
+        (err) => { console.log(err) }
+      );
+    }
+    );
   }
-
-
-
 
 }
