@@ -199,29 +199,27 @@ GROUP BY f.fid;""", [appid]
 ```
 
 ### 8. Game search feature: 
-+ Users may search for particular games by keying certain keywords related to the search query such as: 
++ Users can search for games according to the following:
     + game title 
     + price range of less than 5, between 5 and 10, and more than 10  
     + genre such as 2D and 3D
-
++ The game search feature works conjunctively. For instance, the user can type "Temple", select price range <5 and select genre 2D in a single search and the web app will return games that contains "Temple", costs less than 5 and is 2D. It would work with any combination of the 3 categories. 
++ Implementation: For game title and genre, it follows the usual data parsing in the SQL command using `%s`. However, for price range, it works a bit differently because data parsing cannot contain operators such as `<` and `>` etc. A workaround was using an integer value from 0 to 3 to indicate different price ranges. 0 meant all price ranges, 1 meant less than $5, 2 meant between $5 and $10 and 3 meant more than $10. Frontend will handle the corresponding select statements and parse the following integer to the backend.
++ In the default case, when the user did not specify search criteria, the app will return all apps. The data is set to `%` because when it is parsed into the SQL statement, such as `app_name LIKE %` will return all apps. 
 ```
-#DEFAULT when the user did not specify the search criteria
-#FROM DJANGO
-
 If (genre == 'All'):
           genre = '%'
 If (search_value == 'All'):
           search_final_value = '%'
-
-#When user specify at least one search criteria
-#Below is the sample code for one the criteria input: price <5. Similar codes are reiterated for different different price range. 
-
+```
++ When user specify at least one search criteria. Below is the sample code for one the criteria input: price <5. Similar codes are used for different different price range and changing the different operations for different price range needed in the SQL.
+```
 """SELECT a.app_name, a.aid, a.price, a.description, a.genre, a.date_of_upload, a.icon, a.no_of_downloads
 FROM application a
-INNER JOIN creates c 
-ON c.aid = a.aid
+INNER JOIN creates c ON c.aid = a.aid
 WHERE a.genre LIKE %s
-AND (a.app_name LIKE %s OR a.description LIKE %s OR c.id LIKE %s);""", (genre,search_final_value,search_final_value,search_final_value));
+AND a.price < 5
+AND (a.app_name LIKE %s OR a.description LIKE %s OR c.id LIKE %s);""", (genre, search_final_value, search_final_value, search_final_value);
 ```
 
 ### 9. Useful Feedbacks: 
