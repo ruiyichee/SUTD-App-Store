@@ -5,5 +5,5 @@ Webpack is a popular module bundler, a tool for bundling application source code
 ```
 ## Why do we use it
 
-## How do we use it
+## How easy is it for developers to use it
 
