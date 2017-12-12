@@ -1,12 +1,12 @@
 # Material Design
 ## Introduction
-Material Design is a design language developed by Google, and its goal is nicely captured by the following statement from <https://material.io/guidelines/#introduction-goals>
+Material Design is a design language developed by Google, and its goal is nicely captured by the following statement from [their website](https://material.io/guidelines/#introduction-goals)
 
 > Develop a single underlying system that allows for a unified experience across platforms and device sizes.
 
 Material Design can be thought of as an alternative to Bootstrap. Many platforms now offer UI components that follows Material Design. Angular 2 is one of them. (Not to be confused with AngularJS)
 
-The Angular 2 Material Design is a UI Component framework and a reference implementation of the Google's Material Design Specification, consisting of a wide variety of reusable, well-tested and accessible UI components that can be used in Angular 2. A quickstart on using Angular 2 Material Design components can be found on <https://material.angular.io/guide/getting-started>. It must be used on an Angular 2 project (duh)
+The Angular 2 Material Design is a UI Component framework and a reference implementation of the Google's Material Design Specification, consisting of a wide variety of reusable, well-tested and accessible UI components that can be used in Angular 2. A quickstart on using Angular 2 Material Design components can be found [here](https://material.angular.io/guide/getting-started). It must be used on an Angular 2 project (duh)
 
 ## Great User Experience
 Material Design is able to deliver a consistent and pleasant user experience to all who is interacting with the web app. There are 3 main features described by Material Design that make their design stand out from others:
@@ -29,9 +29,9 @@ There are different implementations for different UI components, for instance, t
 Including a tooltip is also as simple as the following:
 ```<span matTooltip="Tooltip!">I have a tooltip</span>```
 
-Other components' implementation, some more complicated than the others, can be found on <https://material.angular.io/components/categories>
+Other components' implementation, some more complicated than the others, can be found on [here](https://material.angular.io/components/categories)
 
-## Examples of Implementation in SUTD AppStore
+## Examples of Material Design in SUTD AppStore
 The SUTD AppStore project utilises many Material Design UI components. There are [Buttons](https://material.angular.io/components/button/overview), [Input Fields](https://material.angular.io/components/input/overview), [Material Icons](https://material.angular.io/components/icon/overview), [Dialogs](https://material.angular.io/components/dialog/overview), [Snackbars](https://material.angular.io/components/snack-bar/overview), [Cards](https://material.angular.io/components/card/overview), [Tabs](https://material.angular.io/components/tabs/overview), [Tooltips](https://material.angular.io/components/tooltip/overview) and [Selects](https://material.angular.io/components/select/overview). 
 
 Below is an implementation of how SUTD AppStore used Tabs to display Sales Performance by the different developers and games:
