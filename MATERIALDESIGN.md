@@ -21,7 +21,7 @@ Material Design is able to deliver a consistent and pleasant user experience to 
 > Motion is meaningful and appropriate, serving to focus attention and maintain continuity. Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.
 
 ## Ease of Implementation
-More than the user benefits, Material Design has also been increasingly easy for developers to use and implement onto their web apps. Angular 2 Material Design has a comprehensive guide and documentation on <https://material.angular.io/>
+More than the user benefits, Material Design has also been increasingly easy for developers to use and implement onto their web apps. Angular 2 Material Design has a comprehensive guide and documentation [here](https://material.angular.io/)
 
 There are different implementations for different UI components, for instance, to create a Material Design button, simply add the directive `mat-button` to the button component in your html like so:
 ```<button mat-button>Button Title</button>```
