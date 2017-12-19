@@ -10,6 +10,7 @@ All your frontend template stuff is still HTML, CSS/SCSS, but your JavaScript is
 
 ## Comparison between Angular 2, Vue.js and React.js
 Below are some of the key comparisons between the 3 popular front-end frameworks as compiled by [Majid Hajian](https://www.majidhajian.com/Angular2-Vue2-Ember-and-React-comparison/):
+
  Properties | Angular 2 | Vue.js | React.js
 --- | --- | --- | ---
 Made by | Google| Evan You! but to be adapted by Alibaba | Facebook
