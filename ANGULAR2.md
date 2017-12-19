@@ -5,7 +5,7 @@ Angular2 is an open-source JavaScript framework for application development. Thr
 There are already many resources covering the basics and key concepts of the framework. Here’s a [quickstart guide](https://angular.io/guide/quickstart) that should get you started. There is also a curated [list of resources](http://www.angular2.com/) for learning how to Angular2.
 
 ## What language does Angular 2 use?
-All your frontend template stuff is still HTML, CSS/SCSS, but your JavaScript is now *Typescript*
+All your frontend template stuff is still HTML, CSS/SCSS, but your JavaScript is now *Typescript*. Basically, Typescript compiles to JavaScript and Angular 2 automatically does that when the project is compiled. Some people prefer Typescript because they think that it is syntactically easier to read and understand than JavaScript.  
 > Angular2 uses Typescript which is a superset of Javascript. If you are already familiar with ES6 and Babel, it should not bother you.
 
 ## Comparison between Angular 2, Vue.js and React.js
