@@ -21,7 +21,7 @@ Learning Curve | Advanced | Simple | Simple
 Framework Architecture | MVVM + Modular system through Component Architecture | VM and component architecture | VM and component architecture
 
 ## Benefits of Angular 2
-Since its launched last year, the popularity of Angular 2 has picked up amongst developers involved in the open source JavaScript Frameworks. Below table briefly outlines the main benefits of Angular 2:
+Since its launched last year, the popularity of Angular 2 has picked up amongst developers involved in the open source JavaScript Frameworks. Below table briefly outlines the main benefits of Angular 2, many of which are obtained from the [Angular 2 website](https://angular.io/features):
 
 Features | Benefits
 --- | ---
